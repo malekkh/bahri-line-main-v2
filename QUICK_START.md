@@ -263,5 +263,29 @@ src/
 
 ---
 
+## 🔐 Authentication System
+
+The project includes a complete authentication system with **shadcn-ui**, **React Hook Form**, and **Zod**.
+
+### Login Page
+
+Visit `/login` to see the authentication system in action.
+
+**Structure:**
+- **Schema**: `src/schemas/auth.schema.ts` - Zod validation
+- **Custom Hook**: `src/customhooks/useLoginLogic.ts` - RHF + API logic
+- **Page**: `src/app/login/page.tsx` - UI with shadcn-ui components
+
+**Example:**
+```typescript
+import { useLoginLogic } from '@/customhooks/useLoginLogic';
+
+const { form, onSubmit, isLoading } = useLoginLogic();
+```
+
+See [LOGIN_IMPLEMENTATION.md](LOGIN_IMPLEMENTATION.md) for complete details.
+
+---
+
 **That's it! Simple, clean, and scalable.** 🚀
 

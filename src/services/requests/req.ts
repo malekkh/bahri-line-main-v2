@@ -5,7 +5,7 @@
 
 import { api } from '@/services/api/axiosSetup';
 import API_ROUTES from '@/services/api/axiosRoutes';
-import type { UsersApiTypes } from '@/services/api/axiosRoutes.type';
+import type { UsersApiTypes, AuthApiTypes } from '@/services/api/axiosRoutes.type';
 
 // ============================================================================
 // USERS REQUESTS
@@ -74,6 +74,73 @@ export const usersRequests = {
 };
 
 // ============================================================================
+// AUTH REQUESTS
+// ============================================================================
+
+export const authRequests = {
+  /**
+   * Login user
+   */
+  login: async (credentials: AuthApiTypes['login']['body']) => {
+    return api.post<AuthApiTypes['login']['response']>(
+      API_ROUTES.AUTH.LOGIN,
+      credentials
+    );
+  },
+
+  /**
+   * Register new user
+   */
+  register: async (userData: AuthApiTypes['register']['body']) => {
+    return api.post<AuthApiTypes['register']['response']>(
+      API_ROUTES.AUTH.REGISTER,
+      userData
+    );
+  },
+
+  /**
+   * Logout user
+   */
+  logout: async () => {
+    return api.post<AuthApiTypes['logout']['response']>(API_ROUTES.AUTH.LOGOUT);
+  },
+
+  /**
+   * Refresh access token
+   */
+  refreshToken: async () => {
+    return api.post<AuthApiTypes['refreshToken']['response']>(API_ROUTES.AUTH.REFRESH);
+  },
+
+  /**
+   * Forgot password
+   */
+  forgotPassword: async (email: AuthApiTypes['forgotPassword']['body']) => {
+    return api.post<AuthApiTypes['forgotPassword']['response']>(
+      API_ROUTES.AUTH.FORGOT_PASSWORD,
+      email
+    );
+  },
+
+  /**
+   * Reset password
+   */
+  resetPassword: async (data: AuthApiTypes['resetPassword']['body']) => {
+    return api.post<AuthApiTypes['resetPassword']['response']>(
+      API_ROUTES.AUTH.RESET_PASSWORD,
+      data
+    );
+  },
+
+  /**
+   * Get current authenticated user
+   */
+  getCurrentUser: async () => {
+    return api.get<AuthApiTypes['getCurrentUser']['response']>(API_ROUTES.AUTH.ME);
+  },
+};
+
+// ============================================================================
 // ADD MORE FEATURE REQUESTS BELOW
 // ============================================================================
 
@@ -83,13 +150,5 @@ export const usersRequests = {
 //     return api.get(API_ROUTES.PRODUCTS.BASE);
 //   },
 //   // ... other product requests
-// };
-
-// Example: Auth Requests
-// export const authRequests = {
-//   login: async (credentials: { email: string; password: string }) => {
-//     return api.post(API_ROUTES.AUTH.LOGIN, credentials);
-//   },
-//   // ... other auth requests
 // };
 

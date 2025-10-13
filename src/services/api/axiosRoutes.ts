@@ -12,12 +12,15 @@ export const API_ROUTES = {
     ME: '/users/me',
   },
 
-  // Auth (example)
+  // Auth
   AUTH: {
     LOGIN: '/auth/login',
     LOGOUT: '/auth/logout',
     REGISTER: '/auth/register',
     REFRESH: '/auth/refresh',
+    FORGOT_PASSWORD: '/auth/forgot-password',
+    RESET_PASSWORD: '/auth/reset-password',
+    ME: '/auth/me',
   },
 
   // Add more route groups as needed

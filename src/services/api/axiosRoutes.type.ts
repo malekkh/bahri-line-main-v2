@@ -51,15 +51,32 @@ export interface UsersApiTypes {
   };
 }
 
-// Add more API type groups as needed
+// Auth API Types
 export interface AuthApiTypes {
   login: {
     body: { email: string; password: string };
     response: { token: string; user: User };
   };
   register: {
-    body: CreateUserDto;
+    body: { name: string; email: string; password: string };
     response: { token: string; user: User };
+  };
+  logout: {
+    response: { message: string };
+  };
+  refreshToken: {
+    response: { token: string };
+  };
+  forgotPassword: {
+    body: { email: string };
+    response: { message: string };
+  };
+  resetPassword: {
+    body: { token: string; password: string };
+    response: { message: string };
+  };
+  getCurrentUser: {
+    response: User;
   };
 }
 

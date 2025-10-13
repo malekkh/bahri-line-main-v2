@@ -41,6 +41,51 @@ export const usersResponses = {
 };
 
 // ============================================================================
+// AUTH RESPONSES
+// ============================================================================
+
+export const authResponses = {
+  /**
+   * Process login response
+   */
+  processLogin: (
+    response: AxiosResponse<{ token: string; user: User }>
+  ): { token: string; user: User } => {
+    return response.data;
+  },
+
+  /**
+   * Process register response
+   */
+  processRegister: (
+    response: AxiosResponse<{ token: string; user: User }>
+  ): { token: string; user: User } => {
+    return response.data;
+  },
+
+  /**
+   * Process logout response
+   */
+  processLogout: (response: AxiosResponse<{ message: string }>): { message: string } => {
+    return response.data;
+  },
+
+  /**
+   * Process current user response
+   */
+  processCurrentUser: (response: AxiosResponse<User>): User => {
+    return response.data;
+  },
+
+  /**
+   * Process message response (forgot/reset password)
+   */
+  processMessage: (response: AxiosResponse<{ message: string }>): { message: string } => {
+    return response.data;
+  },
+};
+
+// ============================================================================
 // ADD MORE FEATURE RESPONSES BELOW
 // ============================================================================
 
@@ -48,12 +93,5 @@ export const usersResponses = {
 // export const productsResponses = {
 //   processList: (response: AxiosResponse<Product[]>) => response.data,
 //   processProduct: (response: AxiosResponse<Product>) => response.data,
-// };
-
-// Example: Auth Responses
-// export const authResponses = {
-//   processLogin: (response: AxiosResponse<{ token: string; user: User }>) => {
-//     return response.data;
-//   },
 // };
 
