@@ -54,26 +54,26 @@ export interface UsersApiTypes {
 // Auth API Types
 export interface AuthApiTypes {
   login: {
-    body: { email: string; password: string };
-    response: { token: string; user: User };
+    body: { email: string; encryptedPassword: string };
+    response: { success: boolean; message: string };
   };
   register: {
     body: { name: string; email: string; password: string };
-    response: { token: string; user: User };
+    response: { success: boolean; message: string };
   };
   logout: {
-    response: { message: string };
+    response: { success: boolean; message: string };
   };
   refreshToken: {
     response: { token: string };
   };
   forgotPassword: {
     body: { email: string };
-    response: { message: string };
+    response: { success: boolean; message: string };
   };
   resetPassword: {
     body: { token: string; password: string };
-    response: { message: string };
+    response: { success: boolean; message: string };
   };
   getCurrentUser: {
     response: User;

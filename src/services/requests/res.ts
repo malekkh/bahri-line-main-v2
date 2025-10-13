@@ -49,8 +49,8 @@ export const authResponses = {
    * Process login response
    */
   processLogin: (
-    response: AxiosResponse<{ token: string; user: User }>
-  ): { token: string; user: User } => {
+    response: AxiosResponse<{ success: boolean; message: string }>
+  ): { success: boolean; message: string } => {
     return response.data;
   },
 

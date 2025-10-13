@@ -19,7 +19,7 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 
 export default function LoginPage() {
-  const { form, onSubmit, isLoading, error } = useLoginLogic();
+  const { form, onSubmit, isLoading, error, cookiesAllowed } = useLoginLogic();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 px-4">
@@ -35,6 +35,15 @@ export default function LoginPage() {
               Sign in to your account to continue
             </p>
           </div>
+
+          {/* Cookie Warning */}
+          {cookiesAllowed === false && (
+            <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+              <p className="text-sm text-yellow-800 dark:text-yellow-400">
+                ⚠️ Third-party cookies are blocked. Please enable them to proceed.
+              </p>
+            </div>
+          )}
 
           {/* Error Alert */}
           {error && (
