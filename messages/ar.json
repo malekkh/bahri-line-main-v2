@@ -18,6 +18,63 @@
       "serverError": "حدث خطأ. يرجى المحاولة مرة أخرى لاحقاً."
     }
   },
+  "registration": {
+    "title": "إنشاء حساب جديد",
+    "subtitle": "يرجى ملء المعلومات التالية لتسجيل الدخول إلى البوابة",
+    "steps": {
+      "invitationCode": "رمز الدعوة",
+      "contactDetails": "تفاصيل الاتصال",
+      "parentAccount": "الحساب الأب",
+      "companyDetails": "تفاصيل الشركة",
+      "bankDetails": "تفاصيل البنك"
+    },
+    "fields": {
+      "invitationCode": "رمز الدعوة",
+      "firstName": "الاسم الأول",
+      "lastName": "الاسم الأخير",
+      "jobTitle": "المسمى الوظيفي",
+      "businessPhone": "هاتف العمل",
+      "mobilePhone": "الهاتف المحمول",
+      "fax": "الفاكس",
+      "email": "البريد الإلكتروني",
+      "birthday": "تاريخ الميلاد",
+      "city": "المدينة",
+      "street": "الشارع",
+      "country": "البلد",
+      "stateProvince": "الولاية/المقاطعة",
+      "hasParentAccount": "نعم، شركتي لديها حساب أب",
+      "noParentAccount": "لا، شركتي لا تملك حساب أب",
+      "parentAccountName": "اسم الحساب الأب",
+      "parentCRNumber": "رقم السجل التجاري الأب",
+      "parentCompany": "الشركة الأب",
+      "crNumber": "رقم السجل التجاري",
+      "businessType": "نوع النشاط التجاري",
+      "territory": "المنطقة",
+      "companyName": "اسم الشركة",
+      "vatNumber": "رقم ضريبة القيمة المضافة",
+      "numberOfEmployees": "عدد الموظفين",
+      "phone": "الهاتف",
+      "bankName": "اسم البنك",
+      "accountType": "نوع الحساب المصرفي",
+      "accountNumber": "رقم الحساب",
+      "beneficiaryName": "اسم المستفيد",
+      "bankAddress": "عنوان البنك",
+      "bankPhone": "هاتف البنك",
+      "bankCity": "مدينة البنك",
+      "bankState": "ولاية البنك"
+    },
+    "buttons": {
+      "verify": "تحقق",
+      "previous": "السابق",
+      "next": "التالي",
+      "complete": "إتمام التسجيل"
+    },
+    "placeholders": {
+      "default": "النص التوضيحي",
+      "parentAccountName": "اسم الحساب الأب"
+    },
+    "required": "*"
+  },
   "common": {
     "language": "اللغة",
     "english": "الإنجليزية",

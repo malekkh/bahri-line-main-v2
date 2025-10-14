@@ -18,6 +18,63 @@
       "serverError": "An error occurred. Please try again later."
     }
   },
+  "registration": {
+    "title": "Create new account",
+    "subtitle": "Please fill the following information to login to the portal",
+    "steps": {
+      "invitationCode": "Invitation code",
+      "contactDetails": "Contact Details",
+      "parentAccount": "Parent Account",
+      "companyDetails": "Company Details",
+      "bankDetails": "Bank Details"
+    },
+    "fields": {
+      "invitationCode": "Invitation code",
+      "firstName": "First Name",
+      "lastName": "Last name",
+      "jobTitle": "Job Title",
+      "businessPhone": "Business Phone",
+      "mobilePhone": "Mobile Phone",
+      "fax": "Fax",
+      "email": "E-mail",
+      "birthday": "Birthday",
+      "city": "City",
+      "street": "Street",
+      "country": "Country",
+      "stateProvince": "State/Province",
+      "hasParentAccount": "Yes my company has a parent account",
+      "noParentAccount": "No, my company doesn't have a parent account",
+      "parentAccountName": "Parent account name",
+      "parentCRNumber": "Parent CR Number",
+      "parentCompany": "Parent Company",
+      "crNumber": "CR Number",
+      "businessType": "Business Type",
+      "territory": "Territory",
+      "companyName": "Company Name",
+      "vatNumber": "VAT Number",
+      "numberOfEmployees": "Number of Employee",
+      "phone": "Phone",
+      "bankName": "Bank name",
+      "accountType": "Type of Bank Account",
+      "accountNumber": "Account no.",
+      "beneficiaryName": "Beneficiary Name",
+      "bankAddress": "Bank Address",
+      "bankPhone": "Bank Phone",
+      "bankCity": "Bank City",
+      "bankState": "Bank State"
+    },
+    "buttons": {
+      "verify": "Verify",
+      "previous": "Previous",
+      "next": "Next",
+      "complete": "Complete Registration"
+    },
+    "placeholders": {
+      "default": "Placeholder",
+      "parentAccountName": "Parent account name"
+    },
+    "required": "*"
+  },
   "common": {
     "language": "Language",
     "english": "English",
