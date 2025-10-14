@@ -68,7 +68,7 @@ export const useLoginLogic = () => {
       
       if (data.success) {
         // Redirect to dashboard or desired page
-        const redirectPath = '/dashboard'; // You can make this dynamic
+        const redirectPath = '/'; // You can make this dynamic
         router.push(redirectPath);
         router.refresh(); // Refresh to update auth state
       } else {
