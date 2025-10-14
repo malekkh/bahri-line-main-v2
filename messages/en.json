@@ -1,0 +1,27 @@
+{
+  "login": {
+    "title": "Welcome Back!",
+    "subtitle": "Please fill the following information to login to the portal",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "Placeholder",
+    "passwordPlaceholder": "********",
+    "forgotPassword": "Forgot Password?",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "noAccount": "Don't have an account yet?",
+    "createAccount": "Create account",
+    "backToHome": "Back to Home",
+    "cookieWarning": "⚠️ Third-party cookies are blocked. Please enable them to proceed.",
+    "errors": {
+      "invalidCredentials": "Invalid username or password",
+      "serverError": "An error occurred. Please try again later."
+    }
+  },
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "arabic": "Arabic"
+  }
+}
+

@@ -22,9 +22,12 @@ import { Logo } from '@/components/ui/logo';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
 
 export default function LoginPage() {
   const { form, onSubmit, isLoading, error, cookiesAllowed } = useLoginLogic();
+  const t = useTranslations('login');
 
   return (
     <div className="min-h-screen relative flex items-center justify-center px-4">
@@ -39,6 +42,11 @@ export default function LoginPage() {
         />
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-[#00000080]" />
+      </div>
+
+      {/* Language Switcher - Top Right */}
+      <div className="absolute top-4 right-4 z-20">
+        <LanguageSwitcher />
       </div>
 
       {/* Login Modal */}
@@ -57,10 +65,10 @@ export default function LoginPage() {
           {/* Welcome Message */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">
-              Welcome Back!
+              {t('title')}
             </h1>
             <p className="text-sm text-white">
-              Please fill the following information to login to the portal
+              {t('subtitle')}
             </p>
           </div>
 
@@ -68,7 +76,7 @@ export default function LoginPage() {
           {cookiesAllowed === false && (
             <div className="mb-6 p-4 bg-yellow-500/20 border border-yellow-500/50 rounded-lg">
               <p className="text-sm text-yellow-800">
-                ⚠️ Third-party cookies are blocked. Please enable them to proceed.
+                {t('cookieWarning')}
               </p>
             </div>
           )}
@@ -90,12 +98,12 @@ export default function LoginPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-white font-[325]">
-                      Username
+                      {t('username')}
                     </FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Placeholder"
+                        placeholder={t('usernamePlaceholder')}
                         className="bg-white/10 border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
                         {...field}
                         disabled={isLoading}
@@ -113,11 +121,11 @@ export default function LoginPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-white font-[325]">
-                      Password
+                      {t('password')}
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
-                        placeholder="********"
+                        placeholder={t('passwordPlaceholder')}
                         {...field}
                         disabled={isLoading}
                       />
@@ -133,7 +141,7 @@ export default function LoginPage() {
                   href="/forgot-password"
                   className="text-sm text-[#FF6720] hover:underline font-medium"
                 >
-                  Forgot Password?
+                  {t('forgotPassword')}
                 </Link>
               </div>
 
@@ -143,7 +151,7 @@ export default function LoginPage() {
                 className="w-full bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold rounded-md h-11"
                 disabled={isLoading}
               >
-                {isLoading ? 'Signing in...' : 'Sign In'}
+                {isLoading ? t('signingIn') : t('signIn')}
               </Button>
             </form>
           </Form>
@@ -151,12 +159,12 @@ export default function LoginPage() {
           {/* Account Creation Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-white">
-              Don't have an account yet?{' '}
+              {t('noAccount')}{' '}
               <Link
                 href="/register"
                 className="font-medium text-[#FF6720] hover:underline"
               >
-                Create account
+                {t('createAccount')}
               </Link>
             </p>
           </div>
@@ -166,7 +174,7 @@ export default function LoginPage() {
             variant="outline"
             className="w-full mt-4 bg-transparent border-white text-white hover:bg-white/10 rounded-md h-11"
           >
-            Back to Home
+            {t('backToHome')}
           </Button>
         </div>
       </div>
