@@ -104,7 +104,7 @@ export default function LoginPage() {
                       <Input
                         type="text"
                         placeholder={t('usernamePlaceholder')}
-                        className="bg-white/10 border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+                        className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
                         {...field}
                         disabled={isLoading}
                       />
@@ -128,6 +128,7 @@ export default function LoginPage() {
                         placeholder={t('passwordPlaceholder')}
                         {...field}
                         disabled={isLoading}
+                        className='bg-transparent'
                       />
                     </FormControl>
                     <FormMessage className="text-[#BB0012]" />
