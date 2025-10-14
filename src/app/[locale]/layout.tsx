@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Cairo } from "next/font/google";
 import "../globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
@@ -35,6 +36,13 @@ const gotham = localFont({
   fallback: ["system-ui", "sans-serif"],
 });
 
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-cairo",
+  fallback: ["system-ui", "sans-serif"],
+});
+
 export const metadata: Metadata = {
   title: "Bahri Line",
   description: "Modern Next.js application with TypeScript and React Query",
@@ -67,7 +75,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <body
-        className={`${gotham.variable} font-sans antialiased`}
+        className={`${gotham.variable} ${cairo.variable} antialiased`}
+        style={{ fontFamily: locale === 'ar' ? 'var(--font-cairo)' : 'var(--font-gotham)' }}
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
