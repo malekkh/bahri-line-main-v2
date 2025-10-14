@@ -3,6 +3,7 @@
 /**
  * Login Page
  * User authentication page with email and password
+ * Designed to match the Figma design with ship background
  */
 
 import { useLoginLogic } from '@/customhooks/useLoginLogic';
@@ -16,30 +17,57 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
+import { Logo } from '@/components/ui/logo';
+import { X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const { form, onSubmit, isLoading, error, cookiesAllowed } = useLoginLogic();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 px-4">
-      <div className="w-full max-w-md">
-        {/* Card */}
-        <div className="bg-white dark:bg-gray-950 rounded-lg shadow-xl p-8">
-          {/* Header */}
-          <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              Welcome Back
+    <div className="min-h-screen relative flex items-center justify-center px-4">
+      {/* Background Image - Sharp */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/ship.webp"
+          alt="Bahri Line Ship"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-[#00000080]" />
+      </div>
+
+      {/* Login Modal */}
+      <div className="relative z-10 w-full max-w-lg">
+        <div className="bg-[#D4D4D41A] backdrop-blur-lg rounded-lg border border-white/20 p-8 relative">
+          {/* Close Button */}
+          <button className="absolute top-4 left-4 text-white hover:text-white/80 transition-colors">
+            <X className="h-5 w-5" />
+          </button>
+
+          {/* Logo */}
+          <div className="flex justify-center mb-8">
+            <Logo variant="light" className='w-[150] h-[38]'/>
+          </div>
+
+          {/* Welcome Message */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-white mb-2">
+              Welcome Back!
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
-              Sign in to your account to continue
+            <p className="text-sm text-white">
+              Please fill the following information to login to the portal
             </p>
           </div>
 
           {/* Cookie Warning */}
           {cookiesAllowed === false && (
-            <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-              <p className="text-sm text-yellow-800 dark:text-yellow-400">
+            <div className="mb-6 p-4 bg-yellow-500/20 border border-yellow-500/50 rounded-lg">
+              <p className="text-sm text-yellow-800">
                 ⚠️ Third-party cookies are blocked. Please enable them to proceed.
               </p>
             </div>
@@ -47,30 +75,33 @@ export default function LoginPage() {
 
           {/* Error Alert */}
           {error && (
-            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+            <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
+              <p className="text-sm text-red-800">{error}</p>
             </div>
           )}
 
           {/* Form */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {/* Email Field */}
+              {/* Username Field */}
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel className="text-white font-[325]">
+                      Username
+                    </FormLabel>
                     <FormControl>
                       <Input
-                        type="email"
-                        placeholder="name@example.com"
+                        type="text"
+                        placeholder="Placeholder"
+                        className="bg-white/10 border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
                         {...field}
                         disabled={isLoading}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-[#BB0012]" />
                   </FormItem>
                 )}
               />
@@ -81,16 +112,17 @@ export default function LoginPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel className="text-white font-[325]">
+                      Password
+                    </FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="••••••••"
+                      <PasswordInput
+                        placeholder="********"
                         {...field}
                         disabled={isLoading}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-[#BB0012]" />
                   </FormItem>
                 )}
               />
@@ -99,17 +131,16 @@ export default function LoginPage() {
               <div className="flex items-center justify-end">
                 <Link
                   href="/forgot-password"
-                  className="text-sm text-primary hover:underline"
+                  className="text-sm text-[#FF6720] hover:underline font-medium"
                 >
-                  Forgot password?
+                  Forgot Password?
                 </Link>
               </div>
 
-              {/* Submit Button */}
+              {/* Sign In Button */}
               <Button
                 type="submit"
-                className="w-full"
-                size="lg"
+                className="w-full bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold rounded-md h-11"
                 disabled={isLoading}
               >
                 {isLoading ? 'Signing in...' : 'Sign In'}
@@ -117,33 +148,27 @@ export default function LoginPage() {
             </form>
           </Form>
 
-          {/* Divider */}
-          <div className="mt-6 flex items-center">
-            <div className="flex-1 border-t border-gray-300 dark:border-gray-700"></div>
-            <span className="px-4 text-sm text-gray-500 dark:text-gray-400">
-              Or
-            </span>
-            <div className="flex-1 border-t border-gray-300 dark:border-gray-700"></div>
-          </div>
-
-          {/* Sign Up Link */}
+          {/* Account Creation Link */}
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Don't have an account?{' '}
+            <p className="text-sm text-white">
+              Don't have an account yet?{' '}
               <Link
                 href="/register"
-                className="font-medium text-primary hover:underline"
+                className="font-medium text-[#FF6720] hover:underline"
               >
-                Sign up
+                Create account
               </Link>
             </p>
           </div>
-        </div>
 
-        {/* Footer */}
-        <p className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
-          © 2025 Bahri Line. All rights reserved.
-        </p>
+          {/* Back to Home Button */}
+          <Button
+            variant="outline"
+            className="w-full mt-4 bg-transparent border-white text-white hover:bg-white/10 rounded-md h-11"
+          >
+            Back to Home
+          </Button>
+        </div>
       </div>
     </div>
   );
