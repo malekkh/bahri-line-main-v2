@@ -6,7 +6,7 @@
  * Designed to match the Figma design with ship background
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/ui/logo';
 import { Stepper, StepperStep } from '@/components/ui/stepper';
@@ -14,6 +14,7 @@ import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { LanguageSwitcher } from '@/components/ui/language-switcher';
+import { useSearchParams } from 'next/navigation';
 
 // Import step components
 import {
@@ -37,6 +38,7 @@ const REGISTRATION_STEPS: StepperStep[] = [
 
 export default function RegisterPage() {
   const t = useTranslations('registration');
+  const searchParams = useSearchParams();
   
   // Use registration logic hook
   const {
@@ -56,7 +58,16 @@ export default function RegisterPage() {
     handleInvitationValidation,
     handleContactUpdate,
     handleFinalRegistration,
+    validateInvitationMutation,
   } = useRegistrationLogic();
+
+  // Auto-validate invitation code from URL params
+  useEffect(() => {
+    const code = searchParams.get('code');
+    if (code) {
+      validateInvitationMutation.mutate(code);
+    }
+  }, [searchParams, validateInvitationMutation]);
 
   // Calculate step states with translations
   const stepsWithState = REGISTRATION_STEPS.map((step, index) => ({
@@ -102,8 +113,9 @@ export default function RegisterPage() {
         break;
       case 4:
         // Final step - collect all data and register
+        const code = searchParams.get('code');
         const registrationData = {
-          invitationCode: invitationCodeForm.getValues('invitationCode'),
+          invitationCode: code || invitationCodeForm.getValues('invitationCode'),
           contactDetails: contactDetailsForm.getValues(),
           parentAccount: parentAccountForm.getValues(),
           companyDetails: companyDetailsForm.getValues(),

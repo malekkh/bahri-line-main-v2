@@ -143,9 +143,8 @@ export const authRequests = {
    * Validate invitation code
    */
   validateInvitation: async (invitationCode: string) => {
-    return api.post<AuthApiTypes['validateInvitation']['response']>(
-      API_ROUTES.AUTH.VALIDATE_INVITATION,
-      { invitationCode }
+    return api.get<AuthApiTypes['validateInvitation']['response']>(
+      `${API_ROUTES.AUTH.VALIDATE_INVITATION}?code=${invitationCode}`
     );
   },
 

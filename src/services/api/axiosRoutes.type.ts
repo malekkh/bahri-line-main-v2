@@ -80,7 +80,7 @@ export interface AuthApiTypes {
     response: User;
   };
   validateInvitation: {
-    body: { invitationCode: string };
+    params: { code: string };
     response: { valid: boolean; message: string };
   };
   updateContact: {
