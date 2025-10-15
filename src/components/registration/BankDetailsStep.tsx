@@ -1,36 +1,17 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useTranslations } from 'next-intl';
+import { UseFormReturn } from 'react-hook-form';
+import { BankDetailsFormData } from '@/schemas/auth.schema';
 
 interface BankDetailsStepProps {
-  onPrevious: () => void;
+  form: UseFormReturn<BankDetailsFormData>;
 }
 
-export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ 
-  onPrevious 
-}) => {
+export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
   const t = useTranslations('registration');
-  const [formData, setFormData] = useState({
-    bankName: '',
-    accountType: '',
-    accountNumber: '',
-    beneficiaryName: '',
-    bankAddress: '',
-    bankPhone: '',
-    bankCity: '',
-    bankState: '',
-  });
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleSubmit = () => {
-    // TODO: Add validation and API call
-    console.log('Registration completed:', formData);
-  };
+  const { register, formState: { errors } } = form;
 
   return (
     <div className="space-y-6">
@@ -46,8 +27,7 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({
               id="bankName"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.bankName}
-              onChange={(e) => handleInputChange('bankName', e.target.value)}
+              {...register('bankName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -60,8 +40,7 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({
               id="accountType"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.accountType}
-              onChange={(e) => handleInputChange('accountType', e.target.value)}
+              {...register('accountType')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -74,8 +53,7 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({
               id="beneficiaryName"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.beneficiaryName}
-              onChange={(e) => handleInputChange('beneficiaryName', e.target.value)}
+              {...register('beneficiaryName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -88,8 +66,7 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({
               id="bankState"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.bankState}
-              onChange={(e) => handleInputChange('bankState', e.target.value)}
+              {...register('bankState')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -105,8 +82,7 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({
               id="accountNumber"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.accountNumber}
-              onChange={(e) => handleInputChange('accountNumber', e.target.value)}
+              {...register('accountNumber')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -119,8 +95,7 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({
               id="bankAddress"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.bankAddress}
-              onChange={(e) => handleInputChange('bankAddress', e.target.value)}
+              {...register('bankAddress')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -133,8 +108,7 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({
               id="bankPhone"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.bankPhone}
-              onChange={(e) => handleInputChange('bankPhone', e.target.value)}
+              {...register('bankPhone')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -147,8 +121,7 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({
               id="bankCity"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.bankCity}
-              onChange={(e) => handleInputChange('bankCity', e.target.value)}
+              {...register('bankCity')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>

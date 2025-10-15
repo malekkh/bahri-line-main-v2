@@ -1,48 +1,18 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { UseFormReturn } from 'react-hook-form';
+import { ContactDetailsFormData } from '@/schemas/auth.schema';
 
 interface ContactDetailsStepProps {
-  onNext: () => void;
-  onPrevious: () => void;
+  form: UseFormReturn<ContactDetailsFormData>;
 }
 
-export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({ 
-  onNext, 
-  onPrevious 
-}) => {
+export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({ form }) => {
   const t = useTranslations('registration');
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    jobTitle: '',
-    businessPhone: '',
-    mobilePhone: '',
-    fax: '',
-    email: '',
-    birthday: '',
-    city: '',
-    street: '',
-    country: '',
-    stateProvince: '',
-  });
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleNext = () => {
-    // TODO: Add validation
-    onNext();
-  };
-
-  const requiredFields = [
-    'firstName', 'lastName', 'jobTitle', 'businessPhone', 
-    'mobilePhone', 'email', 'city', 'street', 'country', 'stateProvince'
-  ];
+  const { register, formState: { errors } } = form;
 
   return (
     <div className="space-y-6">
@@ -58,10 +28,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="firstName"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.firstName}
-              onChange={(e) => handleInputChange('firstName', e.target.value)}
+              {...register('firstName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.firstName && (
+              <p className="text-red-400 text-sm">{errors.firstName.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -72,10 +44,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="businessPhone"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.businessPhone}
-              onChange={(e) => handleInputChange('businessPhone', e.target.value)}
+              {...register('businessPhone')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.businessPhone && (
+              <p className="text-red-400 text-sm">{errors.businessPhone.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -86,10 +60,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="fax"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.fax}
-              onChange={(e) => handleInputChange('fax', e.target.value)}
+              {...register('fax')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.fax && (
+              <p className="text-red-400 text-sm">{errors.fax.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -100,10 +76,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="email"
               type="email"
               placeholder={t('placeholders.default')}
-              value={formData.email}
-              onChange={(e) => handleInputChange('email', e.target.value)}
+              {...register('email')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.email && (
+              <p className="text-red-400 text-sm">{errors.email.message}</p>
+            )}
           </div>
         </div>
 
@@ -117,10 +95,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="lastName"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.lastName}
-              onChange={(e) => handleInputChange('lastName', e.target.value)}
+              {...register('lastName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.lastName && (
+              <p className="text-red-400 text-sm">{errors.lastName.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -131,10 +111,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="mobilePhone"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.mobilePhone}
-              onChange={(e) => handleInputChange('mobilePhone', e.target.value)}
+              {...register('mobilePhone')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.mobilePhone && (
+              <p className="text-red-400 text-sm">{errors.mobilePhone.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -145,10 +127,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="city"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.city}
-              onChange={(e) => handleInputChange('city', e.target.value)}
+              {...register('city')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.city && (
+              <p className="text-red-400 text-sm">{errors.city.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -159,10 +143,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="street"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.street}
-              onChange={(e) => handleInputChange('street', e.target.value)}
+              {...register('street')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.street && (
+              <p className="text-red-400 text-sm">{errors.street.message}</p>
+            )}
           </div>
         </div>
 
@@ -176,10 +162,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="jobTitle"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.jobTitle}
-              onChange={(e) => handleInputChange('jobTitle', e.target.value)}
+              {...register('jobTitle')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.jobTitle && (
+              <p className="text-red-400 text-sm">{errors.jobTitle.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -191,12 +179,14 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
                 id="birthday"
                 type="text"
                 placeholder={t('placeholders.default')}
-                value={formData.birthday}
-                onChange={(e) => handleInputChange('birthday', e.target.value)}
+                {...register('birthday')}
                 className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
               />
               <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
             </div>
+            {errors.birthday && (
+              <p className="text-red-400 text-sm">{errors.birthday.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -207,10 +197,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="country"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.country}
-              onChange={(e) => handleInputChange('country', e.target.value)}
+              {...register('country')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.country && (
+              <p className="text-red-400 text-sm">{errors.country.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -221,10 +213,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
               id="stateProvince"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.stateProvince}
-              onChange={(e) => handleInputChange('stateProvince', e.target.value)}
+              {...register('stateProvince')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.stateProvince && (
+              <p className="text-red-400 text-sm">{errors.stateProvince.message}</p>
+            )}
           </div>
         </div>
       </div>

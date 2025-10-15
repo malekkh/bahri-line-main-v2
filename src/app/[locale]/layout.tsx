@@ -8,6 +8,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
+import { Toaster } from 'sonner';
 
 const gotham = localFont({
   src: [
@@ -80,7 +81,10 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            <QueryProvider>{children}</QueryProvider>
+            <QueryProvider>
+              {children}
+              <Toaster position="top-right" richColors />
+            </QueryProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

@@ -6,7 +6,7 @@
  * Designed to match the Figma design with ship background
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/ui/logo';
 import { Stepper, StepperStep } from '@/components/ui/stepper';
@@ -24,6 +24,9 @@ import {
   BankDetailsStep,
 } from '@/components/registration';
 
+// Import registration logic
+import { useRegistrationLogic } from '@/customhooks/useRegistrationLogic';
+
 const REGISTRATION_STEPS: StepperStep[] = [
   { id: 'invitationCode', label: 'Invitation code' },
   { id: 'contactDetails', label: 'Contact Details' },
@@ -33,28 +36,35 @@ const REGISTRATION_STEPS: StepperStep[] = [
 ];
 
 export default function RegisterPage() {
-  const [currentStep, setCurrentStep] = useState(0);
   const t = useTranslations('registration');
+  
+  // Use registration logic hook
+  const {
+    invitationCodeForm,
+    contactDetailsForm,
+    parentAccountForm,
+    companyDetailsForm,
+    bankDetailsForm,
+    currentStep,
+    nextStep,
+    previousStep,
+    isFirstStep,
+    isLastStep,
+    isInvitationValidating,
+    isContactUpdating,
+    isRegistering,
+    handleInvitationValidation,
+    handleContactUpdate,
+    handleFinalRegistration,
+  } = useRegistrationLogic();
 
   // Calculate step states with translations
   const stepsWithState = REGISTRATION_STEPS.map((step, index) => ({
     ...step,
-    label: t(`steps.${step.id}` as any),
+    label: t(`steps.${step.id}` as keyof typeof t),
     completed: index < currentStep,
     active: index === currentStep,
   }));
-
-  const handleNext = () => {
-    if (currentStep < REGISTRATION_STEPS.length - 1) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
 
   const handleClose = () => {
     // Handle close action
@@ -64,36 +74,45 @@ export default function RegisterPage() {
   const renderCurrentStep = () => {
     switch (currentStep) {
       case 0:
-        return <InvitationCodeStep onNext={handleNext} />;
+        return <InvitationCodeStep form={invitationCodeForm} />;
       case 1:
-        return (
-          <ContactDetailsStep 
-            onNext={handleNext} 
-            onPrevious={handlePrevious}
-          />
-        );
+        return <ContactDetailsStep form={contactDetailsForm} />;
       case 2:
-        return (
-          <ParentAccountStep 
-            onNext={handleNext} 
-            onPrevious={handlePrevious}
-          />
-        );
+        return <ParentAccountStep form={parentAccountForm} />;
       case 3:
-        return (
-          <CompanyDetailsStep 
-            onNext={handleNext} 
-            onPrevious={handlePrevious}
-          />
-        );
+        return <CompanyDetailsStep form={companyDetailsForm} />;
       case 4:
-        return (
-          <BankDetailsStep 
-            onPrevious={handlePrevious}
-          />
-        );
+        return <BankDetailsStep form={bankDetailsForm} />;
       default:
         return null;
+    }
+  };
+
+  const handleNext = async () => {
+    switch (currentStep) {
+      case 0:
+        await invitationCodeForm.handleSubmit(handleInvitationValidation)();
+        break;
+      case 1:
+        await contactDetailsForm.handleSubmit(handleContactUpdate)();
+        break;
+      case 2:
+      case 3:
+        nextStep();
+        break;
+      case 4:
+        // Final step - collect all data and register
+        const registrationData = {
+          invitationCode: invitationCodeForm.getValues('invitationCode'),
+          contactDetails: contactDetailsForm.getValues(),
+          parentAccount: parentAccountForm.getValues(),
+          companyDetails: companyDetailsForm.getValues(),
+          bankDetails: bankDetailsForm.getValues(),
+        };
+        await handleFinalRegistration(registrationData);
+        break;
+      default:
+        break;
     }
   };
 
@@ -160,33 +179,39 @@ export default function RegisterPage() {
           {/* Navigation Buttons */}
           <div className="flex justify-between">
             {/* Previous Button */}
-            {currentStep > 0 && (
+            {!isFirstStep && (
               <Button
-                onClick={handlePrevious}
+                onClick={previousStep}
                 variant="outline"
                 className="bg-transparent border-[#FF6720] text-white hover:bg-[#FF6720]/10"
+                disabled={isInvitationValidating || isContactUpdating || isRegistering}
               >
                 {t('buttons.previous')}: {stepsWithState[currentStep - 1]?.label}
               </Button>
             )}
 
             {/* Spacer for first step */}
-            {currentStep === 0 && <div />}
+            {isFirstStep && <div />}
 
             {/* Next/Complete Button */}
-            {currentStep === REGISTRATION_STEPS.length - 1 ? (
+            {isLastStep ? (
               <Button
-                onClick={() => console.log('Registration completed')}
+                onClick={handleNext}
                 className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold"
+                disabled={isRegistering}
               >
-                {t('buttons.complete')}
+                {isRegistering ? t('buttons.processing') : t('buttons.complete')}
               </Button>
             ) : (
               <Button
                 onClick={handleNext}
                 className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold"
+                disabled={isInvitationValidating || isContactUpdating}
               >
-                {t('buttons.next')}: {stepsWithState[currentStep + 1]?.label}
+                {isInvitationValidating || isContactUpdating 
+                  ? t('buttons.processing') 
+                  : `${t('buttons.next')}: ${stepsWithState[currentStep + 1]?.label}`
+                }
               </Button>
             )}
           </div>

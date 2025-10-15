@@ -21,6 +21,8 @@ export const API_ROUTES = {
     FORGOT_PASSWORD: '/auth/forgot-password',
     RESET_PASSWORD: '/auth/reset-password',
     ME: '/auth/me',
+    VALIDATE_INVITATION: '/contact/getContactByInvitation',
+    UPDATE_CONTACT: '/auth/update-contact',
   },
 
   // Add more route groups as needed

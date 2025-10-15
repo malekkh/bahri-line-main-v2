@@ -138,6 +138,26 @@ export const authRequests = {
   getCurrentUser: async () => {
     return api.get<AuthApiTypes['getCurrentUser']['response']>(API_ROUTES.AUTH.ME);
   },
+
+  /**
+   * Validate invitation code
+   */
+  validateInvitation: async (invitationCode: string) => {
+    return api.post<AuthApiTypes['validateInvitation']['response']>(
+      API_ROUTES.AUTH.VALIDATE_INVITATION,
+      { invitationCode }
+    );
+  },
+
+  /**
+   * Update contact information
+   */
+  updateContact: async (contactData: AuthApiTypes['updateContact']['body']) => {
+    return api.post<AuthApiTypes['updateContact']['response']>(
+      API_ROUTES.AUTH.UPDATE_CONTACT,
+      contactData
+    );
+  },
 };
 
 // ============================================================================

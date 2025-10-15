@@ -1,39 +1,18 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ChevronDown, Info } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { UseFormReturn } from 'react-hook-form';
+import { CompanyDetailsFormData } from '@/schemas/auth.schema';
 
 interface CompanyDetailsStepProps {
-  onNext: () => void;
-  onPrevious: () => void;
+  form: UseFormReturn<CompanyDetailsFormData>;
 }
 
-export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ 
-  onNext, 
-  onPrevious 
-}) => {
+export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) => {
   const t = useTranslations('registration');
-  const [formData, setFormData] = useState({
-    parentCompany: '',
-    crNumber: '',
-    businessType: '',
-    companyName: '',
-    vatNumber: '',
-    numberOfEmployees: '',
-    phone: '',
-    territory: '',
-  });
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleNext = () => {
-    // TODO: Add validation
-    onNext();
-  };
+  const { register, formState: { errors } } = form;
 
   return (
     <div className="space-y-6">
@@ -49,8 +28,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
               id="parentCompany"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.parentCompany}
-              onChange={(e) => handleInputChange('parentCompany', e.target.value)}
+              {...register('parentCompany')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -66,10 +44,12 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
               id="crNumber"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.crNumber}
-              onChange={(e) => handleInputChange('crNumber', e.target.value)}
+              {...register('crNumber')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.crNumber && (
+              <p className="text-red-400 text-sm">{errors.crNumber.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -81,8 +61,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
                 id="businessType"
                 type="text"
                 placeholder={t('placeholders.default')}
-                value={formData.businessType}
-                onChange={(e) => handleInputChange('businessType', e.target.value)}
+              {...register('businessType')}
                 className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
               />
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
@@ -98,8 +77,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
                 id="territory"
                 type="text"
                 placeholder={t('placeholders.default')}
-                value={formData.territory}
-                onChange={(e) => handleInputChange('territory', e.target.value)}
+              {...register('territory')}
                 className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
               />
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
@@ -117,10 +95,12 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
               id="companyName"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.companyName}
-              onChange={(e) => handleInputChange('companyName', e.target.value)}
+              {...register('companyName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.companyName && (
+              <p className="text-red-400 text-sm">{errors.companyName.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -134,8 +114,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
               id="vatNumber"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.vatNumber}
-              onChange={(e) => handleInputChange('vatNumber', e.target.value)}
+              {...register('vatNumber')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -148,8 +127,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
               id="numberOfEmployees"
               type="number"
               placeholder={t('placeholders.default')}
-              value={formData.numberOfEmployees}
-              onChange={(e) => handleInputChange('numberOfEmployees', e.target.value)}
+              {...register('numberOfEmployees')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>
@@ -162,8 +140,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
               id="phone"
               type="text"
               placeholder={t('placeholders.default')}
-              value={formData.phone}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
+              {...register('phone')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
           </div>

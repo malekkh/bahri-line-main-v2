@@ -1,27 +1,18 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useTranslations } from 'next-intl';
+import { UseFormReturn } from 'react-hook-form';
+import { ParentAccountFormData } from '@/schemas/auth.schema';
 
 interface ParentAccountStepProps {
-  onNext: () => void;
-  onPrevious: () => void;
+  form: UseFormReturn<ParentAccountFormData>;
 }
 
-export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ 
-  onNext, 
-  onPrevious 
-}) => {
+export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) => {
   const t = useTranslations('registration');
-  const [hasParentAccount, setHasParentAccount] = useState<'yes' | 'no'>('yes');
-  const [parentAccountName, setParentAccountName] = useState('');
-  const [parentCRNumber, setParentCRNumber] = useState('');
-
-  const handleNext = () => {
-    // TODO: Add validation
-    onNext();
-  };
+  const { register, formState: { errors }, watch } = form;
+  const hasParentAccount = watch('hasParentAccount');
 
   return (
     <div className="space-y-6">
@@ -32,10 +23,8 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({
             <input
               type="radio"
               id="hasParentYes"
-              name="hasParentAccount"
               value="yes"
-              checked={hasParentAccount === 'yes'}
-              onChange={(e) => setHasParentAccount(e.target.value as 'yes' | 'no')}
+              {...register('hasParentAccount')}
               className="w-4 h-4 text-[#FF6720] accent-[#E2622E] bg-transparent"
             />
             <Label htmlFor="hasParentYes" className="mx-2 text-white font-[325]">
@@ -49,10 +38,8 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({
             <input
               type="radio"
               id="hasParentNo"
-              name="hasParentAccount"
               value="no"
-              checked={hasParentAccount === 'no'}
-              onChange={(e) => setHasParentAccount(e.target.value as 'yes' | 'no')}
+              {...register('hasParentAccount')}
               className="w-4 h-4 text-[#FF6720] accent-[#E2622E] bg-transparent"
             />
             <Label htmlFor="hasParentNo" className="mx-2 text-white font-[325]">
@@ -73,10 +60,12 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({
               id="parentAccountName"
               type="text"
               placeholder={t('placeholders.parentAccountName')}
-              value={parentAccountName}
-              onChange={(e) => setParentAccountName(e.target.value)}
+              {...register('parentAccountName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.parentAccountName && (
+              <p className="text-red-400 text-sm">{errors.parentAccountName.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -87,10 +76,12 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({
               id="parentCRNumber"
               type="text"
               placeholder={t('placeholders.default')}
-              value={parentCRNumber}
-              onChange={(e) => setParentCRNumber(e.target.value)}
+              {...register('parentCRNumber')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.parentCRNumber && (
+              <p className="text-red-400 text-sm">{errors.parentCRNumber.message}</p>
+            )}
           </div>
         </div>
       )}

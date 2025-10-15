@@ -4,6 +4,7 @@
  */
 
 import { User, CreateUserDto, UpdateUserDto, UsersResponse } from '@/types/user.types';
+import { ContactDetailsFormData } from '@/schemas/auth.schema';
 
 // Users API Types
 export interface GetUsersParams {
@@ -77,6 +78,14 @@ export interface AuthApiTypes {
   };
   getCurrentUser: {
     response: User;
+  };
+  validateInvitation: {
+    body: { invitationCode: string };
+    response: { valid: boolean; message: string };
+  };
+  updateContact: {
+    body: ContactDetailsFormData;
+    response: { success: boolean; message: string };
   };
 }
 
