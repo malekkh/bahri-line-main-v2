@@ -32,8 +32,12 @@ export const Stepper: React.FC<StepperProps> = ({
               index < steps.length - 1 && [
                 "after:content-['']",
                 "after:absolute",
-                "after:left-[calc(50%+9px)]", // Start from right edge of square
-                "after:right-[calc(-50%+9px)]", // End at left edge of next square
+                // LTR: connector goes from right edge of current square to left edge of next
+                "after:left-[calc(50%+9px)]",
+                "after:right-[calc(-50%+9px)]",
+                // RTL: connector goes from left edge of current square to right edge of next
+                "rtl:after:left-[calc(-50%+9px)]",
+                "rtl:after:right-[calc(50%+9px)]",
                 "after:top-[9px]", // Vertically centered (half of 18px)
                 "after:h-px", // 1px height
                 "after:transition-all",
