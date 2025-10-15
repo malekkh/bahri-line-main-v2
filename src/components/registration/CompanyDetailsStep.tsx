@@ -36,7 +36,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
   return (
     <div className="space-y-6">
       {/* Form Fields - Two Column Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-96 overflow-y-auto pr-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[200px] overflow-y-auto pe-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
         {/* Left Column */}
         <div className="space-y-4">
           <div className="space-y-2">
