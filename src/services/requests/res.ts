@@ -5,6 +5,7 @@
 
 import type { AxiosResponse } from 'axios';
 import type { User, UsersResponse } from '@/types/user.types';
+import type { ValidateInvitationResponse, CheckCRResponse } from '@/services/api/axiosRoutes.type';
 
 // ============================================================================
 // USERS RESPONSES
@@ -81,6 +82,20 @@ export const authResponses = {
    * Process message response (forgot/reset password)
    */
   processMessage: (response: AxiosResponse<{ message: string }>): { message: string } => {
+    return response.data;
+  },
+
+  /**
+   * Process invitation validation response
+   */
+  processInvitationValidation: (response: AxiosResponse<ValidateInvitationResponse>): ValidateInvitationResponse => {
+    return response.data;
+  },
+
+  /**
+   * Process CR validation response
+   */
+  processCRValidation: (response: AxiosResponse<CheckCRResponse>): CheckCRResponse => {
     return response.data;
   },
 };

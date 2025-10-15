@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ChevronDown, Info } from 'lucide-react';
+import { ChevronDown, Info, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
 import { CompanyDetailsFormData } from '@/schemas/auth.schema';
+import { useCRValidation } from '@/customhooks/useCRValidation';
 
 interface CompanyDetailsStepProps {
   form: UseFormReturn<CompanyDetailsFormData>;
@@ -12,7 +13,17 @@ interface CompanyDetailsStepProps {
 
 export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) => {
   const t = useTranslations('registration');
-  const { register, formState: { errors } } = form;
+  const { register, formState: { errors }, watch } = form;
+  const { isValidating, isValid, errorMessage, validateCR } = useCRValidation(500);
+
+  // Watch CR number field for real-time validation
+  const crNumber = watch('crNumber');
+
+  useEffect(() => {
+    if (crNumber && crNumber.length >= 3) {
+      validateCR(crNumber);
+    }
+  }, [crNumber, validateCR]);
 
   return (
     <div className="space-y-6">
@@ -40,15 +51,34 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               </Label>
               <Info className="h-3 w-3 text-white/60" />
             </div>
-            <Input
-              id="crNumber"
-              type="text"
-              placeholder={t('placeholders.default')}
-              {...register('crNumber')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
+            <div className="relative">
+              <Input
+                id="crNumber"
+                type="text"
+                placeholder={t('placeholders.default')}
+                {...register('crNumber')}
+                className={`bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10 ${
+                  isValid === false ? 'border-red-400' : isValid === true ? 'border-green-400' : ''
+                }`}
+              />
+              <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                {isValidating ? (
+                  <Loader2 className="h-4 w-4 text-white/60 animate-spin" />
+                ) : isValid === true ? (
+                  <CheckCircle className="h-4 w-4 text-green-400" />
+                ) : isValid === false ? (
+                  <XCircle className="h-4 w-4 text-red-400" />
+                ) : null}
+              </div>
+            </div>
             {errors.crNumber && (
               <p className="text-red-400 text-sm">{errors.crNumber.message}</p>
+            )}
+            {errorMessage && isValid === false && (
+              <p className="text-red-400 text-sm">{errorMessage}</p>
+            )}
+            {isValid === true && crNumber && (
+              <p className="text-green-400 text-sm">CR number is valid</p>
             )}
           </div>
 

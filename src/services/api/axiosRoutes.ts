@@ -16,13 +16,14 @@ export const API_ROUTES = {
   AUTH: {
     LOGIN: '/auth/login',
     LOGOUT: '/auth/logout',
-    REGISTER: '/auth/register',
+    REGISTER: '/register',
     REFRESH: '/auth/refresh',
     FORGOT_PASSWORD: '/auth/forgot-password',
     RESET_PASSWORD: '/auth/reset-password',
     ME: '/auth/me',
     VALIDATE_INVITATION: '/contact/getContactByInvitation',
-    UPDATE_CONTACT: '/auth/update-contact',
+    UPDATE_CONTACT: '/updatecontact/update-contact',
+    CHECK_CR: '/check-cr',
   },
 
   // Add more route groups as needed

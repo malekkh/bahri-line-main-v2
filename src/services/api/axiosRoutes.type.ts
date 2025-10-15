@@ -4,7 +4,44 @@
  */
 
 import { User, CreateUserDto, UpdateUserDto, UsersResponse } from '@/types/user.types';
-import { ContactDetailsFormData } from '@/schemas/auth.schema';
+import { ContactDetailsFormData, RegistrationFormData } from '@/schemas/auth.schema';
+
+// Prefilled Contact Data Types
+export interface PrefilledContactData {
+  firstname: string;
+  lastname: string;
+  emailaddress1: string;
+  mobilephone: string;
+  telephone1: string;
+  address1_line1: string;
+  address1_city: string;
+  address1_country: string;
+  address1_stateorprovince: string;
+  contactid: string;
+  jobtitle: string;
+  birthdate: string;
+  adx_invitationid: string;
+  ntw_createdbyinvitationid: string;
+  accountInfo: object;
+  account_primary_contact: any[];
+  adx_expirydate: string;
+  statuscode: number;
+}
+
+export interface ValidateInvitationResponse {
+  success: boolean;
+  status: number;
+  invitationStatusCode: number;
+  accountStatusCode: number;
+  message: string;
+  contact: PrefilledContactData;
+}
+
+export interface CheckCRResponse {
+  valid: boolean;
+  message: string;
+  exists: boolean;
+}
 
 // Users API Types
 export interface GetUsersParams {
@@ -59,7 +96,7 @@ export interface AuthApiTypes {
     response: { success: boolean; message: string };
   };
   register: {
-    body: { name: string; email: string; password: string };
+    body: RegistrationFormData;
     response: { success: boolean; message: string };
   };
   logout: {
@@ -81,11 +118,18 @@ export interface AuthApiTypes {
   };
   validateInvitation: {
     params: { code: string };
-    response: { valid: boolean; message: string };
+    response: ValidateInvitationResponse;
   };
   updateContact: {
-    body: ContactDetailsFormData;
-    response: { success: boolean; message: string };
+    body: {
+      contactId: string;
+      contactDetails: ContactDetailsFormData;
+    };
+    response: { success: boolean; updated: boolean };
+  };
+  checkCR: {
+    params: { crNumber: string };
+    response: CheckCRResponse;
   };
 }
 

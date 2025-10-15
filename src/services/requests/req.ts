@@ -157,6 +157,15 @@ export const authRequests = {
       contactData
     );
   },
+
+  /**
+   * Check CR number validity
+   */
+  checkCR: async (crNumber: string) => {
+    return api.get<AuthApiTypes['checkCR']['response']>(
+      `${API_ROUTES.AUTH.CHECK_CR}?crNumber=${crNumber}`
+    );
+  },
 };
 
 // ============================================================================
