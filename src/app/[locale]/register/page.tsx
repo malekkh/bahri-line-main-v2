@@ -143,7 +143,7 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          {/* Stepper */}
+          {/* Stepper Progress Only */}
           <div className="mb-8">
             <Stepper 
               steps={stepsWithState} 
@@ -153,8 +153,42 @@ export default function RegisterPage() {
           </div>
 
           {/* Step Content */}
-          <div className="flex-1">
+          <div className="flex-1 mb-8">
             {renderCurrentStep()}
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex justify-between">
+            {/* Previous Button */}
+            {currentStep > 0 && (
+              <Button
+                onClick={handlePrevious}
+                variant="outline"
+                className="bg-transparent border-[#FF6720] text-white hover:bg-[#FF6720]/10"
+              >
+                {t('buttons.previous')}: {stepsWithState[currentStep - 1]?.label}
+              </Button>
+            )}
+
+            {/* Spacer for first step */}
+            {currentStep === 0 && <div />}
+
+            {/* Next/Complete Button */}
+            {currentStep === REGISTRATION_STEPS.length - 1 ? (
+              <Button
+                onClick={() => console.log('Registration completed')}
+                className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold"
+              >
+                {t('buttons.complete')}
+              </Button>
+            ) : (
+              <Button
+                onClick={handleNext}
+                className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold"
+              >
+                {t('buttons.next')}: {stepsWithState[currentStep + 1]?.label}
+              </Button>
+            )}
           </div>
         </div>
       </div>

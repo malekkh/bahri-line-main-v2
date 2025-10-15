@@ -95,23 +95,6 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({
         </div>
       )}
 
-      {/* Navigation Buttons */}
-      <div className="flex justify-between pt-6">
-        <Button
-          onClick={onPrevious}
-          variant="outline"
-          className="bg-transparent border-[#FF6720] text-white hover:bg-[#FF6720]/10"
-        >
-          {t('buttons.previous')}: {t('steps.contactDetails')}
-        </Button>
-        
-        <Button
-          onClick={handleNext}
-          className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold"
-        >
-          {t('buttons.next')}: {t('steps.companyDetails')}
-        </Button>
-      </div>
     </div>
   );
 };
