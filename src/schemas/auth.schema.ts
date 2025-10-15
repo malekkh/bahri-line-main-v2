@@ -148,6 +148,22 @@ export const parentAccountSchema = z.object({
   parentCRNumber: z
     .string()
     .optional(),
+}).refine((data) => {
+  if (data.hasParentAccount === 'yes') {
+    return data.parentAccountName && data.parentAccountName.length > 0;
+  }
+  return true;
+}, {
+  message: "Parent account name is required when 'Yes' is selected",
+  path: ['parentAccountName'],
+}).refine((data) => {
+  if (data.hasParentAccount === 'yes') {
+    return data.parentCRNumber && data.parentCRNumber.length > 0;
+  }
+  return true;
+}, {
+  message: "Parent CR number is required when 'Yes' is selected",
+  path: ['parentCRNumber'],
 });
 
 export type ParentAccountFormData = z.infer<typeof parentAccountSchema>;

@@ -64,6 +64,8 @@ export interface UseRegistrationLogicReturn {
   handleFinalRegistration: (data: RegistrationFormData) => Promise<void>;
   handleCRValidation: (crNumber: string) => Promise<CheckCRResponse>;
   populateContactForm: (data: PrefilledContactData) => void;
+  validateCurrentStep: () => Promise<boolean>;
+  isCurrentStepValid: boolean;
 }
 
 export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
@@ -261,6 +263,71 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
     });
   };
 
+  const validateCurrentStep = async (): Promise<boolean> => {
+    switch (currentStep) {
+      case 0: // Invitation Code
+        const invitationValid = await invitationCodeForm.trigger();
+        if (!invitationValid) {
+          toast.error('Please enter a valid invitation code');
+          return false;
+        }
+        return true;
+
+      case 1: // Contact Details
+        const contactValid = await contactDetailsForm.trigger();
+        if (!contactValid) {
+          toast.error('Please fill in all required contact details');
+          return false;
+        }
+        return true;
+
+      case 2: // Parent Account
+        const parentValid = await parentAccountForm.trigger();
+        if (!parentValid) {
+          toast.error('Please complete the parent account selection');
+          return false;
+        }
+        return true;
+
+      case 3: // Company Details
+        const companyValid = await companyDetailsForm.trigger();
+        if (!companyValid) {
+          toast.error('Please fill in all required company details');
+          return false;
+        }
+        return true;
+
+      case 4: // Bank Details
+        const bankValid = await bankDetailsForm.trigger();
+        if (!bankValid) {
+          toast.error('Please fill in all required bank details');
+          return false;
+        }
+        return true;
+
+      default:
+        return false;
+    }
+  };
+
+  // Check if current step is valid
+  const isCurrentStepValid = (() => {
+    switch (currentStep) {
+      case 0:
+        return invitationCodeForm.formState.isValid;
+      case 1:
+        return contactDetailsForm.formState.isValid;
+      case 2:
+        return parentAccountForm.formState.isValid;
+      case 3:
+        return companyDetailsForm.formState.isValid;
+      case 4:
+        return bankDetailsForm.formState.isValid;
+      default:
+        return false;
+    }
+  })();
+
   return {
     // Form instances
     invitationCodeForm,
@@ -299,5 +366,7 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
     handleFinalRegistration,
     handleCRValidation,
     populateContactForm,
+    validateCurrentStep,
+    isCurrentStepValid,
   };
 };

@@ -30,6 +30,9 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               {...register('bankName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.bankName && (
+              <p className="text-red-400 text-sm">{errors.bankName.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -43,6 +46,9 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               {...register('accountType')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.accountType && (
+              <p className="text-red-400 text-sm">{errors.accountType.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -56,6 +62,9 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               {...register('beneficiaryName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.beneficiaryName && (
+              <p className="text-red-400 text-sm">{errors.beneficiaryName.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -69,6 +78,9 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               {...register('bankState')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.bankState && (
+              <p className="text-red-400 text-sm">{errors.bankState.message}</p>
+            )}
           </div>
         </div>
 
@@ -85,6 +97,9 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               {...register('accountNumber')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.accountNumber && (
+              <p className="text-red-400 text-sm">{errors.accountNumber.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -98,6 +113,9 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               {...register('bankAddress')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.bankAddress && (
+              <p className="text-red-400 text-sm">{errors.bankAddress.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -111,6 +129,9 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               {...register('bankPhone')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.bankPhone && (
+              <p className="text-red-400 text-sm">{errors.bankPhone.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -124,6 +145,9 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               {...register('bankCity')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            {errors.bankCity && (
+              <p className="text-red-400 text-sm">{errors.bankCity.message}</p>
+            )}
           </div>
         </div>
       </div>

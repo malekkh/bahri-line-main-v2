@@ -58,6 +58,8 @@ export default function RegisterPage() {
     handleInvitationValidation,
     handleContactUpdate,
     handleFinalRegistration,
+    validateCurrentStep,
+    isCurrentStepValid,
     validateInvitationMutation,
   } = useRegistrationLogic();
 
@@ -100,6 +102,12 @@ export default function RegisterPage() {
   };
 
   const handleNext = async () => {
+    // First validate the current step
+    const isValid = await validateCurrentStep();
+    if (!isValid) {
+      return; // Don't proceed if validation fails
+    }
+
     switch (currentStep) {
       case 0:
         await invitationCodeForm.handleSubmit(handleInvitationValidation)();
@@ -108,7 +116,11 @@ export default function RegisterPage() {
         await contactDetailsForm.handleSubmit(handleContactUpdate)();
         break;
       case 2:
+        // Parent Account step - just move to next
+        nextStep();
+        break;
       case 3:
+        // Company Details step - just move to next
         nextStep();
         break;
       case 4:
@@ -209,16 +221,24 @@ export default function RegisterPage() {
             {isLastStep ? (
               <Button
                 onClick={handleNext}
-                className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold"
-                disabled={isRegistering}
+                className={`font-semibold ${
+                  isCurrentStepValid 
+                    ? 'bg-[#FF6720] hover:bg-[#FF6720]/90 text-white' 
+                    : 'bg-gray-500 text-gray-300 cursor-not-allowed'
+                }`}
+                disabled={isRegistering || !isCurrentStepValid}
               >
                 {isRegistering ? t('buttons.processing') : t('buttons.complete')}
               </Button>
             ) : (
               <Button
                 onClick={handleNext}
-                className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold"
-                disabled={isInvitationValidating || isContactUpdating}
+                className={`font-semibold ${
+                  isCurrentStepValid && !isInvitationValidating && !isContactUpdating
+                    ? 'bg-[#FF6720] hover:bg-[#FF6720]/90 text-white' 
+                    : 'bg-gray-500 text-gray-300 cursor-not-allowed'
+                }`}
+                disabled={isInvitationValidating || isContactUpdating || !isCurrentStepValid}
               >
                 {isInvitationValidating || isContactUpdating 
                   ? t('buttons.processing') 
