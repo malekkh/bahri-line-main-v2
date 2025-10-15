@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface ContactDetailsStepProps {
   onNext: () => void;
@@ -13,6 +14,7 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
   onNext, 
   onPrevious 
 }) => {
+  const t = useTranslations('registration');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -50,12 +52,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="firstName" className="text-white font-[325]" required>
-              First Name
+              {t('fields.firstName')}
             </Label>
             <Input
               id="firstName"
               type="text"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.firstName}
               onChange={(e) => handleInputChange('firstName', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -64,12 +66,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="businessPhone" className="text-white font-[325]" required>
-              Business Phone
+              {t('fields.businessPhone')}
             </Label>
             <Input
               id="businessPhone"
               type="tel"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.businessPhone}
               onChange={(e) => handleInputChange('businessPhone', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -78,12 +80,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="fax" className="text-white font-[325]">
-              Fax
+              {t('fields.fax')}
             </Label>
             <Input
               id="fax"
               type="text"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.fax}
               onChange={(e) => handleInputChange('fax', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -92,12 +94,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="email" className="text-white font-[325]" required>
-              E-mail
+              {t('fields.email')}
             </Label>
             <Input
               id="email"
               type="email"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -109,12 +111,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="lastName" className="text-white font-[325]" required>
-              Last name
+              {t('fields.lastName')}
             </Label>
             <Input
               id="lastName"
               type="text"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.lastName}
               onChange={(e) => handleInputChange('lastName', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -123,12 +125,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="mobilePhone" className="text-white font-[325]" required>
-              Mobile Phone
+              {t('fields.mobilePhone')}
             </Label>
             <Input
               id="mobilePhone"
               type="tel"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.mobilePhone}
               onChange={(e) => handleInputChange('mobilePhone', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -137,12 +139,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="city" className="text-white font-[325]" required>
-              City
+              {t('fields.city')}
             </Label>
             <Input
               id="city"
               type="text"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.city}
               onChange={(e) => handleInputChange('city', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -151,12 +153,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="street" className="text-white font-[325]" required>
-              Street
+              {t('fields.street')}
             </Label>
             <Input
               id="street"
               type="text"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.street}
               onChange={(e) => handleInputChange('street', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -168,12 +170,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="jobTitle" className="text-white font-[325]" required>
-              Job Title
+              {t('fields.jobTitle')}
             </Label>
             <Input
               id="jobTitle"
               type="text"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.jobTitle}
               onChange={(e) => handleInputChange('jobTitle', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -182,13 +184,13 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="birthday" className="text-white font-[325]">
-              Birthday
+              {t('fields.birthday')}
             </Label>
             <div className="relative">
               <Input
                 id="birthday"
                 type="text"
-                placeholder="Placeholder"
+                placeholder={t('placeholders.default')}
                 value={formData.birthday}
                 onChange={(e) => handleInputChange('birthday', e.target.value)}
                 className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
@@ -199,12 +201,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="country" className="text-white font-[325]" required>
-              Country
+              {t('fields.country')}
             </Label>
             <Input
               id="country"
               type="text"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.country}
               onChange={(e) => handleInputChange('country', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -213,12 +215,12 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
 
           <div className="space-y-2">
             <Label htmlFor="stateProvince" className="text-white font-[325]" required>
-              State/Province
+              {t('fields.stateProvince')}
             </Label>
             <Input
               id="stateProvince"
               type="text"
-              placeholder="Placeholder"
+              placeholder={t('placeholders.default')}
               value={formData.stateProvince}
               onChange={(e) => handleInputChange('stateProvince', e.target.value)}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -234,14 +236,14 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
           variant="outline"
           className="bg-transparent border-[#FF6720] text-white hover:bg-[#FF6720]/10"
         >
-          Previous: Invitation code
+          {t('buttons.previous')}: {t('steps.invitationCode')}
         </Button>
         
         <Button
           onClick={handleNext}
           className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold"
         >
-          Next: Parent Account
+          {t('buttons.next')}: {t('steps.parentAccount')}
         </Button>
       </div>
     </div>

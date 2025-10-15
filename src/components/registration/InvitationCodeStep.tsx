@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useTranslations } from 'next-intl';
 
 interface InvitationCodeStepProps {
   onNext: () => void;
@@ -9,6 +10,7 @@ interface InvitationCodeStepProps {
 
 export const InvitationCodeStep: React.FC<InvitationCodeStepProps> = ({ onNext }) => {
   const [invitationCode, setInvitationCode] = useState('');
+  const t = useTranslations('registration');
 
   const handleVerify = () => {
     // TODO: Add validation and API call
@@ -22,12 +24,12 @@ export const InvitationCodeStep: React.FC<InvitationCodeStepProps> = ({ onNext }
       {/* Invitation Code Field */}
       <div className="space-y-2">
         <Label htmlFor="invitation-code" className="text-white font-[325]">
-          Invitation code
+          {t('fields.invitationCode')}
         </Label>
         <Input
           id="invitation-code"
           type="text"
-          placeholder="Placeholder"
+          placeholder={t('placeholders.default')}
           value={invitationCode}
           onChange={(e) => setInvitationCode(e.target.value)}
           className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
@@ -41,7 +43,7 @@ export const InvitationCodeStep: React.FC<InvitationCodeStepProps> = ({ onNext }
           className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white font-semibold rounded-md px-6 py-2"
           disabled={!invitationCode.trim()}
         >
-          Verify
+          {t('buttons.verify')}
         </Button>
       </div>
     </div>
