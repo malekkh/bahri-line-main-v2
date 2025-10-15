@@ -131,7 +131,7 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({
             </Label>
             <Input
               id="bankPhone"
-              type="tel"
+              type="text"
               placeholder={t('placeholders.default')}
               value={formData.bankPhone}
               onChange={(e) => handleInputChange('bankPhone', e.target.value)}

@@ -70,7 +70,7 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
             </Label>
             <Input
               id="businessPhone"
-              type="tel"
+              type="text"
               placeholder={t('placeholders.default')}
               value={formData.businessPhone}
               onChange={(e) => handleInputChange('businessPhone', e.target.value)}
@@ -129,7 +129,7 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({
             </Label>
             <Input
               id="mobilePhone"
-              type="tel"
+              type="text"
               placeholder={t('placeholders.default')}
               value={formData.mobilePhone}
               onChange={(e) => handleInputChange('mobilePhone', e.target.value)}

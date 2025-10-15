@@ -160,7 +160,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({
             </Label>
             <Input
               id="phone"
-              type="tel"
+              type="text"
               placeholder={t('placeholders.default')}
               value={formData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
