@@ -24,7 +24,7 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({
   return (
     <div className="space-y-6">
       {/* Radio Button Options */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <div className="flex items-center space-x-4">
           <div className="flex items-center">
             <input
@@ -34,9 +34,9 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({
               value="yes"
               checked={hasParentAccount === 'yes'}
               onChange={(e) => setHasParentAccount(e.target.value as 'yes' | 'no')}
-              className="w-4 h-4 text-[#FF6720] bg-transparent border-2 border-gray-300 focus:ring-[#FF6720] focus:ring-2"
+              className="w-4 h-4 text-[#FF6720] accent-[#E2622E] bg-transparent"
             />
-            <Label htmlFor="hasParentYes" className="ml-2 text-white font-[325]">
+            <Label htmlFor="hasParentYes" className="mx-2 text-white font-[325]">
               Yes my company has a parent account
             </Label>
           </div>
@@ -51,9 +51,9 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({
               value="no"
               checked={hasParentAccount === 'no'}
               onChange={(e) => setHasParentAccount(e.target.value as 'yes' | 'no')}
-              className="w-4 h-4 text-[#FF6720] bg-transparent border-2 border-gray-300 focus:ring-[#FF6720] focus:ring-2"
+              className="w-4 h-4 text-[#FF6720] accent-[#E2622E] bg-transparent"
             />
-            <Label htmlFor="hasParentNo" className="ml-2 text-white font-[325]">
+            <Label htmlFor="hasParentNo" className="mx-2 text-white font-[325]">
               No, my company doesn't have a parent account
             </Label>
           </div>
