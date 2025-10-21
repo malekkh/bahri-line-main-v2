@@ -93,7 +93,7 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
     resolver: zodResolver(parentAccountSchema),
     mode: 'onChange',
     defaultValues: {
-      hasParentAccount: 'yes',
+      hasParentAccount: false,
     },
   });
 
@@ -253,13 +253,19 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
       lastName: data.lastname,
       email: data.emailaddress1,
       mobilePhone: data.mobilephone,
-      businessPhone: data.telephone1,
-      street: data.address1_line1,
-      city: data.address1_city,
-      country: data.address1_country,
-      stateProvince: data.address1_stateorprovince,
+      phoneCountryCode: '+966', // Default to Saudi Arabia
+      phone: data.telephone1,
+      mobilePhoneCountryCode: '+966', // Default to Saudi Arabia
+      faxCountryCode: '+966', // Default to Saudi Arabia
+      address1_fax: '',
       jobTitle: data.jobtitle,
+      address1_city: data.address1_city,
+      street: data.address1_line1,
+      state: data.address1_stateorprovince,
       birthday: data.birthdate,
+      address1_country: data.address1_country,
+      password: '',
+      confirmPassword: '',
     });
   };
 

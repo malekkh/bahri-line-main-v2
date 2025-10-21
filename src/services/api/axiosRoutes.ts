@@ -16,7 +16,7 @@ export const API_ROUTES = {
   AUTH: {
     LOGIN: '/auth/login',
     LOGOUT: '/auth/logout',
-    REGISTER: '/register',
+    REGISTER: '/register/registerAccount',
     REFRESH: '/auth/refresh',
     FORGOT_PASSWORD: '/auth/forgot-password',
     RESET_PASSWORD: '/auth/reset-password',
@@ -24,6 +24,9 @@ export const API_ROUTES = {
     VALIDATE_INVITATION: '/contact/getContactByInvitation',
     UPDATE_CONTACT: '/updatecontact/update-contact',
     CHECK_CR: '/check-cr',
+    POST_DOCUMENTS: '/account-documents',
+    GET_TERRITORIES: '/territories',
+    GET_COUNTRIES: '/countries',
   },
 
   // Add more route groups as needed

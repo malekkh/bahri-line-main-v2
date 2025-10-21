@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Calendar } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
@@ -16,72 +17,81 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({ form }) 
 
   return (
     <div className="space-y-6">
-      {/* Form Fields - Two Column Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[200px] overflow-y-auto pe-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
+      {/* Form Fields - Multi Column Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[400px] overflow-y-auto pe-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
+        
         {/* Left Column */}
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="firstName" className="text-white font-[325]" required>
-              {t('fields.firstName')}
+              First Name
             </Label>
             <Input
               id="firstName"
               type="text"
-              placeholder={t('placeholders.default')}
+              placeholder="Placeholder"
               {...register('firstName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.firstName && (
-              <p className="text-red-400 text-sm">{errors.firstName.message}</p>
-            )}
+            <div className="h-5">
+              {errors.firstName && (
+                <p className="text-red-400 text-sm">{errors.firstName.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="businessPhone" className="text-white font-[325]" required>
-              {t('fields.businessPhone')}
+            <Label htmlFor="phone" className="text-white font-[325]" required>
+              Business Phone
             </Label>
             <Input
-              id="businessPhone"
+              id="phone"
               type="text"
-              placeholder={t('placeholders.default')}
-              {...register('businessPhone')}
+              placeholder="Placeholder"
+              {...register('phone')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.businessPhone && (
-              <p className="text-red-400 text-sm">{errors.businessPhone.message}</p>
-            )}
+            <div className="h-5">
+              {errors.phone && (
+                <p className="text-red-400 text-sm">{errors.phone.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="fax" className="text-white font-[325]">
-              {t('fields.fax')}
+            <Label htmlFor="address1_fax" className="text-white font-[325]">
+              Fax
             </Label>
             <Input
-              id="fax"
+              id="address1_fax"
               type="text"
-              placeholder={t('placeholders.default')}
-              {...register('fax')}
+              placeholder="Placeholder"
+              {...register('address1_fax')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.fax && (
-              <p className="text-red-400 text-sm">{errors.fax.message}</p>
-            )}
+            <div className="h-5">
+              {errors.address1_fax && (
+                <p className="text-red-400 text-sm">{errors.address1_fax.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="email" className="text-white font-[325]" required>
-              {t('fields.email')}
+              E-mail
             </Label>
             <Input
               id="email"
               type="email"
-              placeholder={t('placeholders.default')}
+              placeholder="Placeholder"
               {...register('email')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.email && (
-              <p className="text-red-400 text-sm">{errors.email.message}</p>
-            )}
+            <div className="h-5">
+              {errors.email && (
+                <p className="text-red-400 text-sm">{errors.email.message}</p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -89,66 +99,74 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({ form }) 
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="lastName" className="text-white font-[325]" required>
-              {t('fields.lastName')}
+              Last name
             </Label>
             <Input
               id="lastName"
               type="text"
-              placeholder={t('placeholders.default')}
+              placeholder="Placeholder"
               {...register('lastName')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.lastName && (
-              <p className="text-red-400 text-sm">{errors.lastName.message}</p>
-            )}
+            <div className="h-5">
+              {errors.lastName && (
+                <p className="text-red-400 text-sm">{errors.lastName.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="mobilePhone" className="text-white font-[325]" required>
-              {t('fields.mobilePhone')}
+              Mobile Phone
             </Label>
             <Input
               id="mobilePhone"
               type="text"
-              placeholder={t('placeholders.default')}
+              placeholder="Placeholder"
               {...register('mobilePhone')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.mobilePhone && (
-              <p className="text-red-400 text-sm">{errors.mobilePhone.message}</p>
-            )}
+            <div className="h-5">
+              {errors.mobilePhone && (
+                <p className="text-red-400 text-sm">{errors.mobilePhone.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="city" className="text-white font-[325]" required>
-              {t('fields.city')}
+            <Label htmlFor="address1_city" className="text-white font-[325]" required>
+              City
             </Label>
             <Input
-              id="city"
+              id="address1_city"
               type="text"
-              placeholder={t('placeholders.default')}
-              {...register('city')}
+              placeholder="Placeholder"
+              {...register('address1_city')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.city && (
-              <p className="text-red-400 text-sm">{errors.city.message}</p>
-            )}
+            <div className="h-5">
+              {errors.address1_city && (
+                <p className="text-red-400 text-sm">{errors.address1_city.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="street" className="text-white font-[325]" required>
-              {t('fields.street')}
+              Street
             </Label>
             <Input
               id="street"
               type="text"
-              placeholder={t('placeholders.default')}
+              placeholder="Placeholder"
               {...register('street')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.street && (
-              <p className="text-red-400 text-sm">{errors.street.message}</p>
-            )}
+            <div className="h-5">
+              {errors.street && (
+                <p className="text-red-400 text-sm">{errors.street.message}</p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -156,73 +174,118 @@ export const ContactDetailsStep: React.FC<ContactDetailsStepProps> = ({ form }) 
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="jobTitle" className="text-white font-[325]" required>
-              {t('fields.jobTitle')}
+              Job Title
             </Label>
             <Input
               id="jobTitle"
               type="text"
-              placeholder={t('placeholders.default')}
+              placeholder="Placeholder"
               {...register('jobTitle')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.jobTitle && (
-              <p className="text-red-400 text-sm">{errors.jobTitle.message}</p>
-            )}
+            <div className="h-5">
+              {errors.jobTitle && (
+                <p className="text-red-400 text-sm">{errors.jobTitle.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="birthday" className="text-white font-[325]">
-              {t('fields.birthday')}
+              Birthday
             </Label>
             <div className="relative">
               <Input
                 id="birthday"
-                type="text"
-                placeholder={t('placeholders.default')}
+                type="date"
+                placeholder="Placeholder"
                 {...register('birthday')}
-                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
+                className="bg-transparent border-[#EDF1F3] focus:border-white text-white [color-scheme:dark] cursor-pointer pr-10 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
               />
-              <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
+              <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
             </div>
-            {errors.birthday && (
-              <p className="text-red-400 text-sm">{errors.birthday.message}</p>
-            )}
+            <div className="h-5">
+              {errors.birthday && (
+                <p className="text-red-400 text-sm">{errors.birthday.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="country" className="text-white font-[325]" required>
-              {t('fields.country')}
+            <Label htmlFor="address1_country" className="text-white font-[325]" required>
+              Country
             </Label>
             <Input
-              id="country"
+              id="address1_country"
               type="text"
-              placeholder={t('placeholders.default')}
-              {...register('country')}
+              placeholder="Placeholder"
+              {...register('address1_country')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.country && (
-              <p className="text-red-400 text-sm">{errors.country.message}</p>
-            )}
+            <div className="h-5">
+              {errors.address1_country && (
+                <p className="text-red-400 text-sm">{errors.address1_country.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="stateProvince" className="text-white font-[325]" required>
-              {t('fields.stateProvince')}
+            <Label htmlFor="state" className="text-white font-[325]" required>
+              State/Province
             </Label>
             <Input
-              id="stateProvince"
+              id="state"
               type="text"
-              placeholder={t('placeholders.default')}
-              {...register('stateProvince')}
+              placeholder="Placeholder"
+              {...register('state')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.stateProvince && (
-              <p className="text-red-400 text-sm">{errors.stateProvince.message}</p>
-            )}
+            <div className="h-5">
+              {errors.state && (
+                <p className="text-red-400 text-sm">{errors.state.message}</p>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
+        {/* Password Fields - Full Width */}
+        <div className="col-span-full grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <Label htmlFor="password" className="text-white font-[325]" required>
+              Password
+            </Label>
+            <PasswordInput
+              id="password"
+              placeholder="Placeholder"
+              {...register('password')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5">
+              {errors.password && (
+                <p className="text-red-400 text-sm">{errors.password.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="confirmPassword" className="text-white font-[325]" required>
+              Confirm Password
+            </Label>
+            <PasswordInput
+              id="confirmPassword"
+              placeholder="Placeholder"
+              {...register('confirmPassword')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5">
+              {errors.confirmPassword && (
+                <p className="text-red-400 text-sm">{errors.confirmPassword.message}</p>
+              )}
+            </div>
+          </div>
+        </div>
+        
+      </div>
     </div>
   );
 };
