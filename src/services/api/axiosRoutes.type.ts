@@ -37,10 +37,14 @@ export interface ValidateInvitationResponse {
   contact: PrefilledContactData;
 }
 
+export interface CRCompanyInfo {
+  "@odata.etag": string;
+  accountid: string;
+  name: string;
+}
+
 export interface CheckCRResponse {
-  valid: boolean;
-  message: string;
-  exists: boolean;
+  value: CRCompanyInfo[];
 }
 
 // Users API Types

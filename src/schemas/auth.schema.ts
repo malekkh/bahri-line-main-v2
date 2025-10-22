@@ -186,6 +186,12 @@ export type ParentAccountFormData = z.infer<typeof parentAccountSchema>;
 
 // Step 4: Company Details
 export const companyDetailsSchema = z.object({
+  parentCompany: z
+    .string()
+    .optional(),
+  "parentaccountid@odata.bind": z
+    .string()
+    .optional(),
   name: z
     .string()
     .min(1, 'Company name is required'),

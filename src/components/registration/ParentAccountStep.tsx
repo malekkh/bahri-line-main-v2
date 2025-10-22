@@ -14,7 +14,7 @@ interface ParentAccountStepProps {
 export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) => {
   const t = useTranslations('registration');
   const { register, formState: { errors }, watch, setValue } = form;
-  const { isValidating, isValid, errorMessage, validateCR } = useCRValidation(500);
+  const { isValidating, isValid, errorMessage, companyInfo, validateCR } = useCRValidation(500);
   
   const hasParentAccount = watch('hasParentAccount');
   const parentCrNumber = watch('parentCrNumber');
@@ -23,28 +23,49 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
   useEffect(() => {
     if (parentCrNumber && parentCrNumber.length > 3) {
       validateCR(parentCrNumber);
-      // Note: In a real implementation, you'd handle the API response
-      // to auto-fill parentaccountname and parentaccountid
     }
   }, [parentCrNumber, validateCR]);
 
+  // Auto-fill parent account information when company info is available
+  useEffect(() => {
+    if (companyInfo && isValid) {
+      setValue('parentaccountname', companyInfo.name);
+      setValue('parentaccountid', companyInfo.accountid);
+    }
+  }, [companyInfo, isValid, setValue]);
+
   return (
     <div className="space-y-6">
-      {/* Toggle Options */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="hasParentAccount"
-              checked={hasParentAccount || false}
-              onChange={(e) => setValue('hasParentAccount', e.target.checked)}
-              className="w-4 h-4 text-[#FF6720] accent-[#E2622E] bg-transparent"
-            />
-            <Label htmlFor="hasParentAccount" className="mx-2 text-white font-[325]">
-              Has Parent Account
-            </Label>
-          </div>
+      {/* Radio Button Options */}
+      <div className="flex flex-col sm:flex-row gap-6 justify-center">
+        <div className="flex items-center space-x-3">
+          <input
+            type="radio"
+            id="hasParentAccountYes"
+            name="hasParentAccount"
+            value="yes"
+            checked={hasParentAccount === true}
+            onChange={() => setValue('hasParentAccount', true)}
+            className="w-4 h-4 text-[#FF6720] accent-[#FF6720] bg-transparent border-white"
+          />
+          <Label htmlFor="hasParentAccountYes" className="text-white font-[325]">
+            Yes my company has a parent account
+          </Label>
+        </div>
+        
+        <div className="flex items-center space-x-3">
+          <input
+            type="radio"
+            id="hasParentAccountNo"
+            name="hasParentAccount"
+            value="no"
+            checked={hasParentAccount === false}
+            onChange={() => setValue('hasParentAccount', false)}
+            className="w-4 h-4 text-[#FF6720] accent-[#FF6720] bg-transparent border-white"
+          />
+          <Label htmlFor="hasParentAccountNo" className="text-white font-[325]">
+            No, my company doesn't have a parent account
+          </Label>
         </div>
       </div>
 
@@ -53,27 +74,28 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="parentaccountname" className="text-white font-[325]">
-              Parent Account Name
+              Parent account name
             </Label>
             <Input
               id="parentaccountname"
               type="text"
-              placeholder="Auto-filled from CR lookup"
+              placeholder="Parent account name"
               {...register('parentaccountname')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
               readOnly
             />
+            <div className="h-5"></div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="parentCRNumber" className="text-white font-[325]" required>
-              Parent CR Number
+              Parent CR Number 
             </Label>
             <div className="relative">
               <Input
                 id="parentCRNumber"
                 type="text"
-                placeholder="Enter parent CR number"
+                placeholder="Placeholder"
                 {...register('parentCrNumber')}
                 className={`bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10 ${
                   isValid === false ? 'border-red-400' : isValid === true ? 'border-green-400' : ''
@@ -89,15 +111,17 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
                 ) : null}
               </div>
             </div>
-            {errors.parentCrNumber && (
-              <p className="text-red-400 text-sm">{errors.parentCrNumber.message}</p>
-            )}
-            {errorMessage && isValid === false && (
-              <p className="text-red-400 text-sm">{errorMessage}</p>
-            )}
-            {isValid === true && parentCrNumber && (
-              <p className="text-green-400 text-sm">CR number is valid</p>
-            )}
+            <div className="h-5">
+              {errors.parentCrNumber && (
+                <p className="text-red-400 text-sm">{errors.parentCrNumber.message}</p>
+              )}
+              {errorMessage && isValid === false && (
+                <p className="text-red-400 text-sm">{errorMessage}</p>
+              )}
+              {isValid === true && parentCrNumber && (
+                <p className="text-green-400 text-sm">CR number is valid</p>
+              )}
+            </div>
           </div>
 
           {/* Hidden field for parentaccountid */}

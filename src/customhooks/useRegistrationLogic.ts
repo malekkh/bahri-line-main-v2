@@ -170,8 +170,8 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
     mutationFn: (crNumber: string) => authRequests.checkCR(crNumber),
     onSuccess: (response) => {
       const data: CheckCRResponse = response.data;
-      if (!data.valid) {
-        toast.error(data.message || 'Invalid CR number');
+      if (!data.value || data.value.length === 0) {
+        toast.error('No company found with this CR number');
       }
     },
     onError: (error: unknown) => {

@@ -13,7 +13,7 @@ interface CompanyDetailsStepProps {
 
 export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) => {
   const t = useTranslations('registration');
-  const { register, formState: { errors }, watch } = form;
+  const { register, formState: { errors }, watch, setValue } = form;
   const { isValidating, isValid, errorMessage, validateCR } = useCRValidation(500);
 
   // Watch CR number field for real-time validation
@@ -26,40 +26,37 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
     }
   }, [crNumber, validateCR]);
 
+  // Auto-fill parent company from previous step data
+  useEffect(() => {
+    // Get the parent account data from the registration form context
+    // This would come from the registration logic hook that manages all form data
+    const parentAccountName = (form as any).parentAccountForm?.getValues?.('parentaccountname');
+    const parentAccountId = (form as any).parentAccountForm?.getValues?.('parentaccountid');
+    
+    if (parentAccountName) {
+      setValue('parentCompany' as any, parentAccountName);
+    }
+    if (parentAccountId) {
+      setValue('parentaccountid@odata.bind' as any, `/accounts(${parentAccountId})`);
+    }
+  }, [setValue]);
+
   return (
     <div className="space-y-6">
-      {/* Form Fields - Multi Column Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Form Fields - Two Column Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* Left Column */}
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-white font-[325]" required>
-              Company Name
+            <Label htmlFor="parentCompany" className="text-white font-[325]">
+              Parent Company
             </Label>
             <Input
-              id="name"
+              id="parentCompany"
               type="text"
-              placeholder="Enter company name"
-              {...register('name')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            <div className="h-5">
-              {errors.name && (
-                <p className="text-red-400 text-sm">{errors.name.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="ntw_companynameascr" className="text-white font-[325]">
-              Company Name as per CR
-            </Label>
-            <Input
-              id="ntw_companynameascr"
-              type="text"
-              placeholder="Auto-filled from parent"
-              {...register('ntw_companynameascr')}
+              placeholder="Auto-filled from parent account"
+              {...register('parentCompany')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
               readOnly
             />
@@ -67,196 +64,9 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="telephone1CountryCode" className="text-white font-[325]" required>
-              Company Phone Country Code
-            </Label>
-            <Input
-              id="telephone1CountryCode"
-              type="text"
-              placeholder="+966"
-              {...register('telephone1CountryCode')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            <div className="h-5">
-              {errors.telephone1CountryCode && (
-                <p className="text-red-400 text-sm">{errors.telephone1CountryCode.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="telephone1" className="text-white font-[325]" required>
-              Company Phone Number
-            </Label>
-            <Input
-              id="telephone1"
-              type="text"
-              placeholder="Enter company phone number"
-              {...register('telephone1')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            <div className="h-5">
-              {errors.telephone1 && (
-                <p className="text-red-400 text-sm">{errors.telephone1.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="addressCountry" className="text-white font-[325]" required>
-              Company Address Country
-            </Label>
-            <div className="relative">
-              <Input
-                id="addressCountry"
-                type="text"
-                placeholder="Select country"
-                {...register('addressCountry')}
-                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
-              />
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
-            </div>
-            <div className="h-5">
-              {errors.addressCountry && (
-                <p className="text-red-400 text-sm">{errors.addressCountry.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="territoryid" className="text-white font-[325]" required>
-              Business Territory
-            </Label>
-            <div className="relative">
-              <Input
-                id="territoryid"
-                type="text"
-                placeholder="Select territory"
-                {...register('territoryid')}
-                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
-              />
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
-            </div>
-            <div className="h-5">
-              {errors.territoryid && (
-                <p className="text-red-400 text-sm">{errors.territoryid.message}</p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Middle Column */}
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="numberOfEmployees" className="text-white font-[325]">
-              Number of Employees
-            </Label>
-            <Input
-              id="numberOfEmployees"
-              type="number"
-              placeholder="Enter number of employees"
-              {...register('numberOfEmployees')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            <div className="h-5"></div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="street" className="text-white font-[325]" required>
-              Company Street Address
-            </Label>
-            <Input
-              id="street"
-              type="text"
-              placeholder="Enter street address"
-              {...register('street')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            <div className="h-5">
-              {errors.street && (
-                <p className="text-red-400 text-sm">{errors.street.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="address1_postalcode" className="text-white font-[325]" required>
-              Postal/ZIP Code
-            </Label>
-            <Input
-              id="address1_postalcode"
-              type="text"
-              placeholder="Enter postal/ZIP code"
-              {...register('address1_postalcode')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            <div className="h-5">
-              {errors.address1_postalcode && (
-                <p className="text-red-400 text-sm">{errors.address1_postalcode.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="address1_fax" className="text-white font-[325]">
-              Company Fax
-            </Label>
-            <Input
-              id="address1_fax"
-              type="text"
-              placeholder="Enter company fax (optional)"
-              {...register('address1_fax')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            <div className="h-5"></div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="websiteurl" className="text-white font-[325]" required>
-              Company Website URL
-            </Label>
-            <Input
-              id="websiteurl"
-              type="url"
-              placeholder="https://example.com"
-              {...register('websiteurl')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            <div className="h-5">
-              {errors.websiteurl && (
-                <p className="text-red-400 text-sm">{errors.websiteurl.message}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="businesstypecode" className="text-white font-[325]" required>
-              Business Type Code
-            </Label>
-            <div className="relative">
-              <Input
-                id="businesstypecode"
-                type="text"
-                placeholder="Select business type"
-                {...register('businesstypecode')}
-                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
-              />
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
-            </div>
-            <div className="h-5">
-              {errors.businesstypecode && (
-                <p className="text-red-400 text-sm">{errors.businesstypecode.message}</p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-4">
-          <div className="space-y-2">
             <div className="flex items-center gap-1">
               <Label htmlFor="ntw_crnumber" className="text-white font-[325]" required>
-                Company CR Number
+                CR Number
               </Label>
               <Info className="h-3 w-3 text-white/60" />
             </div>
@@ -264,7 +74,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               <Input
                 id="ntw_crnumber"
                 type="text"
-                placeholder="Enter CR number"
+                placeholder="Placeholder"
                 {...register('ntw_crnumber')}
                 className={`bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10 ${
                   isValid === false ? 'border-red-400' : isValid === true ? 'border-green-400' : ''
@@ -294,6 +104,69 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
           </div>
 
           <div className="space-y-2">
+            <Label htmlFor="businesstypecode" className="text-white font-[325]" required>
+              Business Type
+            </Label>
+            <div className="relative">
+              <Input
+                id="businesstypecode"
+                type="text"
+                placeholder="Placeholder"
+                {...register('businesstypecode')}
+                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
+              />
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
+            </div>
+            <div className="h-5">
+              {errors.businesstypecode && (
+                <p className="text-red-400 text-sm">{errors.businesstypecode.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="territoryid" className="text-white font-[325]" required>
+              Territory
+            </Label>
+            <div className="relative">
+              <Input
+                id="territoryid"
+                type="text"
+                placeholder="Placeholder"
+                {...register('territoryid')}
+                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
+              />
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
+            </div>
+            <div className="h-5">
+              {errors.territoryid && (
+                <p className="text-red-400 text-sm">{errors.territoryid.message}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-white font-[325]" required>
+              Company Name
+            </Label>
+            <Input
+              id="name"
+              type="text"
+              placeholder="Placeholder"
+              {...register('name')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5">
+              {errors.name && (
+                <p className="text-red-400 text-sm">{errors.name.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-2">
             <div className="flex items-center gap-1">
               <Label htmlFor="ntw_vatnumber" className="text-white font-[325]" required>
                 VAT Number
@@ -303,7 +176,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
             <Input
               id="ntw_vatnumber"
               type="text"
-              placeholder="Enter VAT number"
+              placeholder="Placeholder"
               {...register('ntw_vatnumber')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
@@ -315,15 +188,87 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center gap-1">
-              <Label htmlFor="city" className="text-white font-[325]" required>
-                Company City
-              </Label>
+            <Label htmlFor="numberOfEmployees" className="text-white font-[325]">
+              Number of Employee
+            </Label>
+            <Input
+              id="numberOfEmployees"
+              type="number"
+              placeholder="Placeholder"
+              {...register('numberOfEmployees')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5"></div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="telephone1" className="text-white font-[325]" required>
+              Phone
+            </Label>
+            <Input
+              id="telephone1"
+              type="text"
+              placeholder="Placeholder"
+              {...register('telephone1')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5">
+              {errors.telephone1 && (
+                <p className="text-red-400 text-sm">{errors.telephone1.message}</p>
+              )}
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Additional Address Fields */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        {/* Left Column */}
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="street" className="text-white font-[325]" required>
+              Street
+            </Label>
+            <Input
+              id="street"
+              type="text"
+              placeholder="Placeholder"
+              {...register('street')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5">
+              {errors.street && (
+                <p className="text-red-400 text-sm">{errors.street.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="state" className="text-white font-[325]" required>
+              State
+            </Label>
+            <Input
+              id="state"
+              type="text"
+              placeholder="Placeholder"
+              {...register('state')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5">
+              {errors.state && (
+                <p className="text-red-400 text-sm">{errors.state.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="city" className="text-white font-[325]" required>
+              City
+            </Label>
             <Input
               id="city"
               type="text"
-              placeholder="Enter company city"
+              placeholder="Placeholder"
               {...register('city')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
@@ -335,65 +280,79 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center gap-1">
-              <Label htmlFor="state" className="text-white font-[325]" required>
-                Company State
-              </Label>
-            </div>
+            <Label htmlFor="websiteurl" className="text-white font-[325]" required>
+              Website
+            </Label>
             <Input
-              id="state"
-              type="text"
-              placeholder="Enter company state"
-              {...register('state')}
+              id="websiteurl"
+              type="url"
+              placeholder="Placeholder"
+              {...register('websiteurl')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
             <div className="h-5">
-              {errors.state && (
-                <p className="text-red-400 text-sm">{errors.state.message}</p>
+              {errors.websiteurl && (
+                <p className="text-red-400 text-sm">{errors.websiteurl.message}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="addressCountry" className="text-white font-[325]" required>
+              Country
+            </Label>
+            <Input
+              id="addressCountry"
+              type="text"
+              placeholder="Placeholder"
+              {...register('addressCountry')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5">
+              {errors.addressCountry && (
+                <p className="text-red-400 text-sm">{errors.addressCountry.message}</p>
               )}
             </div>
           </div>
 
-          {/* File Upload Fields for Saudi Arabia */}
-          {addressCountry && addressCountry.toLowerCase() === 'saudi arabia' && (
-            <>
-              <div className="space-y-2">
-                <Label htmlFor="crAttachment" className="text-white font-[325]" required>
-                  CR Document
-                </Label>
-                <Input
-                  id="crAttachment"
-                  type="file"
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  {...register('crAttachment')}
-                  className="bg-transparent border-[#EDF1F3] focus:border-white text-white"
-                />
-                <div className="h-5">
-                  {errors.crAttachment && (
-                    <p className="text-red-400 text-sm">CR document is required</p>
-                  )}
-                </div>
-              </div>
+          <div className="space-y-2">
+            <Label htmlFor="address1_postalcode" className="text-white font-[325]" required>
+              Zip Code
+            </Label>
+            <Input
+              id="address1_postalcode"
+              type="text"
+              placeholder="Placeholder"
+              {...register('address1_postalcode')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5">
+              {errors.address1_postalcode && (
+                <p className="text-red-400 text-sm">{errors.address1_postalcode.message}</p>
+              )}
+            </div>
+          </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="vatAttachment" className="text-white font-[325]" required>
-                  VAT Document
-                </Label>
-                <Input
-                  id="vatAttachment"
-                  type="file"
-                  accept=".pdf,.jpg,.jpeg,.png"
-                  {...register('vatAttachment')}
-                  className="bg-transparent border-[#EDF1F3] focus:border-white text-white"
-                />
-                <div className="h-5">
-                  {errors.vatAttachment && (
-                    <p className="text-red-400 text-sm">VAT document is required</p>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
+          <div className="space-y-2">
+            <Label htmlFor="address1_fax" className="text-white font-[325]" required>
+              Fax
+            </Label>
+            <Input
+              id="address1_fax"
+              type="text"
+              placeholder="Placeholder"
+              {...register('address1_fax')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5">
+              {errors.address1_fax && (
+                <p className="text-red-400 text-sm">{errors.address1_fax.message}</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
