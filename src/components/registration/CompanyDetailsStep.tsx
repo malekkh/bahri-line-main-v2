@@ -29,7 +29,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
   return (
     <div className="space-y-6">
       {/* Form Fields - Multi Column Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[400px] overflow-y-auto pe-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
         {/* Left Column */}
         <div className="space-y-4">
@@ -44,9 +44,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('name')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.name && (
-              <p className="text-red-400 text-sm">{errors.name.message}</p>
-            )}
+            <div className="h-5">
+              {errors.name && (
+                <p className="text-red-400 text-sm">{errors.name.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -61,6 +63,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
               readOnly
             />
+            <div className="h-5"></div>
           </div>
 
           <div className="space-y-2">
@@ -74,9 +77,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('telephone1CountryCode')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.telephone1CountryCode && (
-              <p className="text-red-400 text-sm">{errors.telephone1CountryCode.message}</p>
-            )}
+            <div className="h-5">
+              {errors.telephone1CountryCode && (
+                <p className="text-red-400 text-sm">{errors.telephone1CountryCode.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -90,9 +95,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('telephone1')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.telephone1 && (
-              <p className="text-red-400 text-sm">{errors.telephone1.message}</p>
-            )}
+            <div className="h-5">
+              {errors.telephone1 && (
+                <p className="text-red-400 text-sm">{errors.telephone1.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -109,9 +116,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               />
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
             </div>
-            {errors.addressCountry && (
-              <p className="text-red-400 text-sm">{errors.addressCountry.message}</p>
-            )}
+            <div className="h-5">
+              {errors.addressCountry && (
+                <p className="text-red-400 text-sm">{errors.addressCountry.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -128,9 +137,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               />
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
             </div>
-            {errors.territoryid && (
-              <p className="text-red-400 text-sm">{errors.territoryid.message}</p>
-            )}
+            <div className="h-5">
+              {errors.territoryid && (
+                <p className="text-red-400 text-sm">{errors.territoryid.message}</p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -147,6 +158,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('numberOfEmployees')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            <div className="h-5"></div>
           </div>
 
           <div className="space-y-2">
@@ -160,9 +172,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('street')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.street && (
-              <p className="text-red-400 text-sm">{errors.street.message}</p>
-            )}
+            <div className="h-5">
+              {errors.street && (
+                <p className="text-red-400 text-sm">{errors.street.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -176,9 +190,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('address1_postalcode')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.address1_postalcode && (
-              <p className="text-red-400 text-sm">{errors.address1_postalcode.message}</p>
-            )}
+            <div className="h-5">
+              {errors.address1_postalcode && (
+                <p className="text-red-400 text-sm">{errors.address1_postalcode.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -192,6 +208,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('address1_fax')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
+            <div className="h-5"></div>
           </div>
 
           <div className="space-y-2">
@@ -205,9 +222,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('websiteurl')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.websiteurl && (
-              <p className="text-red-400 text-sm">{errors.websiteurl.message}</p>
-            )}
+            <div className="h-5">
+              {errors.websiteurl && (
+                <p className="text-red-400 text-sm">{errors.websiteurl.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -224,9 +243,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               />
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
             </div>
-            {errors.businesstypecode && (
-              <p className="text-red-400 text-sm">{errors.businesstypecode.message}</p>
-            )}
+            <div className="h-5">
+              {errors.businesstypecode && (
+                <p className="text-red-400 text-sm">{errors.businesstypecode.message}</p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -259,15 +280,17 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                 ) : null}
               </div>
             </div>
-            {errors.ntw_crnumber && (
-              <p className="text-red-400 text-sm">{errors.ntw_crnumber.message}</p>
-            )}
-            {errorMessage && isValid === false && (
-              <p className="text-red-400 text-sm">{errorMessage}</p>
-            )}
-            {isValid === true && crNumber && (
-              <p className="text-green-400 text-sm">CR number is valid</p>
-            )}
+            <div className="h-5">
+              {errors.ntw_crnumber && (
+                <p className="text-red-400 text-sm">{errors.ntw_crnumber.message}</p>
+              )}
+              {errorMessage && isValid === false && (
+                <p className="text-red-400 text-sm">{errorMessage}</p>
+              )}
+              {isValid === true && crNumber && (
+                <p className="text-green-400 text-sm">CR number is valid</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -284,15 +307,19 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('ntw_vatnumber')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.ntw_vatnumber && (
-              <p className="text-red-400 text-sm">{errors.ntw_vatnumber.message}</p>
-            )}
+            <div className="h-5">
+              {errors.ntw_vatnumber && (
+                <p className="text-red-400 text-sm">{errors.ntw_vatnumber.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="city" className="text-white font-[325]" required>
-              Company City
-            </Label>
+            <div className="flex items-center gap-1">
+              <Label htmlFor="city" className="text-white font-[325]" required>
+                Company City
+              </Label>
+            </div>
             <Input
               id="city"
               type="text"
@@ -300,15 +327,19 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('city')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.city && (
-              <p className="text-red-400 text-sm">{errors.city.message}</p>
-            )}
+            <div className="h-5">
+              {errors.city && (
+                <p className="text-red-400 text-sm">{errors.city.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="state" className="text-white font-[325]" required>
-              Company State
-            </Label>
+            <div className="flex items-center gap-1">
+              <Label htmlFor="state" className="text-white font-[325]" required>
+                Company State
+              </Label>
+            </div>
             <Input
               id="state"
               type="text"
@@ -316,9 +347,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               {...register('state')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.state && (
-              <p className="text-red-400 text-sm">{errors.state.message}</p>
-            )}
+            <div className="h-5">
+              {errors.state && (
+                <p className="text-red-400 text-sm">{errors.state.message}</p>
+              )}
+            </div>
           </div>
 
           {/* File Upload Fields for Saudi Arabia */}
@@ -335,9 +368,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                   {...register('crAttachment')}
                   className="bg-transparent border-[#EDF1F3] focus:border-white text-white"
                 />
-                {errors.crAttachment && (
-                  <p className="text-red-400 text-sm">CR document is required</p>
-                )}
+                <div className="h-5">
+                  {errors.crAttachment && (
+                    <p className="text-red-400 text-sm">CR document is required</p>
+                  )}
+                </div>
               </div>
 
               <div className="space-y-2">
@@ -351,9 +386,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                   {...register('vatAttachment')}
                   className="bg-transparent border-[#EDF1F3] focus:border-white text-white"
                 />
-                {errors.vatAttachment && (
-                  <p className="text-red-400 text-sm">VAT document is required</p>
-                )}
+                <div className="h-5">
+                  {errors.vatAttachment && (
+                    <p className="text-red-400 text-sm">VAT document is required</p>
+                  )}
+                </div>
               </div>
             </>
           )}
