@@ -37,7 +37,7 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
   return (
     <div className="space-y-6">
       {/* Radio Button Options */}
-      <div className="flex flex-col sm:flex-row gap-6 justify-center">
+      <div className="flex flex-col sm:flex-row gap-6 justify-between">
         <div className="flex items-center space-x-3">
           <input
             type="radio"
@@ -71,8 +71,8 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
 
       {/* Conditional Fields - Show only if parent account is selected */}
       {hasParentAccount && (
-        <div className="space-y-4">
-          <div className="space-y-2">
+        <div className="space-y-4 w-full flex flex-col items-center gap-6 justify-between flex-row">
+          <div className="space-y-2 w-full">
             <Label htmlFor="parentaccountname" className="text-white font-[325]">
               Parent account name
             </Label>
@@ -87,7 +87,7 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
             <div className="h-5"></div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2 w-full">
             <Label htmlFor="parentCRNumber" className="text-white font-[325]" required>
               Parent CR Number 
             </Label>

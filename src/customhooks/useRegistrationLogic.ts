@@ -257,6 +257,7 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
       address1_stateorprovince: data.state,
       address1_country: data.address1_country,
       ntw_portalnewpassword: data.password,
+      birthdate: data.birthday,
     };
     
     await updateContactMutation.mutateAsync({
