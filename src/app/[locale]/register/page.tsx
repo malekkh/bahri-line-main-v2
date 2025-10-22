@@ -162,7 +162,7 @@ export default function RegisterPage() {
 
       {/* Registration Modal */}
       <div className="relative z-10 w-full max-w-4xl">
-        <div className="bg-[#D4D4D41A] backdrop-blur-lg rounded-lg border border-white/20 p-8 relative min-h-[600px]">
+        <div className="bg-[#D4D4D41A] backdrop-blur-lg rounded-lg border border-white/20 p-8 relative h-auto max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent hover:scrollbar-thumb-white/50">
           {/* Close Button */}
           <button 
             onClick={handleClose}
