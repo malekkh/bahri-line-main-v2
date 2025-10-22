@@ -17,8 +17,9 @@ export interface PrefilledContactData {
   address1_city: string;
   address1_country: string;
   address1_stateorprovince: string;
+  address1_fax: string;
   contactid: string;
-  jobtitle: string;
+  jobTitle: string;
   birthdate: string;
   adx_invitationid: string;
   ntw_createdbyinvitationid: string;
@@ -127,7 +128,19 @@ export interface AuthApiTypes {
   updateContact: {
     body: {
       contactId: string;
-      contactDetails: ContactDetailsFormData;
+      contactDetails: {
+        firstname: string;
+        lastname: string;
+        jobtitle: string;
+        emailaddress1: string;
+        telephone1: string;
+        mobilephone: string;
+        fax?: string;
+        address1_city: string;
+        address1_stateorprovince: string;
+        address1_country: string;
+        ntw_portalnewpassword: string;
+      };
     };
     response: { success: boolean; updated: boolean };
   };

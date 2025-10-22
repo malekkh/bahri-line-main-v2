@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
 import { authRequests } from '@/services/requests/req';
-import type { PrefilledContactData, ValidateInvitationResponse, CheckCRResponse } from '@/services/api/axiosRoutes.type';
+import type { PrefilledContactData, ValidateInvitationResponse, CheckCRResponse, AuthApiTypes } from '@/services/api/axiosRoutes.type';
 import {
   invitationCodeSchema,
   contactDetailsSchema,
@@ -147,11 +147,8 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
   });
 
   const updateContactMutation = useMutation({
-    mutationFn: (data: { contactDetails: ContactDetailsFormData; contactId: string }) => 
-      authRequests.updateContact({
-        contactId: data.contactId,
-        contactDetails: data.contactDetails,
-      }),
+    mutationFn: (data: AuthApiTypes['updateContact']['body']) => 
+      authRequests.updateContact(data),
     onSuccess: (response) => {
       if (response.data.success) {
         toast.success('Contact information updated successfully!');
@@ -186,10 +183,25 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
         throw new Error('Contact ID not found. Please restart the registration process.');
       }
       
+      // Map contact details to API field names
+      const mappedContactDetails = {
+        firstname: registrationData.contactDetails.firstName,
+        lastname: registrationData.contactDetails.lastName,
+        jobtitle: registrationData.contactDetails.jobTitle,
+        emailaddress1: registrationData.contactDetails.email,
+        telephone1: registrationData.contactDetails.phone,
+        mobilephone: registrationData.contactDetails.mobilePhone,
+        fax: registrationData.contactDetails.address1_fax,
+        address1_city: registrationData.contactDetails.address1_city,
+        address1_stateorprovince: registrationData.contactDetails.state,
+        address1_country: registrationData.contactDetails.address1_country,
+        ntw_portalnewpassword: registrationData.contactDetails.password,
+      };
+      
       // First update contact, then register
       return authRequests.updateContact({
         contactId: prefilledContactData.contactid,
-        contactDetails: registrationData.contactDetails,
+        contactDetails: mappedContactDetails,
       }).then(() => {
         return authRequests.register(registrationData);
       });
@@ -232,8 +244,23 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
       return;
     }
     
+    // Map form fields to API field names
+    const mappedContactDetails = {
+      firstname: data.firstName,
+      lastname: data.lastName,
+      jobtitle: data.jobTitle,
+      emailaddress1: data.email,
+      telephone1: data.phone,
+      mobilephone: data.mobilePhone,
+      fax: data.address1_fax,
+      address1_city: data.address1_city,
+      address1_stateorprovince: data.state,
+      address1_country: data.address1_country,
+      ntw_portalnewpassword: data.password,
+    };
+    
     await updateContactMutation.mutateAsync({
-        contactDetails: data,
+      contactDetails: mappedContactDetails,
       contactId: prefilledContactData.contactid,
     });
   };
@@ -257,8 +284,8 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
       phone: data.telephone1,
       mobilePhoneCountryCode: '+966', // Default to Saudi Arabia
       faxCountryCode: '+966', // Default to Saudi Arabia
-      address1_fax: '',
-      jobTitle: data.jobtitle,
+      jobTitle: data.jobTitle,
+      address1_fax: data.address1_fax,
       address1_city: data.address1_city,
       street: data.address1_line1,
       state: data.address1_stateorprovince,
