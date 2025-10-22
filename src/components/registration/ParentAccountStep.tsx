@@ -31,6 +31,10 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
     if (companyInfo && isValid) {
       setValue('parentaccountname', companyInfo.name);
       setValue('parentaccountid', companyInfo.accountid);
+    } else if (isValid === false) {
+      // Clear fields when validation fails
+      setValue('parentaccountname', '');
+      setValue('parentaccountid', '');
     }
   }, [companyInfo, isValid, setValue]);
 
