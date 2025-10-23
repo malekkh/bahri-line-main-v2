@@ -175,6 +175,15 @@ export const authRequests = {
       API_ROUTES.AUTH.GET_TERRITORIES
     );
   },
+
+  /**
+   * Get countries list
+   */
+  getCountries: async () => {
+    return api.get<AuthApiTypes['getCountries']['response']>(
+      API_ROUTES.AUTH.GET_COUNTRIES
+    );
+  },
 };
 
 // ============================================================================

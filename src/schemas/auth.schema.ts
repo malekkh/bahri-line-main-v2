@@ -206,9 +206,12 @@ export const companyDetailsSchema = z.object({
   telephone1: z
     .string()
     .min(1, 'Company phone number is required'),
-  addressCountry: z
+  address1_country: z
     .string()
     .min(1, 'Company address country is required'),
+  "ntw_Country@odata.bind": z
+    .string()
+    .min(1, 'Country is required'),
   "territoryid@odata.bind": z
     .string()
     .min(1, 'Business territory is required'),

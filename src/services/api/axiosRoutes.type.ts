@@ -58,6 +58,16 @@ export interface TerritoriesResponse {
   territories: Territory[];
 }
 
+export interface Country {
+  name: string;
+  countryid: string;
+}
+
+export interface CountriesResponse {
+  success: boolean;
+  countries: Country[];
+}
+
 // Users API Types
 export interface GetUsersParams {
   page?: number;
@@ -160,6 +170,9 @@ export interface AuthApiTypes {
   };
   getTerritories: {
     response: TerritoriesResponse;
+  };
+  getCountries: {
+    response: CountriesResponse;
   };
 }
 

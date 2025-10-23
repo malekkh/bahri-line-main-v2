@@ -7,6 +7,7 @@ import { UseFormReturn } from 'react-hook-form';
 import { CompanyDetailsFormData } from '@/schemas/auth.schema';
 import { useCRValidation } from '@/customhooks/useCRValidation';
 import { useTerritories } from '@/customhooks/useTerritories';
+import { useCountries } from '@/customhooks/useCountries';
 
 const BUSINESS_TYPE_OPTIONS = [
   { value: "1", label: "Sole Proprietorship" },
@@ -27,9 +28,12 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
   // Fetch territories using custom hook
   const { territories, isLoading: isLoadingTerritories } = useTerritories();
 
+  // Fetch countries using custom hook
+  const { countries, isLoading: isLoadingCountries } = useCountries();
+
   // Watch CR number field for real-time validation
   const crNumber = watch('ntw_crnumber');
-  const addressCountry = watch('addressCountry');
+  const addressCountry = watch('address1_country');
 
   useEffect(() => {
     if (crNumber && crNumber.length >= 3) {
@@ -332,19 +336,45 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
         {/* Right Column */}
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="addressCountry" className="text-white font-[325]" required>
+            <Label htmlFor="address1_country" className="text-white font-[325]" required>
               Country
             </Label>
-            <Input
-              id="addressCountry"
-              type="text"
-              placeholder="Placeholder"
-              {...register('addressCountry')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
+            <div className="relative">
+              <select
+                id="address1_country"
+                {...register('address1_country')}
+                className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
+                disabled={isLoadingCountries}
+                onChange={(e) => {
+                  const selectedCountry = countries.find(country => country.countryid === e.target.value);
+                  if (selectedCountry) {
+                    // Set the country name for address1_country field
+                    setValue('address1_country', selectedCountry.name);
+                    // Set the odata.bind format for ntw_Country@odata.bind field
+                    setValue('ntw_Country@odata.bind' as any, `/ntw_countries(${selectedCountry.countryid})`);
+                  } else {
+                    setValue('address1_country', '');
+                    setValue('ntw_Country@odata.bind' as any, '');
+                  }
+                }}
+              >
+                <option value="" className="bg-gray-800 text-white">
+                  {isLoadingCountries ? 'Loading countries...' : 'Select Country'}
+                </option>
+                {countries.map((country) => (
+                  <option key={country.countryid} value={country.countryid} className="bg-gray-800 text-white">
+                    {country.name}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
+            </div>
             <div className="h-5">
-              {errors.addressCountry && (
-                <p className="text-red-400 text-sm">{errors.addressCountry.message}</p>
+              {errors.address1_country && (
+                <p className="text-red-400 text-sm">{errors.address1_country.message}</p>
+              )}
+              {errors['ntw_Country@odata.bind'] && (
+                <p className="text-red-400 text-sm">{errors['ntw_Country@odata.bind'].message}</p>
               )}
             </div>
           </div>
