@@ -222,29 +222,17 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="numberOfEmployees" className="text-white font-[325]">
-              Number of Employee
-            </Label>
-            <Input
-              id="numberOfEmployees"
-              type="number"
-              placeholder="Placeholder"
-              {...register('numberOfEmployees')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            <div className="h-5"></div>
-          </div>
+          
 
           <div className="space-y-2">
-            <Label htmlFor="telephone1" className="text-white font-[325]" required>
-              Phone
+            <Label htmlFor="mobilephone" className="text-white font-[325]" required>
+              Mobile Phone
             </Label>
             <PhoneInputComponent
-              id="telephone1"
-              value={watch('telephone1')}
-              onChange={(value) => setValue('telephone1', value || '')}
-              placeholder="Enter company phone number"
+              id="mobilephone"
+              value={watch('mobilephone')}
+              onChange={(value) => setValue('mobilephone', value || '')}
+              placeholder="Enter mobile phone number"
               className="w-full"
             />
             <div className="h-5">
@@ -252,6 +240,18 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                 <p className="text-red-400 text-sm">{errors.telephone1.message}</p>
               )}
             </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="businessPhone" className="text-white font-[325]" required>
+              Business Phone
+            </Label>
+            <PhoneInputComponent
+              id="businessPhone"
+              value={watch('telephone1')}
+              onChange={(value) => setValue('telephone1', value || '')}
+              placeholder="Enter business phone number"
+              className="w-full"
+            />
           </div>
         </div>
       </div>
@@ -331,6 +331,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               )}
             </div>
           </div>
+          
         </div>
 
         {/* Right Column */}
@@ -412,6 +413,19 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                 <p className="text-red-400 text-sm">{errors.address1_fax.message}</p>
               )}
             </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="numberOfEmployees" className="text-white font-[325]">
+              Number of Employee
+            </Label>
+            <Input
+              id="numberOfEmployees"
+              type="number"
+              placeholder="Placeholder"
+              {...register('numberOfEmployees')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            <div className="h-5"></div>
           </div>
         </div>
       </div>
