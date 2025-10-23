@@ -7,6 +7,13 @@ import { UseFormReturn } from 'react-hook-form';
 import { CompanyDetailsFormData } from '@/schemas/auth.schema';
 import { useCRValidation } from '@/customhooks/useCRValidation';
 
+const BUSINESS_TYPE_OPTIONS = [
+  { value: "1", label: "Sole Proprietorship" },
+  { value: "269340001", label: "Partnership" },
+  { value: "876490001", label: "LLC" },
+  { value: "876490002", label: "Corporation" },
+];
+
 interface CompanyDetailsStepProps {
   form: UseFormReturn<CompanyDetailsFormData>;
 }
@@ -108,14 +115,21 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               Business Type
             </Label>
             <div className="relative">
-              <Input
+              <select
                 id="businesstypecode"
-                type="text"
-                placeholder="Placeholder"
                 {...register('businesstypecode')}
-                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
-              />
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
+                className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
+              >
+                <option value="" className="bg-gray-800 text-white">
+                  Select Business Type
+                </option>
+                {BUSINESS_TYPE_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value} className="bg-gray-800 text-white">
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
             </div>
             <div className="h-5">
               {errors.businesstypecode && (
