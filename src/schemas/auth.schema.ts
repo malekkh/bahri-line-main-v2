@@ -207,21 +207,27 @@ export const companyDetailsSchema = z.object({
   address1_country: z
     .string()
     .min(1, 'Company address country is required'),
-  "ntw_Country@odata.bind": z
+  ntw_Country_odata_bind: z
     .string()
     .min(1, 'Country is required'),
-  "territoryid@odata.bind": z
+  territoryid_odata_bind: z
     .string()
     .min(1, 'Business territory is required'),
   numberOfEmployees: z
     .string()
     .optional(),
-  street: z
+  address1_line1: z
     .string()
     .min(1, 'Company street address is required'),
   address1_postalcode: z
     .string()
     .min(1, 'Postal/ZIP code is required'),
+  address1_stateorprovince: z
+    .string()
+    .min(1, 'State/Province is required'),
+  address1_city: z
+    .string()
+    .min(1, 'City is required'),
   address1_fax: z
     .string()
     .optional(),
@@ -238,12 +244,8 @@ export const companyDetailsSchema = z.object({
   ntw_vatnumber: z
     .string()
     .min(1, 'VAT number is required'),
-  city: z
-    .string()
-    .min(1, 'Company city is required'),
-  state: z
-    .string()
-    .min(1, 'Company state is required'),
+  
+  
   crAttachment: z
     .any()
     .optional(),

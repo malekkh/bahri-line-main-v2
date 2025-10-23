@@ -72,7 +72,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               id="parentCompany"
               type="text"
               placeholder="Auto-filled from parent account"
-              {...register('parentCompany')}
+              {...register('parentaccountid@odata.bind')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
               readOnly
             />
@@ -159,7 +159,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                 onChange={(e) => {
                   const selectedValue = e.target.value;
                   const formattedValue = selectedValue ? `/territories(${selectedValue})` : '';
-                  setValue('territoryid@odata.bind' as any, formattedValue);
+                  setValue('territoryid_odata_bind' as any, formattedValue, { shouldValidate: true });
                 }}
               >
                 <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
@@ -172,10 +172,16 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                 ))}
               </select>
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
+              {/* Hidden input for territoryid_odata_bind validation */}
+              <input
+                type="hidden"
+                {...register('territoryid_odata_bind')}
+                value={watch('territoryid_odata_bind') || ''}
+              />
             </div>
             <div className="h-5">
-              {errors['territoryid@odata.bind'] && (
-                <p className="text-red-400 text-sm">{errors['territoryid@odata.bind'].message}</p>
+              {errors['territoryid_odata_bind'] && (
+                <p className="text-red-400 text-sm">{errors['territoryid_odata_bind'].message}</p>
               )}
             </div>
           </div>
@@ -268,48 +274,48 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               id="street"
               type="text"
               placeholder="Placeholder"
-              {...register('street')}
+              {...register('address1_line1')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
             <div className="h-5">
-              {errors.street && (
-                <p className="text-red-400 text-sm">{errors.street.message}</p>
+              {errors.address1_line1 && (
+                <p className="text-red-400 text-sm">{errors.address1_line1.message}</p>
               )}
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="state" className="text-white font-[325]" required>
+            <Label htmlFor="address1_stateorprovince" className="text-white font-[325]" required>
               State
             </Label>
             <Input
-              id="state"
+              id="address1_stateorprovince"
               type="text"
               placeholder="Placeholder"
-              {...register('state')}
+              {...register('address1_stateorprovince')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
             <div className="h-5">
-              {errors.state && (
-                <p className="text-red-400 text-sm">{errors.state.message}</p>
+              {errors.address1_stateorprovince && (
+                <p className="text-red-400 text-sm">{errors.address1_stateorprovince.message}</p>
               )}
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="city" className="text-white font-[325]" required>
+            <Label htmlFor="address1_city" className="text-white font-[325]" required>
               City
             </Label>
             <Input
-              id="city"
+              id="address1_city"
               type="text"
               placeholder="Placeholder"
-              {...register('city')}
+              {...register('address1_city')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
             <div className="h-5">
-              {errors.city && (
-                <p className="text-red-400 text-sm">{errors.city.message}</p>
+              {errors.address1_city && (
+                <p className="text-red-400 text-sm">{errors.address1_city.message}</p>
               )}
             </div>
           </div>
@@ -349,12 +355,12 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                   const selectedCountry = countries.find(country => country.countryid === e.target.value);
                   if (selectedCountry) {
                     // Set the country name for address1_country field
-                    setValue('address1_country', selectedCountry.name);
-                    // Set the odata.bind format for ntw_Country@odata.bind field
-                    setValue('ntw_Country@odata.bind' as any, `/ntw_countries(${selectedCountry.countryid})`);
+                    setValue('address1_country', selectedCountry.name, { shouldValidate: true });
+                    // Set the odata.bind format for ntw_Country_odata_bind field
+                    setValue('ntw_Country_odata_bind' as any, `/ntw_countries(${selectedCountry.countryid})`, { shouldValidate: true });
                   } else {
-                    setValue('address1_country', '');
-                    setValue('ntw_Country@odata.bind' as any, '');
+                    setValue('address1_country', '', { shouldValidate: true });
+                    setValue('ntw_Country_odata_bind' as any, '', { shouldValidate: true });
                   }
                 }}
               >
@@ -368,13 +374,19 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                 ))}
               </select>
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
+              {/* Hidden input for ntw_Country_odata_bind validation */}
+              <input
+                type="hidden"
+                {...register('ntw_Country_odata_bind')}
+                value={watch('ntw_Country_odata_bind') || ''}
+              />
             </div>
             <div className="h-5">
               {errors.address1_country && (
                 <p className="text-red-400 text-sm">{errors.address1_country.message}</p>
               )}
-              {errors['ntw_Country@odata.bind'] && (
-                <p className="text-red-400 text-sm">{errors['ntw_Country@odata.bind'].message}</p>
+              {errors['ntw_Country_odata_bind'] && (
+                <p className="text-red-400 text-sm">{errors['ntw_Country_odata_bind'].message}</p>
               )}
             </div>
           </div>

@@ -100,6 +100,26 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
   const companyDetailsForm = useForm<CompanyDetailsFormData>({
     resolver: zodResolver(companyDetailsSchema),
     mode: 'onChange',
+    defaultValues: {
+      parentCompany: "",
+      "parentaccountid@odata.bind": "",
+      name: "",
+      mobilephone: "",
+      telephone1: "",
+      address1_country: "",
+      ntw_Country_odata_bind: "",
+      territoryid_odata_bind: "",
+      numberOfEmployees: "",
+      address1_line1: "",
+      address1_postalcode: "",
+      address1_fax: "",
+      websiteurl: "",
+      businesstypecode: "",
+      ntw_crnumber: "",
+      ntw_vatnumber: "",
+      address1_city: "",
+      address1_stateorprovince: "",
+    }
   });
 
   const bankDetailsForm = useForm<BankDetailsFormData>({
@@ -198,12 +218,25 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
         ntw_portalnewpassword: registrationData.contactDetails.password,
       };
       
+      // Map company details field names back to API format
+      const { ntw_Country_odata_bind, territoryid_odata_bind, ...restCompanyDetails } = registrationData.companyDetails;
+      const mappedCompanyDetails = {
+        ...restCompanyDetails,
+        "ntw_Country@odata.bind": ntw_Country_odata_bind,
+        "territoryid@odata.bind": territoryid_odata_bind,
+      };
+      
+      const mappedRegistrationData = {
+        ...registrationData,
+        companyDetails: mappedCompanyDetails,
+      } as unknown as RegistrationFormData;
+      
       // First update contact, then register
       return authRequests.updateContact({
         contactId: prefilledContactData.contactid,
         contactDetails: mappedContactDetails,
       }).then(() => {
-        return authRequests.register(registrationData);
+        return authRequests.register(mappedRegistrationData);
       });
     },
     onSuccess: (response) => {
@@ -332,6 +365,15 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
       case 3: // Company Details
         const companyValid = await companyDetailsForm.trigger();
         if (!companyValid) {
+          // Debug: Log validation errors
+          const errors = companyDetailsForm.formState.errors;
+          console.log('Company Details Validation Errors:', errors);
+          
+          // Log which fields are invalid
+          Object.keys(errors).forEach(fieldName => {
+            console.log(`❌ ${fieldName}:`, errors[fieldName as keyof typeof errors]?.message);
+          });
+          
           toast.error('Please fill in all required company details');
           return false;
         }
@@ -354,23 +396,23 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
   const isCurrentStepValid = (() => {
     switch (currentStep) {
       case 0:
-        return invitationCodeForm.formState.isValid;
+        return invitationCodeForm.formState.isValid || false;
       case 1:
-        return contactDetailsForm.formState.isValid;
+        return contactDetailsForm.formState.isValid || false;
       case 2:
         // For parent account step, check if hasParentAccount is selected
         const parentData = parentAccountForm.getValues();
         if (parentData.hasParentAccount === true) {
           // If yes, require CR number
-          return parentAccountForm.formState.isValid && parentData.parentCrNumber && parentData.parentCrNumber.length > 0;
+          return (parentAccountForm.formState.isValid && parentData.parentCrNumber && parentData.parentCrNumber.length > 0) || false;
         } else {
           // If no, form is valid
           return true;
         }
       case 3:
-        return companyDetailsForm.formState.isValid;
+        return companyDetailsForm.formState.isValid || false;
       case 4:
-        return bankDetailsForm.formState.isValid;
+        return bankDetailsForm.formState.isValid || false;
       default:
         return false;
     }
