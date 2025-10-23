@@ -5,7 +5,7 @@ import { PhoneInputComponent } from '@/components/ui/phone-input';
 import { ChevronDown, Info, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
-import { CompanyDetailsFormData } from '@/schemas/auth.schema';
+import { CompanyDetailsFormData, ParentAccountFormData } from '@/schemas/auth.schema';
 import { useCompanyCRValidation } from '@/customhooks/useCompanyCRValidation';
 import { useTerritories } from '@/customhooks/useTerritories';
 import { useCountries } from '@/customhooks/useCountries';
@@ -19,9 +19,10 @@ const BUSINESS_TYPE_OPTIONS = [
 
 interface CompanyDetailsStepProps {
   form: UseFormReturn<CompanyDetailsFormData>;
+  parentAccountForm?: UseFormReturn<ParentAccountFormData>;
 }
 
-export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) => {
+export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form, parentAccountForm }) => {
   const t = useTranslations('registration');
   const { register, formState: { errors }, watch, setValue } = form;
   const { isValidating, isValid, errorMessage, validateCR } = useCompanyCRValidation(500);
@@ -72,6 +73,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               id="parentCompany"
               type="text"
               placeholder="Auto-filled from parent account"
+              value={parentAccountForm?.getValues('parentaccountname')}
               {...register('parentaccountid@odata.bind')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
               readOnly

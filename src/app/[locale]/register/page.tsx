@@ -93,7 +93,7 @@ export default function RegisterPage() {
       case 2:
         return <ParentAccountStep form={parentAccountForm} />;
       case 3:
-        return <CompanyDetailsStep form={companyDetailsForm} />;
+        return <CompanyDetailsStep form={companyDetailsForm} parentAccountForm={parentAccountForm} />;
       case 4:
         return <BankDetailsStep form={bankDetailsForm} />;
       default:
