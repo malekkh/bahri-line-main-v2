@@ -197,12 +197,8 @@ export const companyDetailsSchema = z.object({
   name: z
     .string()
     .min(1, 'Company name is required'),
-  ntw_companynameascr: z
-    .string()
-    .optional(),
-  telephone1CountryCode: z
-    .string()
-    .min(1, 'Company phone country code is required'),
+ 
+
   telephone1: z
     .string()
     .min(1, 'Company phone number is required'),

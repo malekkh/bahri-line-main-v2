@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { PhoneInputComponent } from '@/components/ui/phone-input';
 import { ChevronDown, Info, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
@@ -239,12 +240,12 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
             <Label htmlFor="telephone1" className="text-white font-[325]" required>
               Phone
             </Label>
-            <Input
+            <PhoneInputComponent
               id="telephone1"
-              type="text"
-              placeholder="Placeholder"
-              {...register('telephone1')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+              value={watch('telephone1')}
+              onChange={(value) => setValue('telephone1', value || '')}
+              placeholder="Enter company phone number"
+              className="w-full"
             />
             <div className="h-5">
               {errors.telephone1 && (
