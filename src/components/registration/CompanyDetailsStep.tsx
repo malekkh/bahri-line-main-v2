@@ -128,11 +128,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                 {...register('businesstypecode')}
                 className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
               >
-                <option value="" className="bg-gray-800 text-white">
+                <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
                   Select Business Type
                 </option>
                 {BUSINESS_TYPE_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value} className="bg-gray-800 text-white">
+                  <option key={option.value} value={option.value} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
                     {option.label}
                   </option>
                 ))}
@@ -153,7 +153,6 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
             <div className="relative">
               <select
                 id="territoryid@odata.bind"
-                {...register('territoryid@odata.bind')}
                 className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
                 disabled={isLoadingTerritories}
                 onChange={(e) => {
@@ -162,11 +161,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                   setValue('territoryid@odata.bind' as any, formattedValue);
                 }}
               >
-                <option value="" className="bg-gray-800 text-white">
+                <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
                   {isLoadingTerritories ? 'Loading territories...' : 'Select Territory'}
                 </option>
                 {territories.map((territory) => (
-                  <option key={territory.value} value={territory.value} className="bg-gray-800 text-white">
+                  <option key={territory.value} value={territory.value} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
                     {territory.label}
                   </option>
                 ))}
@@ -342,7 +341,6 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
             <div className="relative">
               <select
                 id="address1_country"
-                {...register('address1_country')}
                 className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
                 disabled={isLoadingCountries}
                 onChange={(e) => {
@@ -358,11 +356,11 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                   }
                 }}
               >
-                <option value="" className="bg-gray-800 text-white">
+                <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
                   {isLoadingCountries ? 'Loading countries...' : 'Select Country'}
                 </option>
                 {countries.map((country) => (
-                  <option key={country.countryid} value={country.countryid} className="bg-gray-800 text-white">
+                  <option key={country.countryid} value={country.countryid} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
                     {country.name}
                   </option>
                 ))}
