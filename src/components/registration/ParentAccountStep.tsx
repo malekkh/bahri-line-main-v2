@@ -38,6 +38,11 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
     }
   }, [companyInfo, isValid, setValue]);
 
+  // Trigger validation on mount to ensure form state is correct
+  useEffect(() => {
+    form.trigger();
+  }, [form]);
+
   return (
     <div className="space-y-6">
       {/* Radio Button Options */}
@@ -49,7 +54,11 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
             name="hasParentAccount"
             value="yes"
             checked={hasParentAccount === true}
-            onChange={() => setValue('hasParentAccount', true)}
+            onChange={async () => {
+              setValue('hasParentAccount', true);
+              // Trigger validation to update form state
+              await form.trigger();
+            }}
             className="w-4 h-4 text-[#FF6720] accent-[#FF6720] bg-transparent border-white"
           />
           <Label htmlFor="hasParentAccountYes" className="text-white font-[325]">
@@ -64,7 +73,15 @@ export const ParentAccountStep: React.FC<ParentAccountStepProps> = ({ form }) =>
             name="hasParentAccount"
             value="no"
             checked={hasParentAccount === false}
-            onChange={() => setValue('hasParentAccount', false)}
+            onChange={async () => {
+              setValue('hasParentAccount', false);
+              // Clear parent account fields when "No" is selected
+              setValue('parentCrNumber', '');
+              setValue('parentaccountname', '');
+              setValue('parentaccountid', '');
+              // Trigger validation to update form state
+              await form.trigger();
+            }}
             className="w-4 h-4 text-[#FF6720] accent-[#FF6720] bg-transparent border-white"
           />
           <Label htmlFor="hasParentAccountNo" className="text-white font-[325]">

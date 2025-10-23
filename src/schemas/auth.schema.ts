@@ -173,9 +173,11 @@ export const parentAccountSchema = z.object({
     .string()
     .optional(),
 }).refine((data) => {
+  // Only require CR number if hasParentAccount is explicitly true
   if (data.hasParentAccount === true) {
     return data.parentCrNumber && data.parentCrNumber.length > 0;
   }
+  // If hasParentAccount is false or undefined, validation passes
   return true;
 }, {
   message: "Parent CR number is required when parent account is selected",

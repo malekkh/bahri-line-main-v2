@@ -321,6 +321,12 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
           toast.error('Please complete the parent account selection');
           return false;
         }
+        // Additional check: if hasParentAccount is true, ensure CR number is provided
+        const parentData = parentAccountForm.getValues();
+        if (parentData.hasParentAccount === true && (!parentData.parentCrNumber || parentData.parentCrNumber.length === 0)) {
+          toast.error('Parent CR number is required when parent account is selected');
+          return false;
+        }
         return true;
 
       case 3: // Company Details
@@ -352,7 +358,15 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
       case 1:
         return contactDetailsForm.formState.isValid;
       case 2:
-        return parentAccountForm.formState.isValid;
+        // For parent account step, check if hasParentAccount is selected
+        const parentData = parentAccountForm.getValues();
+        if (parentData.hasParentAccount === true) {
+          // If yes, require CR number
+          return parentAccountForm.formState.isValid && parentData.parentCrNumber && parentData.parentCrNumber.length > 0;
+        } else {
+          // If no, form is valid
+          return true;
+        }
       case 3:
         return companyDetailsForm.formState.isValid;
       case 4:
