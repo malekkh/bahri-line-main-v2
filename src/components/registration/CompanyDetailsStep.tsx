@@ -5,7 +5,7 @@ import { ChevronDown, Info, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
 import { CompanyDetailsFormData } from '@/schemas/auth.schema';
-import { useCRValidation } from '@/customhooks/useCRValidation';
+import { useCompanyCRValidation } from '@/customhooks/useCompanyCRValidation';
 import { useTerritories } from '@/customhooks/useTerritories';
 import { useCountries } from '@/customhooks/useCountries';
 
@@ -23,7 +23,7 @@ interface CompanyDetailsStepProps {
 export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) => {
   const t = useTranslations('registration');
   const { register, formState: { errors }, watch, setValue } = form;
-  const { isValidating, isValid, errorMessage, validateCR } = useCRValidation(500);
+  const { isValidating, isValid, errorMessage, validateCR } = useCompanyCRValidation(500);
 
   // Fetch territories using custom hook
   const { territories, isLoading: isLoadingTerritories } = useTerritories();
@@ -113,7 +113,7 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
                 <p className="text-red-400 text-sm">{errorMessage}</p>
               )}
               {isValid === true && crNumber && (
-                <p className="text-green-400 text-sm">CR number is valid</p>
+                <p className="text-green-400 text-sm">CR number is available</p>
               )}
             </div>
           </div>
