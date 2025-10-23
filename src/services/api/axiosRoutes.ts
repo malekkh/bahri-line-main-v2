@@ -25,7 +25,7 @@ export const API_ROUTES = {
     UPDATE_CONTACT: '/updatecontact/update-contact',
     CHECK_CR: '/check-cr',
     POST_DOCUMENTS: '/account-documents',
-    GET_TERRITORIES: '/territories',
+    GET_TERRITORIES: '/territory/territories',
     GET_COUNTRIES: '/countries',
   },
 

@@ -166,6 +166,15 @@ export const authRequests = {
       `${API_ROUTES.AUTH.CHECK_CR}?crNumber=${crNumber}`
     );
   },
+
+  /**
+   * Get territories list
+   */
+  getTerritories: async () => {
+    return api.get<AuthApiTypes['getTerritories']['response']>(
+      API_ROUTES.AUTH.GET_TERRITORIES
+    );
+  },
 };
 
 // ============================================================================

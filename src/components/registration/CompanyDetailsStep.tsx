@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
 import { CompanyDetailsFormData } from '@/schemas/auth.schema';
 import { useCRValidation } from '@/customhooks/useCRValidation';
+import { useTerritories } from '@/customhooks/useTerritories';
 
 const BUSINESS_TYPE_OPTIONS = [
   { value: "1", label: "Sole Proprietorship" },
@@ -22,6 +23,9 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
   const t = useTranslations('registration');
   const { register, formState: { errors }, watch, setValue } = form;
   const { isValidating, isValid, errorMessage, validateCR } = useCRValidation(500);
+
+  // Fetch territories using custom hook
+  const { territories, isLoading: isLoadingTerritories } = useTerritories();
 
   // Watch CR number field for real-time validation
   const crNumber = watch('ntw_crnumber');
@@ -143,14 +147,22 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               Territory
             </Label>
             <div className="relative">
-              <Input
+              <select
                 id="territoryid"
-                type="text"
-                placeholder="Placeholder"
                 {...register('territoryid')}
-                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
-              />
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
+                className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
+                disabled={isLoadingTerritories}
+              >
+                <option value="" className="bg-gray-800 text-white">
+                  {isLoadingTerritories ? 'Loading territories...' : 'Select Territory'}
+                </option>
+                {territories.map((territory) => (
+                  <option key={territory.value} value={territory.value} className="bg-gray-800 text-white">
+                    {territory.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
             </div>
             <div className="h-5">
               {errors.territoryid && (

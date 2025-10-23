@@ -48,6 +48,16 @@ export interface CheckCRResponse {
   value: CRCompanyInfo[];
 }
 
+export interface Territory {
+  label: string;
+  value: string;
+}
+
+export interface TerritoriesResponse {
+  success: boolean;
+  territories: Territory[];
+}
+
 // Users API Types
 export interface GetUsersParams {
   page?: number;
@@ -147,6 +157,9 @@ export interface AuthApiTypes {
   checkCR: {
     params: { crNumber: string };
     response: CheckCRResponse;
+  };
+  getTerritories: {
+    response: TerritoriesResponse;
   };
 }
 
