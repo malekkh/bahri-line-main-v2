@@ -209,7 +209,7 @@ export const companyDetailsSchema = z.object({
   addressCountry: z
     .string()
     .min(1, 'Company address country is required'),
-  territoryid: z
+  "territoryid@odata.bind": z
     .string()
     .min(1, 'Business territory is required'),
   numberOfEmployees: z

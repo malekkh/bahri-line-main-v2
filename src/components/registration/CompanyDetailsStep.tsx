@@ -143,15 +143,20 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="territoryid" className="text-white font-[325]" required>
+            <Label htmlFor="territoryid@odata.bind" className="text-white font-[325]" required>
               Territory
             </Label>
             <div className="relative">
               <select
-                id="territoryid"
-                {...register('territoryid')}
+                id="territoryid@odata.bind"
+                {...register('territoryid@odata.bind')}
                 className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
                 disabled={isLoadingTerritories}
+                onChange={(e) => {
+                  const selectedValue = e.target.value;
+                  const formattedValue = selectedValue ? `/territories(${selectedValue})` : '';
+                  setValue('territoryid@odata.bind' as any, formattedValue);
+                }}
               >
                 <option value="" className="bg-gray-800 text-white">
                   {isLoadingTerritories ? 'Loading territories...' : 'Select Territory'}
@@ -165,8 +170,8 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form }) 
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
             </div>
             <div className="h-5">
-              {errors.territoryid && (
-                <p className="text-red-400 text-sm">{errors.territoryid.message}</p>
+              {errors['territoryid@odata.bind'] && (
+                <p className="text-red-400 text-sm">{errors['territoryid@odata.bind'].message}</p>
               )}
             </div>
           </div>
