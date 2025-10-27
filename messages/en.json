@@ -126,6 +126,28 @@
     "bookingTracker": "Booking Tracker",
     "login": "Login"
   },
+  "about": {
+    "title": "About Bahri Line",
+    "titleHighlight": "Line",
+    "description": "Bahri is an award-winning company with a world-class fleet committed to delivering outstanding results for all our stakeholders. We champion the Saudi Vision 2030 to transform the Kingdom into a key strategic regional hub and logistics gateway across three continents.",
+    "years": "45+ YEARS",
+    "employees": "3500+ Employee",
+    "fleetCapacity": "15.3m DWT Operational FLEET",
+    "vessels": "97 Vessels",
+    "ourCapabilities": "Our Capabilities",
+    "capabilitiesDescription": "Bahri is an award-winning company with a world-class fleet committed to delivering outstanding results for all our stakeholders.",
+    "operationalFleet": "Operational FLEET",
+    "operationalFleetDesc": "Comprehensive, Integrated Protection for Your Entire Digital Ecosystem.",
+    "worldwideServices": "WorldWIDE Services",
+    "servicesDescription": "Bahri is an award-winning company with a world-class fleet committed to delivering outstanding results for all our stakeholders. We champion the Saudi Vision 2030 to transform the Kingdom into a key strategic regional hub and logistics gateway across three continents.",
+    "bahriOil": "BAHRI OIL",
+    "bahriChemicals": "BAHRI Chemicals",
+    "bahriIntegratedLogistics": "Bahri Integrated Logistics",
+    "bahriDryBulk": "BAHRI Dry Bulk",
+    "bahriShipMgmt": "BAHRI Ship Mgmt.",
+    "bahriMarine": "Bahri Marine",
+    "allRights": "2025. All rights reserved."
+  },
   "common": {
     "language": "Language",
     "english": "English",
