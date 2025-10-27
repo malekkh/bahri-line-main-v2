@@ -244,8 +244,8 @@ export const CompanyDetailsStep: React.FC<CompanyDetailsStepProps> = ({ form, pa
               className="w-full"
             />
             <div className="h-5">
-              {errors.telephone1 && (
-                <p className="text-red-400 text-sm">{errors.telephone1.message}</p>
+              {errors.mobilephone && (
+                <p className="text-red-400 text-sm">{errors.mobilephone.message}</p>
               )}
             </div>
           </div>

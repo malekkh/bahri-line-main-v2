@@ -245,17 +245,20 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
         address1_country: registrationData.companyDetails.address1_country,
         address1_stateorprovince: registrationData.companyDetails.address1_stateorprovince,
         address1_postalcode: registrationData.companyDetails.address1_postalcode,
-        address1_fax: registrationData.companyDetails.address1_fax,
+        address1_fax: registrationData.companyDetails.address1_fax || "",
         mobilephone: registrationData.companyDetails.mobilephone,
         telephone1: registrationData.companyDetails.telephone1,
         websiteurl: registrationData.companyDetails.websiteurl,
-        businesstypecode: registrationData.companyDetails.businesstypecode,
-        numberOfEmployees: registrationData.companyDetails.numberOfEmployees,
+        businesstypecode: parseInt(registrationData.companyDetails.businesstypecode, 10),
+        numberofemployees: registrationData.companyDetails.numberOfEmployees || "",
         
         // Territory and Country with odata.bind format
         "ntw_Country@odata.bind": ntw_Country_odata_bind,
         "territoryid@odata.bind": territoryid_odata_bind,
-        territoryid: territoryId,
+        
+        // Contact binding and invitation ID
+        "primarycontactid@odata.bind": `/contacts(${prefilledContactData.contactid})`,
+        ntw_createdbyinvitationid: prefilledContactData.ntw_createdbyinvitationid || prefilledContactData.adx_invitationid || "",
         
         // Parent account fields
         hasParentAccount: registrationData.parentAccount.hasParentAccount,
@@ -267,12 +270,13 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
         ntw_bankname: registrationData.bankDetails.ntw_bankname,
         ntw_bankbeneficiaryname: registrationData.bankDetails.ntw_bankbeneficiaryname,
         ntw_bankaccountno: registrationData.bankDetails.ntw_bankaccountno,
-        ntw_typeofbankaccount: registrationData.bankDetails.ntw_typeofbankaccount,
+        ntw_typeofbankaccount: parseInt(registrationData.bankDetails.ntw_typeofbankaccount, 10),
         ntw_bankcity: registrationData.bankDetails.ntw_bankcity,
         ntw_bankstate: registrationData.bankDetails.ntw_bankstate,
         ntw_bankaddress: registrationData.bankDetails.ntw_bankaddress,
         ntw_bankphone: registrationData.bankDetails.ntw_bankphone,
         ntw_bankzipcode: registrationData.bankDetails.ntw_bankzipcode,
+        ntw_bankcountry: registrationData.bankDetails.ntw_bankcountry,
         ntw_swift: registrationData.bankDetails.ntw_swift,
         ntw_ibannocurrency: registrationData.bankDetails.ntw_ibannocurrency,
         

@@ -285,6 +285,9 @@ export const bankDetailsSchema = z.object({
   ntw_bankzipcode: z
     .string()
     .min(1, 'Bank postal code is required'),
+  ntw_bankcountry: z
+    .string()
+    .min(1, 'Bank country is required'),
   ntw_swift: z
     .string()
     .min(1, 'SWIFT code is required'),
