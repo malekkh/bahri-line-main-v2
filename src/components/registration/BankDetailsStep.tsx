@@ -6,6 +6,12 @@ import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
 import { BankDetailsFormData } from '@/schemas/auth.schema';
 
+const BANK_ACCOUNT_TYPE_OPTIONS = [
+  { value: "876490000", label: "Checking" },
+  { value: "876490001", label: "Savings" },
+  { value: "876490002", label: "Other" },
+];
+
 interface BankDetailsStepProps {
   form: UseFormReturn<BankDetailsFormData>;
 }
@@ -74,14 +80,21 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               Account Type
             </Label>
             <div className="relative">
-              <Input
+              <select
                 id="w_typeofbankaccount"
-                type="text"
-                placeholder="Select account type"
                 {...register('w_typeofbankaccount')}
-                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
-              />
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
+                className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
+              >
+                <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
+                  Select Account Type
+                </option>
+                {BANK_ACCOUNT_TYPE_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
             </div>
             {errors.w_typeofbankaccount && (
               <p className="text-red-400 text-sm">{errors.w_typeofbankaccount.message}</p>
