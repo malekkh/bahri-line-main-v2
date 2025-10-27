@@ -246,7 +246,6 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
         address1_stateorprovince: registrationData.companyDetails.address1_stateorprovince,
         address1_postalcode: registrationData.companyDetails.address1_postalcode,
         address1_fax: registrationData.companyDetails.address1_fax || "",
-        mobilephone: registrationData.companyDetails.mobilephone,
         telephone1: registrationData.companyDetails.telephone1,
         websiteurl: registrationData.companyDetails.websiteurl,
         businesstypecode: parseInt(registrationData.companyDetails.businesstypecode, 10),
@@ -261,7 +260,6 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
         ntw_createdbyinvitationid: prefilledContactData.ntw_createdbyinvitationid || prefilledContactData.adx_invitationid || "",
         
         // Parent account fields
-        hasParentAccount: registrationData.parentAccount.hasParentAccount,
         parentaccountname: registrationData.parentAccount.parentaccountname,
         parentaccountid: registrationData.parentAccount.parentaccountid,
         parentCrNumber: registrationData.parentAccount.parentCrNumber,
@@ -289,17 +287,14 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
       };
       
       // Log the payload for debugging
-      console.log('Registration payload:', JSON.stringify(completeRegistrationData, null, 2));
       
       // First update contact, then register
       return authRequests.updateContact({
         contactId: prefilledContactData.contactid,
         contactDetails: mappedContactDetails,
       }).then(() => {
-        console.log('Contact updated successfully, proceeding with registration...');
         return authRequests.register(completeRegistrationData as unknown as RegistrationFormData);
       }).catch((error) => {
-        console.error('Error in registration process:', error);
         throw error;
       });
     },
@@ -312,7 +307,6 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
       }
     },
     onError: (error: unknown) => {
-      console.error('Registration error:', error);
       if (error instanceof Error) {
         toast.error(error.message || 'Registration failed');
       } else {
@@ -435,12 +429,8 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
         if (!companyValid) {
           // Debug: Log validation errors
           const errors = companyDetailsForm.formState.errors;
-          console.log('Company Details Validation Errors:', errors);
           
-          // Log which fields are invalid
-          Object.keys(errors).forEach(fieldName => {
-            console.log(`❌ ${fieldName}:`, errors[fieldName as keyof typeof errors]?.message);
-          });
+         
           
           toast.error('Please fill in all required company details');
           return false;
