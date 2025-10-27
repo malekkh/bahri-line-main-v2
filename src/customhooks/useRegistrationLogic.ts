@@ -218,25 +218,85 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
         ntw_portalnewpassword: registrationData.contactDetails.password,
       };
       
-      // Map company details field names back to API format
-      const { ntw_Country_odata_bind, territoryid_odata_bind, ...restCompanyDetails } = registrationData.companyDetails;
-      const mappedCompanyDetails = {
-        ...restCompanyDetails,
-        "ntw_Country@odata.bind": ntw_Country_odata_bind,
-        "territoryid@odata.bind": territoryid_odata_bind,
+      // Build the complete registration payload with all required fields
+      // Extract territory and country bindings
+      const { ntw_Country_odata_bind, territoryid_odata_bind, ...companyDetailsWithoutBindings } = registrationData.companyDetails;
+      
+      // Extract territory ID from the odata.bind format (e.g., "/territories('xxx')" -> "xxx")
+      const extractTerritoryId = (odataBind: string): string => {
+        const match = odataBind.match(/\(['"]([^'"]+)['"]\)/);
+        return match ? match[1] : odataBind;
       };
       
-      const mappedRegistrationData = {
-        ...registrationData,
-        companyDetails: mappedCompanyDetails,
-      } as unknown as RegistrationFormData;
+      const territoryId = extractTerritoryId(territoryid_odata_bind);
+      
+      // Flatten the structure for the backend
+      const completeRegistrationData = {
+        // Contact details
+        firstname: registrationData.contactDetails.firstName,
+        lastname: registrationData.contactDetails.lastName,
+        email: registrationData.contactDetails.email,
+        ntw_portalnewpassword: registrationData.contactDetails.password,
+        
+        // Company details - direct fields
+        name: registrationData.companyDetails.name,
+        address1_line1: registrationData.companyDetails.address1_line1,
+        address1_city: registrationData.companyDetails.address1_city,
+        address1_country: registrationData.companyDetails.address1_country,
+        address1_stateorprovince: registrationData.companyDetails.address1_stateorprovince,
+        address1_postalcode: registrationData.companyDetails.address1_postalcode,
+        address1_fax: registrationData.companyDetails.address1_fax,
+        mobilephone: registrationData.companyDetails.mobilephone,
+        telephone1: registrationData.companyDetails.telephone1,
+        websiteurl: registrationData.companyDetails.websiteurl,
+        businesstypecode: registrationData.companyDetails.businesstypecode,
+        numberOfEmployees: registrationData.companyDetails.numberOfEmployees,
+        
+        // Territory and Country with odata.bind format
+        "ntw_Country@odata.bind": ntw_Country_odata_bind,
+        "territoryid@odata.bind": territoryid_odata_bind,
+        territoryid: territoryId,
+        
+        // Parent account fields
+        hasParentAccount: registrationData.parentAccount.hasParentAccount,
+        parentaccountname: registrationData.parentAccount.parentaccountname,
+        parentaccountid: registrationData.parentAccount.parentaccountid,
+        parentCrNumber: registrationData.parentAccount.parentCrNumber,
+        
+        // Bank details - all with ntw_ prefix
+        ntw_bankname: registrationData.bankDetails.ntw_bankname,
+        ntw_bankbeneficiaryname: registrationData.bankDetails.ntw_bankbeneficiaryname,
+        ntw_bankaccountno: registrationData.bankDetails.ntw_bankaccountno,
+        ntw_typeofbankaccount: registrationData.bankDetails.ntw_typeofbankaccount,
+        ntw_bankcity: registrationData.bankDetails.ntw_bankcity,
+        ntw_bankstate: registrationData.bankDetails.ntw_bankstate,
+        ntw_bankaddress: registrationData.bankDetails.ntw_bankaddress,
+        ntw_bankphone: registrationData.bankDetails.ntw_bankphone,
+        ntw_bankzipcode: registrationData.bankDetails.ntw_bankzipcode,
+        ntw_swift: registrationData.bankDetails.ntw_swift,
+        ntw_ibannocurrency: registrationData.bankDetails.ntw_ibannocurrency,
+        
+        // Company CR and VAT
+        ntw_crnumber: registrationData.companyDetails.ntw_crnumber,
+        ntw_vatnumber: registrationData.companyDetails.ntw_vatnumber,
+        
+        // Use CR number as childCr (mapping as needed)
+        childCr: registrationData.companyDetails.ntw_crnumber,
+      };
+      
+      // Log the payload for debugging
+      console.log('Registration payload:', JSON.stringify(completeRegistrationData, null, 2));
       
       // First update contact, then register
       return authRequests.updateContact({
         contactId: prefilledContactData.contactid,
         contactDetails: mappedContactDetails,
       }).then(() => {
-        return authRequests.register(mappedRegistrationData);
+        console.log('Contact updated successfully, proceeding with registration...');
+        return authRequests.register(completeRegistrationData as unknown as RegistrationFormData);
+      }).catch((error) => {
+        console.error('Error in registration process:', error);
+        throw error;
       });
     },
     onSuccess: (response) => {
@@ -248,8 +308,12 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
       }
     },
     onError: (error: unknown) => {
-      const errorMessage = error instanceof Error ? error.message : 'Registration failed';
-      toast.error(errorMessage);
+      console.error('Registration error:', error);
+      if (error instanceof Error) {
+        toast.error(error.message || 'Registration failed');
+      } else {
+        toast.error('Registration failed');
+      }
     },
   });
 
