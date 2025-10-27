@@ -69,7 +69,6 @@
       "accountBeneficiaryName": "اسم المستفيد من الحساب",
       "bankAccountNumber": "رقم الحساب المصرفي",
       "bankStateProvince": "ولاية/مقاطعة البنك",
-      "parentCompany": "الشركة الأب",
       "autoFilled": "يتم ملؤها تلقائياً من الحساب الأب",
       "selectAccountType": "اختر نوع الحساب",
       "selectBankCountry": "اختر دولة البنك",
@@ -114,6 +113,18 @@
       "parentAccountName": "اسم الحساب الأب"
     },
     "required": "*"
+  },
+  "home": {
+    "headlinePart1": "#1 على مستوى الدولة",
+    "headlinePart2": "لوجستيات التوصيل",
+    "headlinePart3": "حلول",
+    "description": "البحري هي شركة حائزة على جوائز مع أسطول عالمي ملتزم بتقديم نتائج متميزة لجميع أصحاب المصلحة. نحن ندعم رؤية المملكة 2030 لتحويل المملكة إلى مركز إقليمي استراتيجي وبوابة لوجستية عبر ثلاث قارات.",
+    "fleetInfo": "معلومات الأسطول",
+    "vesselSchedule": "جدول السفن",
+    "aboutUs": "من نحن",
+    "contactUs": "اتصل بنا",
+    "bookingTracker": "تتبع الحجز",
+    "login": "تسجيل الدخول"
   },
   "common": {
     "language": "اللغة",

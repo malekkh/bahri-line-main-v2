@@ -69,7 +69,6 @@
       "accountBeneficiaryName": "Account Beneficiary Name",
       "bankAccountNumber": "Bank Account Number",
       "bankStateProvince": "Bank State/Province",
-      "parentCompany": "Parent Company",
       "autoFilled": "Auto-filled from parent account",
       "selectAccountType": "Select Account Type",
       "selectBankCountry": "Select Bank Country",
@@ -114,6 +113,18 @@
       "parentAccountName": "Parent account name"
     },
     "required": "*"
+  },
+  "home": {
+    "headlinePart1": "#1 Nationwide",
+    "headlinePart2": "Delivery Logistics",
+    "headlinePart3": "Solution",
+    "description": "Bahri is an award-winning company with a world-class fleet committed to delivering outstanding results for all our stakeholders. We champion the Saudi Vision 2030 to transform the Kingdom into a key strategic regional hub and logistics gateway across three continents.",
+    "fleetInfo": "FLEET INFO",
+    "vesselSchedule": "VESSEL SCHEDULE",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "bookingTracker": "Booking Tracker",
+    "login": "Login"
   },
   "common": {
     "language": "Language",
