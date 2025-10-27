@@ -258,37 +258,31 @@ export type CompanyDetailsFormData = z.infer<typeof companyDetailsSchema>;
 
 // Step 5: Bank Details
 export const bankDetailsSchema = z.object({
-  bankName: z
+  ntw_bankname: z
     .string()
     .min(1, 'Bank name is required'),
-  beneficiaryName: z
+  ntw_bankbeneficiaryname: z
     .string()
     .min(1, 'Account beneficiary name is required'),
-  accountNumber: z
+  ntw_bankaccountno: z
     .string()
     .min(1, 'Bank account number is required'),
-  w_typeofbankaccount: z
+  ntw_typeofbankaccount: z
     .string()
     .min(1, 'Account type is required'),
-  bankCountry: z
-    .string()
-    .min(1, 'Bank country is required'),
-  bankCity: z
+  ntw_bankcity: z
     .string()
     .min(1, 'Bank city is required'),
-  bankState: z
+  ntw_bankstate: z
     .string()
     .min(1, 'Bank state/province is required'),
-  bankAddress: z
+  ntw_bankaddress: z
     .string()
     .min(1, 'Bank address is required'),
-  bankPhoneCountryCode: z
-    .string()
-    .min(1, 'Bank phone country code is required'),
-  bankPhoneNumber: z
+  ntw_bankphone: z
     .string()
     .min(1, 'Bank phone number is required'),
-  bankZipCode: z
+  ntw_bankzipcode: z
     .string()
     .min(1, 'Bank postal code is required'),
   ntw_swift: z

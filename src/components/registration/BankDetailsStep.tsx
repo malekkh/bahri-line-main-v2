@@ -5,7 +5,6 @@ import { ChevronDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
 import { BankDetailsFormData } from '@/schemas/auth.schema';
-import { useCountries } from '@/customhooks/useCountries';
 
 const BANK_ACCOUNT_TYPE_OPTIONS = [
   { value: "876490000", label: "Checking" },
@@ -20,9 +19,6 @@ interface BankDetailsStepProps {
 export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
   const t = useTranslations('registration');
   const { register, formState: { errors } } = form;
-  
-  // Fetch countries using custom hook
-  const { countries, isLoading: isLoadingCountries } = useCountries();
 
   return (
     <div className="space-y-6">
@@ -32,61 +28,61 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
         {/* Left Column */}
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="bankName" className="text-white font-[325]" required>
+            <Label htmlFor="ntw_bankname" className="text-white font-[325]" required>
               Bank Name
             </Label>
             <Input
-              id="bankName"
+              id="ntw_bankname"
               type="text"
               placeholder="Enter bank name"
-              {...register('bankName')}
+              {...register('ntw_bankname')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.bankName && (
-              <p className="text-red-400 text-sm">{errors.bankName.message}</p>
+            {errors.ntw_bankname && (
+              <p className="text-red-400 text-sm">{errors.ntw_bankname.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="beneficiaryName" className="text-white font-[325]" required>
+            <Label htmlFor="ntw_bankbeneficiaryname" className="text-white font-[325]" required>
               Account Beneficiary Name
             </Label>
             <Input
-              id="beneficiaryName"
+              id="ntw_bankbeneficiaryname"
               type="text"
               placeholder="Enter beneficiary name"
-              {...register('beneficiaryName')}
+              {...register('ntw_bankbeneficiaryname')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.beneficiaryName && (
-              <p className="text-red-400 text-sm">{errors.beneficiaryName.message}</p>
+            {errors.ntw_bankbeneficiaryname && (
+              <p className="text-red-400 text-sm">{errors.ntw_bankbeneficiaryname.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="accountNumber" className="text-white font-[325]" required>
+            <Label htmlFor="ntw_bankaccountno" className="text-white font-[325]" required>
               Bank Account Number
             </Label>
             <Input
-              id="accountNumber"
+              id="ntw_bankaccountno"
               type="text"
               placeholder="Enter account number"
-              {...register('accountNumber')}
+              {...register('ntw_bankaccountno')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.accountNumber && (
-              <p className="text-red-400 text-sm">{errors.accountNumber.message}</p>
+            {errors.ntw_bankaccountno && (
+              <p className="text-red-400 text-sm">{errors.ntw_bankaccountno.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="w_typeofbankaccount" className="text-white font-[325]" required>
+            <Label htmlFor="ntw_typeofbankaccount" className="text-white font-[325]" required>
               Account Type
             </Label>
             <div className="relative">
               <select
-                id="w_typeofbankaccount"
-                {...register('w_typeofbankaccount')}
+                id="ntw_typeofbankaccount"
+                {...register('ntw_typeofbankaccount')}
                 className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
               >
                 <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
@@ -100,35 +96,24 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               </select>
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
             </div>
-            {errors.w_typeofbankaccount && (
-              <p className="text-red-400 text-sm">{errors.w_typeofbankaccount.message}</p>
+            {errors.ntw_typeofbankaccount && (
+              <p className="text-red-400 text-sm">{errors.ntw_typeofbankaccount.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="bankCountry" className="text-white font-[325]" required>
-              Bank Country
+            <Label htmlFor="ntw_bankcity" className="text-white font-[325]" required>
+              Bank City
             </Label>
-            <div className="relative">
-              <select
-                id="bankCountry"
-                {...register('bankCountry')}
-                className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
-                disabled={isLoadingCountries}
-              >
-                <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
-                  {isLoadingCountries ? 'Loading countries...' : 'Select Bank Country'}
-                </option>
-                {countries.map((country) => (
-                  <option key={country.countryid} value={country.name} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
-            </div>
-            {errors.bankCountry && (
-              <p className="text-red-400 text-sm">{errors.bankCountry.message}</p>
+            <Input
+              id="ntw_bankcity"
+              type="text"
+              placeholder="Enter bank city"
+              {...register('ntw_bankcity')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            {errors.ntw_bankcity && (
+              <p className="text-red-400 text-sm">{errors.ntw_bankcity.message}</p>
             )}
           </div>
         </div>
@@ -136,104 +121,72 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
         {/* Middle Column */}
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="bankCity" className="text-white font-[325]" required>
-              Bank City
-            </Label>
-            <Input
-              id="bankCity"
-              type="text"
-              placeholder="Enter bank city"
-              {...register('bankCity')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            {errors.bankCity && (
-              <p className="text-red-400 text-sm">{errors.bankCity.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="bankState" className="text-white font-[325]" required>
+            <Label htmlFor="ntw_bankstate" className="text-white font-[325]" required>
               Bank State/Province
             </Label>
             <Input
-              id="bankState"
+              id="ntw_bankstate"
               type="text"
               placeholder="Enter bank state/province"
-              {...register('bankState')}
+              {...register('ntw_bankstate')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.bankState && (
-              <p className="text-red-400 text-sm">{errors.bankState.message}</p>
+            {errors.ntw_bankstate && (
+              <p className="text-red-400 text-sm">{errors.ntw_bankstate.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="bankAddress" className="text-white font-[325]" required>
+            <Label htmlFor="ntw_bankaddress" className="text-white font-[325]" required>
               Bank Address
             </Label>
             <Input
-              id="bankAddress"
+              id="ntw_bankaddress"
               type="text"
               placeholder="Enter bank address"
-              {...register('bankAddress')}
+              {...register('ntw_bankaddress')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.bankAddress && (
-              <p className="text-red-400 text-sm">{errors.bankAddress.message}</p>
+            {errors.ntw_bankaddress && (
+              <p className="text-red-400 text-sm">{errors.ntw_bankaddress.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="bankPhoneCountryCode" className="text-white font-[325]" required>
-              Bank Phone Country Code
-            </Label>
-            <Input
-              id="bankPhoneCountryCode"
-              type="text"
-              placeholder="+966"
-              {...register('bankPhoneCountryCode')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            {errors.bankPhoneCountryCode && (
-              <p className="text-red-400 text-sm">{errors.bankPhoneCountryCode.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="bankPhoneNumber" className="text-white font-[325]" required>
+            <Label htmlFor="ntw_bankphone" className="text-white font-[325]" required>
               Bank Phone Number
             </Label>
             <Input
-              id="bankPhoneNumber"
+              id="ntw_bankphone"
               type="text"
-              placeholder="Enter bank phone number"
-              {...register('bankPhoneNumber')}
+              placeholder="+1 (212) 902-1000"
+              {...register('ntw_bankphone')}
               className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
             />
-            {errors.bankPhoneNumber && (
-              <p className="text-red-400 text-sm">{errors.bankPhoneNumber.message}</p>
+            {errors.ntw_bankphone && (
+              <p className="text-red-400 text-sm">{errors.ntw_bankphone.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="ntw_bankzipcode" className="text-white font-[325]" required>
+              Bank Postal Code
+            </Label>
+            <Input
+              id="ntw_bankzipcode"
+              type="text"
+              placeholder="Enter postal code"
+              {...register('ntw_bankzipcode')}
+              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
+            />
+            {errors.ntw_bankzipcode && (
+              <p className="text-red-400 text-sm">{errors.ntw_bankzipcode.message}</p>
             )}
           </div>
         </div>
 
         {/* Right Column */}
         <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="bankZipCode" className="text-white font-[325]" required>
-              Bank Postal Code
-            </Label>
-            <Input
-              id="bankZipCode"
-              type="text"
-              placeholder="Enter postal code"
-              {...register('bankZipCode')}
-              className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60"
-            />
-            {errors.bankZipCode && (
-              <p className="text-red-400 text-sm">{errors.bankZipCode.message}</p>
-            )}
-          </div>
-
           <div className="space-y-2">
             <Label htmlFor="ntw_swift" className="text-white font-[325]" required>
               SWIFT Code
