@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -70,9 +70,16 @@ export interface UseRegistrationLogicReturn {
 
 export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
   const router = useRouter();
+  const pathname = usePathname();
   const [currentStep, setCurrentStep] = useState(0);
   const [prefilledContactData, setPrefilledContactData] = useState<PrefilledContactData | null>(null);
   const [invitationResponse, setInvitationResponse] = useState<ValidateInvitationResponse | null>(null);
+  
+  // Extract current locale from pathname (e.g., /en/register -> en)
+  const getCurrentLocale = () => {
+    const segments = pathname.split('/');
+    return segments[1] || 'en'; // Default to 'en' if no locale found
+  };
   
   const totalSteps = 5;
   const isFirstStep = currentStep === 0;
@@ -300,8 +307,9 @@ export const useRegistrationLogic = (): UseRegistrationLogicReturn => {
     },
     onSuccess: (response) => {
       if (response.data.success) {
+        const locale = getCurrentLocale();
         toast.success('Registration completed successfully!');
-        router.push('/login');
+        router.push(`/${locale}/login`);
       } else {
         toast.error(response.data.message || 'Registration failed');
       }
