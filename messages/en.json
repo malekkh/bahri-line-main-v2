@@ -61,13 +61,53 @@
       "bankAddress": "Bank Address",
       "bankPhone": "Bank Phone",
       "bankCity": "Bank City",
-      "bankState": "Bank State"
+      "bankState": "Bank State",
+      "bankPostalCode": "Bank Postal Code",
+      "swiftCode": "SWIFT Code",
+      "ibanCurrency": "IBAN with Currency",
+      "bankCountry": "Bank Country",
+      "accountBeneficiaryName": "Account Beneficiary Name",
+      "bankAccountNumber": "Bank Account Number",
+      "bankStateProvince": "Bank State/Province",
+      "parentCompany": "Parent Company",
+      "autoFilled": "Auto-filled from parent account",
+      "selectAccountType": "Select Account Type",
+      "selectBankCountry": "Select Bank Country",
+      "selectBusinessType": "Select Business Type",
+      "selectTerritory": "Select Territory",
+      "selectCountry": "Select Country",
+      "loadingCountries": "Loading countries...",
+      "loadingTerritories": "Loading territories...",
+      "website": "Website",
+      "zipCode": "Zip Code",
+      "validCR": "CR number is valid",
+      "availableCR": "CR number is available",
+      "enterBankName": "Enter bank name",
+      "enterBeneficiaryName": "Enter beneficiary name",
+      "enterAccountNumber": "Enter account number",
+      "enterBankCity": "Enter bank city",
+      "enterBankState": "Enter bank state/province",
+      "enterBankAddress": "Enter bank address",
+      "enterPostalCode": "Enter postal code",
+      "enterSwiftCode": "Enter SWIFT code",
+      "businessTypes": {
+        "soleProprietorship": "Sole Proprietorship",
+        "partnership": "Partnership",
+        "llc": "LLC",
+        "corporation": "Corporation"
+      },
+      "accountTypes": {
+        "checking": "Checking",
+        "savings": "Savings",
+        "other": "Other"
+      }
     },
     "buttons": {
       "verify": "Verify",
       "previous": "Previous",
       "next": "Next",
-      "complete": "Complete Registration"
+      "complete": "Complete Registration",
+      "processing": "Processing..."
     },
     "placeholders": {
       "default": "Placeholder",

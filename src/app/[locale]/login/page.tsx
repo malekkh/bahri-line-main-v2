@@ -23,11 +23,14 @@ import { X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import { LanguageSwitcher } from '@/components/ui/language-switcher';
 
 export default function LoginPage() {
   const { form, onSubmit, isLoading, error, cookiesAllowed } = useLoginLogic();
   const t = useTranslations('login');
+  const params = useParams();
+  const locale = params.locale as string;
 
   return (
     <div className="min-h-screen relative flex items-center justify-center px-4">
@@ -162,7 +165,7 @@ export default function LoginPage() {
             <p className="text-sm text-white">
               {t('noAccount')}{' '}
               <Link
-                href="/register"
+                href={`/${locale}/register`}
                 className="font-medium text-[#FF6720] hover:underline"
               >
                 {t('createAccount')}

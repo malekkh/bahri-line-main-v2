@@ -61,13 +61,53 @@
       "bankAddress": "عنوان البنك",
       "bankPhone": "هاتف البنك",
       "bankCity": "مدينة البنك",
-      "bankState": "ولاية البنك"
+      "bankState": "ولاية البنك",
+      "bankPostalCode": "الرمز البريدي للبنك",
+      "swiftCode": "رمز السويفت",
+      "ibanCurrency": "رقم الآيبان مع العملة",
+      "bankCountry": "دولة البنك",
+      "accountBeneficiaryName": "اسم المستفيد من الحساب",
+      "bankAccountNumber": "رقم الحساب المصرفي",
+      "bankStateProvince": "ولاية/مقاطعة البنك",
+      "parentCompany": "الشركة الأب",
+      "autoFilled": "يتم ملؤها تلقائياً من الحساب الأب",
+      "selectAccountType": "اختر نوع الحساب",
+      "selectBankCountry": "اختر دولة البنك",
+      "selectBusinessType": "اختر نوع النشاط التجاري",
+      "selectTerritory": "اختر المنطقة",
+      "selectCountry": "اختر البلد",
+      "loadingCountries": "جاري تحميل البلدان...",
+      "loadingTerritories": "جاري تحميل المناطق...",
+      "website": "الموقع الإلكتروني",
+      "zipCode": "الرمز البريدي",
+      "validCR": "رقم السجل التجاري صحيح",
+      "availableCR": "رقم السجل التجاري متاح",
+      "enterBankName": "أدخل اسم البنك",
+      "enterBeneficiaryName": "أدخل اسم المستفيد",
+      "enterAccountNumber": "أدخل رقم الحساب",
+      "enterBankCity": "أدخل مدينة البنك",
+      "enterBankState": "أدخل ولاية/مقاطعة البنك",
+      "enterBankAddress": "أدخل عنوان البنك",
+      "enterPostalCode": "أدخل الرمز البريدي",
+      "enterSwiftCode": "أدخل رمز السويفت",
+      "businessTypes": {
+        "soleProprietorship": "ملكية فردية",
+        "partnership": "شراكة",
+        "llc": "شركة ذات مسؤولية محدودة",
+        "corporation": "شركة"
+      },
+      "accountTypes": {
+        "checking": "جاري",
+        "savings": "ادخار",
+        "other": "أخرى"
+      }
     },
     "buttons": {
       "verify": "تحقق",
       "previous": "السابق",
       "next": "التالي",
-      "complete": "إتمام التسجيل"
+      "complete": "إتمام التسجيل",
+      "processing": "جاري المعالجة..."
     },
     "placeholders": {
       "default": "النص التوضيحي",
