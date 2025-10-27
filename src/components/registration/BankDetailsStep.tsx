@@ -5,6 +5,7 @@ import { ChevronDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { UseFormReturn } from 'react-hook-form';
 import { BankDetailsFormData } from '@/schemas/auth.schema';
+import { useCountries } from '@/customhooks/useCountries';
 
 const BANK_ACCOUNT_TYPE_OPTIONS = [
   { value: "876490000", label: "Checking" },
@@ -19,6 +20,9 @@ interface BankDetailsStepProps {
 export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
   const t = useTranslations('registration');
   const { register, formState: { errors } } = form;
+  
+  // Fetch countries using custom hook
+  const { countries, isLoading: isLoadingCountries } = useCountries();
 
   return (
     <div className="space-y-6">
@@ -106,14 +110,22 @@ export const BankDetailsStep: React.FC<BankDetailsStepProps> = ({ form }) => {
               Bank Country
             </Label>
             <div className="relative">
-              <Input
+              <select
                 id="bankCountry"
-                type="text"
-                placeholder="Select bank country"
                 {...register('bankCountry')}
-                className="bg-transparent border-[#EDF1F3] focus:border-white text-white placeholder:text-white/60 pr-10"
-              />
-              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
+                className="flex h-9 w-full rounded-md border border-[#EDF1F3] bg-transparent px-3 py-1 mt-2 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm text-white focus:border-white pr-10 appearance-none cursor-pointer"
+                disabled={isLoadingCountries}
+              >
+                <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
+                  {isLoadingCountries ? 'Loading countries...' : 'Select Bank Country'}
+                </option>
+                {countries.map((country) => (
+                  <option key={country.countryid} value={country.name} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
+                    {country.name}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60 pointer-events-none" />
             </div>
             {errors.bankCountry && (
               <p className="text-red-400 text-sm">{errors.bankCountry.message}</p>
