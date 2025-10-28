@@ -158,7 +158,7 @@ export default function AboutPage() {
 
       {/* Our Capabilities Section */}
       <section className="bg-gray-100 py-12 md:py-16">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="mb-8">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="text-[#1A3A5F]">{t('ourCapabilities').split(' ')[0]}</span>{' '}
@@ -224,10 +224,14 @@ export default function AboutPage() {
 
             {/* World Map */}
             <div className="hidden md:block">
-              <div className="bg-white rounded-lg p-8 shadow-md">
-                <div className="relative h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <p className="text-gray-400 text-sm">World Map Visualization</p>
-                  {/* Here you would add your world map component */}
+              <div className="rounded-lg p-8">
+                <div className="relative h-64">
+                  <Image
+                    src="/images/Screenshot_2025-04-30_103207-removebg-preview.png"
+                    alt="World Map"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </div>
             </div>
