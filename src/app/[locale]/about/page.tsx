@@ -261,7 +261,7 @@ export default function AboutPage() {
       {/* Footer */}
       <footer className="bg-[#1A3A5F] py-6 mx-[-24px]">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-sm text-center">
             {t('allRights')}
           </p>
         </div>
