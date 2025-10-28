@@ -63,12 +63,7 @@ export default function AboutPage() {
 
           {/* Navigation - Hidden on mobile */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link 
-              href={`/${locale}`}
-              className="text-white hover:text-[#FF6720] transition-colors font-medium"
-            >
-              Home
-            </Link>
+           
            
             <Link 
               href={`/${locale}/contact`}
@@ -96,12 +91,7 @@ export default function AboutPage() {
 
         {/* Mobile Navigation */}
         <nav className="md:hidden mt-4 flex flex-wrap items-center gap-4 justify-center">
-          <Link 
-            href={`/${locale}`}
-            className="text-white hover:text-[#FF6720] transition-colors text-sm"
-          >
-            Home
-          </Link>
+          
           <Link 
             href={`/${locale}/tracker`}
             className="text-white hover:text-[#FF6720] transition-colors text-sm"
@@ -119,17 +109,17 @@ export default function AboutPage() {
 
       {/* About Bahri Line Section */}
       <section className="relative bg-[#1A3A5F] py-12 md:py-16 rounded-b-[20px]">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left Side - Text Content */}
-            <div>
+            <div className='max-[480px]:px-4'>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
                 About{' '}
                 <span className="text-white">Bahri</span>{' '}
                 <span className="text-[#FF6720]">{t('titleHighlight')}</span>
               </h1>
               
-              <p className="text-white/90 text-base md:text-lg leading-relaxed mb-8">
+              <p className="text-white/90 text-base md:text-lg leading-relaxed mb-8 ">
                 {t('description')}
               </p>
 
@@ -139,10 +129,10 @@ export default function AboutPage() {
                   const IconComponent = stat.icon;
                   return (
                     <div key={index} className="flex items-center gap-4">
-                      <div className="w-24 h-24 rounded-full bg-white border-4 border-[#FF6720] flex items-center justify-center flex-shrink-0">
-                        <IconComponent className="w-12 h-12 text-[#FF6720]" />
+                      <div className="w-24 h-24 max-[480px]:w-16 max-[480px]:h-16 rounded-full bg-white border-4 max-[480px]:border-2 border-[#FF6720] flex items-center justify-center flex-shrink-0">
+                        <IconComponent className="w-12 h-12 max-[480px]:w-8 max-[480px]:h-8 text-[#FF6720]" />
                       </div>
-                      <p className="text-white font-bold text-lg md:text-xl">
+                      <p className="text-white font-bold text-lg md:text-xl max-[480px]:text-sm">
                         {stat.value}
                       </p>
                     </div>
