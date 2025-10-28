@@ -61,21 +61,17 @@ export default function AboutPage() {
           {/* Logo */}
           <Logo variant="light" />
 
-          {/* Navigation - Hidden on mobile */}
-          <nav className="hidden md:flex items-center gap-8">
-           
-           
-            <Link 
-              href={`/${locale}/contact`}
-              className="text-white hover:text-[#FF6720] transition-colors font-medium"
-            >
-              Contact Us
-            </Link>
-          </nav>
-
-          {/* Action Buttons */}
+          {/* Navigation and Action Buttons */}
           <div className="hidden md:flex items-center gap-3">
-           
+            <Button
+              variant="outline"
+              className="bg-transparent border-white/30 text-white hover:bg-white/10"
+              asChild
+            >
+              <Link href={`/${locale}/contact`}>
+                Contact Us
+              </Link>
+            </Button>
             <Button
               className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white"
               asChild
@@ -91,19 +87,23 @@ export default function AboutPage() {
 
         {/* Mobile Navigation */}
         <nav className="md:hidden mt-4 flex flex-wrap items-center gap-4 justify-center">
-          
-          <Link 
-            href={`/${locale}/tracker`}
-            className="text-white hover:text-[#FF6720] transition-colors text-sm"
+          <Button
+            variant="outline"
+            className="bg-transparent border-white/30 text-white hover:bg-white/10"
+            asChild
           >
-            Booking Tracker
-          </Link>
-          <Link 
-            href={`/${locale}/login`}
-            className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white px-4 py-2 rounded-md text-sm font-medium"
+            <Link href={`/${locale}/contact`}>
+              Contact Us
+            </Link>
+          </Button>
+          <Button
+            className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white"
+            asChild
           >
-            Login
-          </Link>
+            <Link href={`/${locale}/login`}>
+              Login
+            </Link>
+          </Button>
         </nav>
       </header>
 
