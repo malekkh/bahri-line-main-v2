@@ -229,7 +229,7 @@ export default function ContactPage() {
                       value={formData.telephone1}
                       onChange={(value) => handleInputChange('telephone1', value || '')}
                       placeholder={t('businessPhone')}
-                      className="mt-2 bg-white text-black"
+                      className="phone-input-contact mt-2 bg-white text-black"
                     />
                   </div>
                   <div>
@@ -240,7 +240,7 @@ export default function ContactPage() {
                       value={formData.mobilephone}
                       onChange={(value) => handleInputChange('mobilephone', value || '')}
                       placeholder={t('mobilePhone')}
-                      className="mt-2 bg-white text-black"
+                      className="phone-input-contact mt-2 bg-white text-black"
                     />
                   </div>
                   <div>

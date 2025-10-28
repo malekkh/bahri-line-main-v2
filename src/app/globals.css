@@ -210,3 +210,50 @@
   color: rgba(255, 255, 255, 0.6) !important;
   border-color: rgba(255, 255, 255, 0.6) !important;
 }
+
+/* Contact Page Phone Input Styles */
+.phone-input-contact .PhoneInputInput {
+  background: #ffffff !important;
+  border: 1px solid #EDF1F3 !important;
+  border-radius: 0.375rem !important;
+  padding: 0.25rem 0.75rem !important;
+  color: #000000 !important;
+  font-size: 1rem !important;
+  height: 2.25rem !important;
+  width: 100% !important;
+  outline: none !important;
+  line-height: 1.5 !important;
+}
+
+.phone-input-contact .PhoneInputInput:focus {
+  border-color: #FF6720 !important;
+  box-shadow: 0 0 0 1px rgba(255, 103, 32, 0.2) !important;
+}
+
+.phone-input-contact .PhoneInputInput::placeholder {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.phone-input-contact .PhoneInputCountrySelect {
+  background: #f3f4f6 !important;
+  border: 1px solid #EDF1F3 !important;
+  color: #000000 !important;
+  margin-right: 0.5rem !important;
+  padding: 0.25rem 0.5rem !important;
+  height: 2.25rem !important;
+  border-radius: 0.375rem !important;
+}
+
+.phone-input-contact .PhoneInputCountrySelect:focus {
+  outline: none !important;
+  border-color: #FF6720 !important;
+}
+
+.phone-input-contact .PhoneInputCountryIcon {
+  border-radius: 2px !important;
+}
+
+.phone-input-contact .PhoneInputCountrySelectArrow {
+  color: rgba(0, 0, 0, 0.6) !important;
+  border-color: rgba(0, 0, 0, 0.6) !important;
+}
