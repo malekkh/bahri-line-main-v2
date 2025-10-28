@@ -54,9 +54,9 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="min-h-screen relative flex flex-col">
-      {/* Header */}
-      <header className="relative z-10 w-full px-4 md:px-8 py-6 bg-[#1A3A5F]">
+    <div className="min-h-screen relative flex flex-col bg-[#F5F6F7] p-6">
+        {/* Header */}
+        <header className="relative z-10 w-full px-4 md:px-8 py-6 bg-[#1A3A5F] rounded-t-[20px]">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
           <Logo variant="light" />
@@ -118,7 +118,7 @@ export default function AboutPage() {
       </header>
 
       {/* About Bahri Line Section */}
-      <section className="relative bg-[#1A3A5F] py-12 md:py-16">
+      <section className="relative bg-[#1A3A5F] py-12 md:py-16 rounded-b-[20px]">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left Side - Text Content */}
