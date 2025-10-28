@@ -211,8 +211,8 @@ export default function AboutPage() {
                 const IconComponent = service.icon;
                 return (
                   <div key={index} className="flex flex-col items-center text-center">
-                    <div className="w-20 h-20 bg-[#FF6720] rounded-full flex items-center justify-center mb-3">
-                      <IconComponent className="w-10 h-10 text-white" />
+                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-3 border-2 border-[#FF6720]">
+                      <IconComponent className="w-10 h-10 text-[#FF6720]" />
                     </div>
                     <p className="text-[#1A3A5F] font-medium text-xs md:text-sm">
                       {service.label}
@@ -232,6 +232,25 @@ export default function AboutPage() {
                     fill
                     className="object-cover"
                   />
+                  {/* SVG overlay for the curved line */}
+                  <svg 
+                    className="absolute inset-0 w-full h-full" 
+                    viewBox="0 0 100 100" 
+                    preserveAspectRatio="none"
+                  >
+                    {/* Curved dashed line from UK to Australia */}
+                    <path
+                      d="M 15 25 Q 50 10 85 75"
+                      stroke="#FF6720"
+                      strokeWidth="0.8"
+                      strokeDasharray="2,2"
+                      fill="none"
+                    />
+                    {/* Orange marker 1 (UK) */}
+                    <circle cx="15" cy="25" r="1.5" fill="#FF6720" />
+                    {/* Orange marker 2 (Australia) */}
+                    <circle cx="85" cy="75" r="1.5" fill="#FF6720" />
+                  </svg>
                 </div>
               </div>
             </div>
@@ -240,7 +259,7 @@ export default function AboutPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1A3A5F] py-6">
+      <footer className="bg-[#1A3A5F] py-6 mx-[-24px]">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <p className="text-gray-400 text-sm">
             {t('allRights')}
