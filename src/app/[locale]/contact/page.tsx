@@ -23,11 +23,14 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { createLead, LeadPayload } from '@/services/createLead';
+import { useCountries } from '@/customhooks/useCountries';
+import type { Country } from '@/services/api/axiosRoutes.type';
 
 export default function ContactPage() {
   const t = useTranslations('contact');
   const params = useParams();
   const locale = params.locale as string;
+  const { countries, isLoading: countriesLoading, error: countriesError } = useCountries();
 
   const [formData, setFormData] = useState({
     firstname: '',
@@ -41,6 +44,7 @@ export default function ContactPage() {
     address1_line1: '',
     address1_city: '',
     address1_country: '',
+    address1_countryid: '',
     jobtitle: '',
     subject: '',
     description: '',
@@ -54,6 +58,15 @@ export default function ContactPage() {
     setFormData(prev => ({
       ...prev,
       [field]: value
+    }));
+  };
+
+  const handleCountryChange = (countryId: string) => {
+    const selectedCountry = countries.find(country => country.countryid === countryId);
+    setFormData(prev => ({
+      ...prev,
+      address1_country: selectedCountry?.name || '',
+      address1_countryid: countryId
     }));
   };
 
@@ -162,6 +175,7 @@ export default function ContactPage() {
                     address1_line1: '',
                     address1_city: '',
                     address1_country: '',
+                    address1_countryid: '',
                     jobtitle: '',
                     subject: '',
                     description: '',
@@ -324,16 +338,29 @@ export default function ContactPage() {
                       {t('country')}
                     </Label>
                     <div className="relative mt-2">
-                      <Input
+                      <select
                         id="address1_country"
-                        type="text"
-                        placeholder={t('country')}
-                        value={formData.address1_country}
-                        onChange={(e) => handleInputChange('address1_country', e.target.value)}
-                        className="pr-10 bg-white"
-                      />
-                      <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        value={formData.address1_countryid}
+                        onChange={(e) => handleCountryChange(e.target.value)}
+                        className="bg-white text-black w-full px-3 py-[6px] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF6720] focus:border-transparent appearance-none pr-10"
+                        disabled={countriesLoading}
+                      >
+                        <option value="">
+                          {countriesLoading ? 'Loading countries...' : 'Select a country'}
+                        </option>
+                        {countries.map((country: Country) => (
+                          <option key={country.countryid} value={country.countryid}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
                     </div>
+                    {countriesError && (
+                      <p className="text-red-500 text-sm mt-1">
+                        Error loading countries. Please try again.
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="jobtitle" className="text-[#1A3A5F] font-medium">
