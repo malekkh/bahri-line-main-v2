@@ -5,12 +5,13 @@
  * Reusable header component for profile pages with logo, navigation, and user actions
  */
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
-import { Settings, User } from 'lucide-react';
+import { Settings, User, Globe } from 'lucide-react';
 import { Logo } from '@/components/ui/logo';
-import { LanguageSwitcher } from '@/components/ui/language-switcher';
 import { cn } from '@/lib/utils';
 
 interface ProfileHeaderProps {
@@ -19,9 +20,30 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
+  const [imageError, setImageError] = useState(false);
   const t = useTranslations('profile');
   const params = useParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const locale = params.locale as string;
+  
+  // Get image source - check if it already has data URL prefix
+  const getImageSrc = () => {
+    if (!userImage) return null;
+    if (userImage.startsWith('data:')) {
+      return userImage;
+    }
+    // Default to PNG, but could be detected from base64 header
+    return `data:image/png;base64,${userImage}`;
+  };
+  
+  const imageSrc = getImageSrc();
+  
+  // Toggle language
+  const toggleLanguage = () => {
+    const newLocale = locale === 'en' ? 'ar' : 'en';
+    router.replace(pathname, { locale: newLocale });
+  };
 
   return (
     <header className={cn('w-full bg-white border-b border-gray-200', className)}>
@@ -60,9 +82,18 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            <div className="hidden md:block">
-              <LanguageSwitcher />
-            </div>
+            {/* Language Toggle Icon */}
+            <button
+              onClick={toggleLanguage}
+              className="p-2 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-1.5 group"
+              aria-label={`Switch to ${locale === 'en' ? 'Arabic' : 'English'}`}
+              title={`Switch to ${locale === 'en' ? 'Arabic' : 'English'}`}
+            >
+              <Globe className="w-5 h-5 text-gray-700 group-hover:text-[#FF6720] transition-colors" />
+              <span className="text-xs font-medium text-gray-700 group-hover:text-[#FF6720] transition-colors">
+                {locale.toUpperCase()}
+              </span>
+            </button>
             
             <button
               className="p-2 hover:bg-gray-100 rounded-md transition-colors"
@@ -75,11 +106,12 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
               className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden hover:ring-2 hover:ring-[#FF6720] transition-all"
               aria-label="Profile"
             >
-              {userImage ? (
+              {imageSrc && !imageError ? (
                 <img
-                  src={`data:image/png;base64,${userImage}`}
+                  src={imageSrc}
                   alt="Profile"
                   className="w-full h-full object-cover"
+                  onError={() => setImageError(true)}
                 />
               ) : (
                 <User className="w-5 h-5 text-gray-600" />
