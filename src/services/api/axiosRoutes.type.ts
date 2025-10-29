@@ -5,6 +5,7 @@
 
 import { User, CreateUserDto, UpdateUserDto, UsersResponse } from '@/types/user.types';
 import { ContactDetailsFormData, RegistrationFormData } from '@/schemas/auth.schema';
+import { ContactDetails, PatchPayload, PatchResponse } from '@/types/contact.types';
 
 // Prefilled Contact Data Types
 export interface PrefilledContactData {
@@ -137,6 +138,17 @@ export interface VesselScheduleApiTypes {
       voyageid: string;
     };
     response: VoyageRoute[];
+  };
+}
+
+// Contact/Profile API Types
+export interface ContactApiTypes {
+  getContactDetails: {
+    response: ContactDetails;
+  };
+  updateContactAccount: {
+    body: PatchPayload;
+    response: PatchResponse;
   };
 }
 

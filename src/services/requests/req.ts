@@ -5,7 +5,7 @@
 
 import { api } from '@/services/api/axiosSetup';
 import API_ROUTES from '@/services/api/axiosRoutes';
-import type { UsersApiTypes, AuthApiTypes, VesselScheduleApiTypes } from '@/services/api/axiosRoutes.type';
+import type { UsersApiTypes, AuthApiTypes, VesselScheduleApiTypes, ContactApiTypes } from '@/services/api/axiosRoutes.type';
 
 // ============================================================================
 // USERS REQUESTS
@@ -211,6 +211,31 @@ export const vesselScheduleRequests = {
       {
         voyageid: voyageId,
       }
+    );
+  },
+};
+
+// ============================================================================
+// CONTACT/PROFILE REQUESTS
+// ============================================================================
+
+export const contactRequests = {
+  /**
+   * Get contact details with account information
+   */
+  getContactDetails: async () => {
+    return api.get<ContactApiTypes['getContactDetails']['response']>(
+      API_ROUTES.CONTACT.CONTACT_DETAILS
+    );
+  },
+
+  /**
+   * Update contact and/or account details
+   */
+  updateContactAccount: async (payload: ContactApiTypes['updateContactAccount']['body']) => {
+    return api.post<ContactApiTypes['updateContactAccount']['response']>(
+      API_ROUTES.CONTACT.UPDATE_CONTACT_ACCOUNT,
+      payload
     );
   },
 };

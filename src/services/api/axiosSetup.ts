@@ -17,6 +17,7 @@ import { AUTH_TOKEN_KEY, HTTP_STATUS, ROUTES } from '@/config/constants';
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: env.apiUrl,
   timeout: env.apiTimeout,
+  withCredentials: true, // Send cookies with requests (for session-based auth)
   headers: {
     'Content-Type': 'application/json',
   },

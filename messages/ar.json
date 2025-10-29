@@ -196,6 +196,56 @@
       "status": "الحالة"
     }
   },
+  "profile": {
+    "loading": "جاري تحميل الملف الشخصي...",
+    "error": "خطأ",
+    "nav": {
+      "quotationRequests": "طلبات التسعير",
+      "offeredQuotations": "عروض الأسعار",
+      "creditApplications": "طلبات الائتمان",
+      "contracts": "العقود"
+    },
+    "tabs": {
+      "companyDetails": {
+        "label": "تفاصيل الشركة",
+        "title": "تفاصيل الشركة"
+      },
+      "contactDetails": {
+        "label": "تفاصيل الاتصال",
+        "title": "تفاصيل الاتصال"
+      },
+      "bankDetails": {
+        "label": "تفاصيل البنك",
+        "title": "تفاصيل البنك"
+      }
+    },
+    "fields": {
+      "parentAccount": "الحساب الأب",
+      "companyName": "اسم الشركة",
+      "crNumber": "رقم السجل التجاري",
+      "vatNumber": "رقم ضريبة القيمة المضافة",
+      "businessType": "نوع النشاط التجاري",
+      "numberOfEmployees": "عدد الموظفين",
+      "territory": "المنطقة",
+      "phone": "الهاتف",
+      "fullName": "الاسم الكامل",
+      "jobTitle": "المسمى الوظيفي",
+      "street": "الشارع",
+      "city": "المدينة",
+      "country": "البلد",
+      "state": "الولاية",
+      "zipCode": "الرمز البريدي",
+      "fax": "الفاكس",
+      "bankName": "اسم البنك",
+      "beneficiaryName": "اسم المستفيد",
+      "accountNumber": "رقم الحساب",
+      "bankCity": "مدينة البنك",
+      "bankState": "ولاية البنك",
+      "bankAddress": "عنوان البنك",
+      "postalCode": "الرمز البريدي",
+      "swiftCode": "رمز السويفت"
+    }
+  },
   "common": {
     "language": "اللغة",
     "english": "الإنجليزية",

@@ -7,6 +7,7 @@ import type { AxiosResponse } from 'axios';
 import type { User, UsersResponse } from '@/types/user.types';
 import type { ValidateInvitationResponse, CheckCRResponse, Voyage, VoyageRoute } from '@/services/api/axiosRoutes.type';
 import type { VoyagesResponse } from '@/types/voyage.types';
+import type { ContactDetails, PatchResponse } from '@/types/contact.types';
 
 // ============================================================================
 // USERS RESPONSES
@@ -126,6 +127,26 @@ export const vesselScheduleResponses = {
    * Process voyage routes response
    */
   processVoyageRoutes: (response: AxiosResponse<VoyageRoute[]>): VoyageRoute[] => {
+    return response.data;
+  },
+};
+
+// ============================================================================
+// CONTACT/PROFILE RESPONSES
+// ============================================================================
+
+export const contactResponses = {
+  /**
+   * Process get contact details response
+   */
+  processContactDetails: (response: AxiosResponse<ContactDetails>): ContactDetails => {
+    return response.data;
+  },
+
+  /**
+   * Process update contact account response
+   */
+  processUpdateContactAccount: (response: AxiosResponse<PatchResponse>): PatchResponse => {
     return response.data;
   },
 };

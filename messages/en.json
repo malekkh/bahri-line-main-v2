@@ -196,6 +196,56 @@
       "status": "Status"
     }
   },
+  "profile": {
+    "loading": "Loading profile...",
+    "error": "Error",
+    "nav": {
+      "quotationRequests": "Quotation Requests",
+      "offeredQuotations": "Offered Quotations",
+      "creditApplications": "Credit Applications",
+      "contracts": "Contracts"
+    },
+    "tabs": {
+      "companyDetails": {
+        "label": "Company Details",
+        "title": "Company Details"
+      },
+      "contactDetails": {
+        "label": "Contact Details",
+        "title": "Contact Details"
+      },
+      "bankDetails": {
+        "label": "Bank Details",
+        "title": "Bank Details"
+      }
+    },
+    "fields": {
+      "parentAccount": "Parent Account",
+      "companyName": "Company Name",
+      "crNumber": "CR Number",
+      "vatNumber": "VAT Number",
+      "businessType": "Business Type",
+      "numberOfEmployees": "Number of Employee",
+      "territory": "Territory",
+      "phone": "Phone",
+      "fullName": "Full Name",
+      "jobTitle": "Job Title",
+      "street": "Street",
+      "city": "City",
+      "country": "Country",
+      "state": "State",
+      "zipCode": "Zip Code",
+      "fax": "Fax",
+      "bankName": "Bank Name",
+      "beneficiaryName": "Beneficiary Name",
+      "accountNumber": "Account Number",
+      "bankCity": "Bank City",
+      "bankState": "Bank State",
+      "bankAddress": "Bank Address",
+      "postalCode": "Postal Code",
+      "swiftCode": "SWIFT Code"
+    }
+  },
   "common": {
     "language": "Language",
     "english": "English",
