@@ -132,30 +132,30 @@
   }
 }
 
-/* Custom scrollbar styles */
-@layer utilities {
-  .scrollbar-thin::-webkit-scrollbar {
+/* Global scrollbar styles - Light and simple */
+@layer base {
+  * {
+    /* Webkit (Chrome, Safari, Edge) */
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db transparent;
+  }
+  
+  *::-webkit-scrollbar {
     width: 4px;
     height: 4px;
   }
   
-  .scrollbar-thin::-webkit-scrollbar-track {
+  *::-webkit-scrollbar-track {
     background: transparent;
   }
   
-  .scrollbar-thin::-webkit-scrollbar-thumb {
+  *::-webkit-scrollbar-thumb {
     background: #d1d5db;
     border-radius: 2px;
   }
   
-  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  *::-webkit-scrollbar-thumb:hover {
     background: #9ca3af;
-  }
-  
-  /* Firefox scrollbar */
-  .scrollbar-thin {
-    scrollbar-width: thin;
-    scrollbar-color: #d1d5db transparent;
   }
 }
 

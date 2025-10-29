@@ -59,7 +59,7 @@ export function Table<T extends Record<string, any>>({
   };
 
   return (
-    <div className={cn('overflow-x-auto scrollbar-thin', className)}>
+    <div className={cn('overflow-x-auto', className)}>
       <table className="w-full border-collapse min-w-max">
         <thead>
           <tr>
@@ -129,7 +129,7 @@ export function Table<T extends Record<string, any>>({
                   <td 
                     key={column.key} 
                     className={cn(
-                      'py-3 text-sm text-gray-700 whitespace-nowrap text-left',
+                      'py-3 text-sm text-gray-700 whitespace-nowrap text-center',
                       colIndex === 0 ? 'pl-6 pr-4' : 'pl-8 pr-4', // Match header button alignment: th px-2 (8px) + button px-4 (16px) = 24px total for first col
                       column.className
                     )}
