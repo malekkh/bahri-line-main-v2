@@ -33,6 +33,7 @@ export const API_ROUTES = {
   VESSEL_SCHEDULE: {
     BASE: '/vesselSchedule',
     LIST_VOYAGES: '/vesselSchedule/listVoyages',
+    VOYAGE_ROUTES: '/vesselSchedule/VoyageRoutes',
   },
 
   // Add more route groups as needed

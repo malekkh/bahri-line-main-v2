@@ -13,6 +13,7 @@ import { TableTitle } from '@/components/ui/table-title';
 import { Pagination } from '@/components/ui/pagination';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { Logo } from '@/components/ui/logo';
+import { VoyageRoutesModal } from '@/components/voyage-routes-modal';
 import { sortData } from '@/utils/sortData';
 import { formatDateShort } from '@/utils/formatDate';
 import type { Voyage } from '@/types/voyage.types';
@@ -26,6 +27,8 @@ export default function VesselsSchedulePage() {
     column: null,
     order: null,
   });
+  const [selectedVoyage, setSelectedVoyage] = useState<{ id: string; voyageNo: string } | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetch all voyages (we'll paginate and sort on frontend)
   // Note: If API supports pagination, you might want to fetch all data first
@@ -63,9 +66,10 @@ export default function VesselsSchedulePage() {
       render: (value, row) => (
         <button
           className="text-blue-600 hover:text-blue-800 underline text-left"
-          onClick={() => {
-            // Handle voyage click - you can navigate to voyage details
-            console.log('Voyage clicked:', row.voyageNo);
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelectedVoyage({ id: row.id, voyageNo: row.voyageNo });
+            setIsModalOpen(true);
           }}
         >
           {value}
@@ -197,23 +201,38 @@ export default function VesselsSchedulePage() {
         <div className="rounded-lg p-6 mx-6 bg-white">
           <TableTitle title={t('title')} showBackButton className='text-navy-blue'/>
           
-          <Table
-            columns={columns}
-            data={paginatedData}
-            sortConfig={sortConfig}
-            onSort={handleSort}
-            rowClassName="hover:bg-blue-50"
-          />
+        <Table
+          columns={columns}
+          data={paginatedData}
+          sortConfig={sortConfig}
+          onSort={handleSort}
+          rowClassName="hover:bg-blue-50"
+          onRowClick={(row) => {
+            setSelectedVoyage({ id: row.id, voyageNo: row.voyageNo });
+            setIsModalOpen(true);
+          }}
+        />
 
-          {totalPages > 1 && (
-            <Pagination
-              currentPage={page}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
-          )}
-        </div>
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
       </div>
+
+      {/* Voyage Routes Modal */}
+      <VoyageRoutesModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedVoyage(null);
+        }}
+        voyageId={selectedVoyage?.id || null}
+        voyageNo={selectedVoyage?.voyageNo}
+      />
+    </div>
   );
 }
 

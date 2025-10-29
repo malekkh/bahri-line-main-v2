@@ -5,7 +5,7 @@
 
 import type { AxiosResponse } from 'axios';
 import type { User, UsersResponse } from '@/types/user.types';
-import type { ValidateInvitationResponse, CheckCRResponse, Voyage } from '@/services/api/axiosRoutes.type';
+import type { ValidateInvitationResponse, CheckCRResponse, Voyage, VoyageRoute } from '@/services/api/axiosRoutes.type';
 import type { VoyagesResponse } from '@/types/voyage.types';
 
 // ============================================================================
@@ -121,6 +121,12 @@ export const vesselScheduleResponses = {
       limit,
       totalPages,
     };
+  },
+  /**
+   * Process voyage routes response
+   */
+  processVoyageRoutes: (response: AxiosResponse<VoyageRoute[]>): VoyageRoute[] => {
+    return response.data;
   },
 };
 

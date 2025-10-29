@@ -104,6 +104,23 @@ export interface Voyage {
   };
 }
 
+export interface VoyageRoute {
+  id: string;
+  port: {
+    id: string;
+    name: string;
+  };
+  eta: {
+    raw: string;
+    formatted: string;
+  };
+  status: {
+    value: number;
+    label: string;
+  };
+  seqNumber: number;
+}
+
 // Vessel Schedule API Types
 export interface VesselScheduleApiTypes {
   listVoyages: {
@@ -114,6 +131,12 @@ export interface VesselScheduleApiTypes {
       sortOrder?: 'asc' | 'desc';
     };
     response: Voyage[];
+  };
+  getVoyageRoutes: {
+    body: {
+      voyageid: string;
+    };
+    response: VoyageRoute[];
   };
 }
 

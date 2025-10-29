@@ -202,6 +202,17 @@ export const vesselScheduleRequests = {
       }
     );
   },
+  /**
+   * Get voyage routes for a specific voyage
+   */
+  getVoyageRoutes: async (voyageId: string) => {
+    return api.post<VesselScheduleApiTypes['getVoyageRoutes']['response']>(
+      API_ROUTES.VESSEL_SCHEDULE.VOYAGE_ROUTES,
+      {
+        voyageid: voyageId,
+      }
+    );
+  },
 };
 
 // ============================================================================

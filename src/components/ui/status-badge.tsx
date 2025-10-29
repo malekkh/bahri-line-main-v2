@@ -27,7 +27,7 @@ const getStatusColor = (status: StatusType | { value: number; label: string }): 
   // Normalize status values
   const normalizedStatus = statusValue.trim().toLowerCase();
 
-  if (normalizedStatus === 'in progress' || normalizedStatus === 'in' || normalizedStatus === 'inprogress') {
+  if (normalizedStatus === 'in progress' || normalizedStatus === 'in' || normalizedStatus === 'inprogress' || normalizedStatus === 'in transit') {
     return 'bg-blue-100 text-blue-800 border-blue-200';
   }
   
@@ -35,7 +35,7 @@ const getStatusColor = (status: StatusType | { value: number; label: string }): 
     return 'bg-red-100 text-red-800 border-red-200';
   }
   
-  if (normalizedStatus === 'completed' || normalizedStatus === 'c' || normalizedStatus === 'complete') {
+  if (normalizedStatus === 'completed' || normalizedStatus === 'c' || normalizedStatus === 'complete' || normalizedStatus === 'arrived') {
     return 'bg-green-100 text-green-800 border-green-200';
   }
 
@@ -50,20 +50,19 @@ const getStatusLabel = (status: StatusType | { value: number; label: string }): 
   return String(status);
 };
 
-export function StatusBadge({ status,  className }: StatusBadgeProps) {
+export function StatusBadge({ status, className }: StatusBadgeProps) {
   const colorClass = getStatusColor(status);
   const label = getStatusLabel(status);
 
   return (
     <span
       className={cn(
-        'inline-flex items-center justify-center gap-1 px-3 py-1 rounded-full text-xs font-medium border w-[180px]',
+        'inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium border',
         colorClass,
         className
       )}
     >
       {label}
-      
     </span>
   );
 }

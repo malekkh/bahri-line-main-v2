@@ -47,3 +47,20 @@ export interface VoyagesResponse {
   totalPages: number;
 }
 
+export interface VoyageRoute {
+  id: string;
+  port: {
+    id: string;
+    name: string;
+  };
+  eta: {
+    raw: string;
+    formatted: string;
+  };
+  status: {
+    value: number;
+    label: string;
+  };
+  seqNumber: number;
+}
+
