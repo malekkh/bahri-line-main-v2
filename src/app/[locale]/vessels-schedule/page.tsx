@@ -12,6 +12,7 @@ import { Table, Column, SortConfig, SortType } from '@/components/ui/table';
 import { TableTitle } from '@/components/ui/table-title';
 import { Pagination } from '@/components/ui/pagination';
 import { StatusBadge } from '@/components/ui/status-badge';
+import { Logo } from '@/components/ui/logo';
 import { sortData } from '@/utils/sortData';
 import type { Voyage } from '@/types/voyage.types';
 
@@ -148,10 +149,17 @@ export default function VesselsSchedulePage() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto p-8">
-        <TableTitle title={t('title')} showBackButton />
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-lg text-gray-600">{t('loading')}</div>
+      <div className="bg-gray-100 min-h-screen">
+        <div className="bg-gray-100 py-6">
+          <div className="container mx-auto px-8">
+            <Logo className="justify-center" />
+          </div>
+        </div>
+        <div className="container mx-auto p-8">
+          <TableTitle title={t('title')} showBackButton />
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-lg text-gray-600">{t('loading')}</div>
+          </div>
         </div>
       </div>
     );
@@ -159,37 +167,52 @@ export default function VesselsSchedulePage() {
 
   if (error) {
     return (
-      <div className="container mx-auto p-8">
-        <TableTitle title={t('title')} showBackButton />
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-red-500">{t('error')}: {error.message}</div>
+      <div className="bg-gray-100 min-h-screen">
+        <div className="bg-gray-100 py-6">
+          <div className="container mx-auto px-8">
+            <Logo className="justify-center" />
+          </div>
+        </div>
+        <div className="container mx-auto p-8">
+          <TableTitle title={t('title')} showBackButton />
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-red-500">{t('error')}: {error.message}</div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto p-8 bg-gray-50 min-h-screen">
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <TableTitle title={t('title')} showBackButton />
-        
-        <Table
-          columns={columns}
-          data={paginatedData}
-          sortConfig={sortConfig}
-          onSort={handleSort}
-          rowClassName="hover:bg-blue-50"
-        />
-
-        {totalPages > 1 && (
-          <Pagination
-            currentPage={page}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        )}
+    <div className="bg-gray-100 min-h-screen">
+      {/* Logo Section */}
+      <div className="py-6">
+        <div className="container mx-auto px-8">
+          <Logo className="justify-start" />
+        </div>
       </div>
-    </div>
+
+      {/* Table Container */}
+        <div className="rounded-lg p-6 mx-6 bg-white">
+          <TableTitle title={t('title')} showBackButton className='text-navy-blue'/>
+          
+          <Table
+            columns={columns}
+            data={paginatedData}
+            sortConfig={sortConfig}
+            onSort={handleSort}
+            rowClassName="hover:bg-blue-50"
+          />
+
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </div>
+      </div>
   );
 }
 
