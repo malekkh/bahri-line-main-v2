@@ -12,26 +12,19 @@ import { handleApiError } from '@/utils/handleApiError';
 
 const VOYAGES_QUERY_KEY = 'voyages';
 
-export const useVoyagesLogic = (
-  page: number = 1,
-  limit: number = 10,
-  sortBy?: string,
-  sortOrder: 'asc' | 'desc' = 'asc'
-) => {
-  // Fetch voyages
+export const useVoyagesLogic = (page: number = 1, limit: number = 10) => {
+  // Fetch voyages - no sorting, we'll do it on the frontend
   const {
     data: voyagesData,
     isLoading,
     error,
     refetch,
   } = useQuery({
-    queryKey: [VOYAGES_QUERY_KEY, { page, limit, sortBy, sortOrder }],
+    queryKey: [VOYAGES_QUERY_KEY, { page, limit }],
     queryFn: async () => {
       const response = await vesselScheduleRequests.listVoyages({
         page,
         limit,
-        sortBy,
-        sortOrder,
       });
       return vesselScheduleResponses.processListVoyages(response, page, limit);
     },

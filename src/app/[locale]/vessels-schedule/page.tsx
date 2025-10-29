@@ -5,13 +5,14 @@
  * Display vessel schedule with sortable table and pagination
  */
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useVoyagesLogic } from '@/customhooks/useVoyagesLogic';
-import { Table, Column, SortConfig } from '@/components/ui/table';
+import { Table, Column, SortConfig, SortType } from '@/components/ui/table';
 import { TableTitle } from '@/components/ui/table-title';
 import { Pagination } from '@/components/ui/pagination';
 import { StatusBadge } from '@/components/ui/status-badge';
+import { sortData } from '@/utils/sortData';
 import type { Voyage } from '@/types/voyage.types';
 
 const ITEMS_PER_PAGE = 10;
@@ -24,12 +25,10 @@ export default function VesselsSchedulePage() {
     order: null,
   });
 
-  const { voyages, totalPages, isLoading, error } = useVoyagesLogic(
-    page,
-    ITEMS_PER_PAGE,
-    sortConfig.column || undefined,
-    sortConfig.order || 'asc'
-  );
+  // Fetch all voyages (we'll paginate and sort on frontend)
+  // Note: If API supports pagination, you might want to fetch all data first
+  // For now, we'll fetch page by page but sort only current page
+  const { voyages: allVoyages, isLoading, error } = useVoyagesLogic(1, 1000); // Fetch large limit or all
 
   const handleSort = (column: string) => {
     setSortConfig((prev) => {
@@ -43,6 +42,8 @@ export default function VesselsSchedulePage() {
       }
       return { column, order: 'asc' };
     });
+    // Reset to first page when sorting changes
+    setPage(1);
   };
 
   const handlePageChange = (newPage: number) => {
@@ -56,6 +57,7 @@ export default function VesselsSchedulePage() {
       key: 'voyageNo',
       label: t('columns.voyageNumber'),
       sortable: true,
+      sortType: 'string',
       render: (value, row) => (
         <button
           className="text-blue-600 hover:text-blue-800 underline text-left"
@@ -69,48 +71,80 @@ export default function VesselsSchedulePage() {
       ),
     },
     {
-      key: 'vessel',
+      key: 'vessel.name',
       label: t('columns.vessel'),
       sortable: true,
-      render: (value) => value?.name || '-',
+      sortType: 'string',
+      render: (value, row) => row.vessel?.name || '-',
     },
     {
-      key: 'service',
+      key: 'service.name',
       label: t('columns.voyageService'),
       sortable: true,
-      render: (value) => value?.name || '-',
+      sortType: 'string',
+      render: (value, row) => row.service?.name || '-',
     },
     {
-      key: 'portOfLoad',
+      key: 'service.startingPort.name',
       label: t('columns.portOfLoad'),
       sortable: true,
+      sortType: 'string',
       render: (value, row) => row.service?.startingPort?.name || '-',
     },
     {
-      key: 'portOfDischarge',
+      key: 'service.dischargePort.name',
       label: t('columns.portOfDischarge'),
       sortable: true,
+      sortType: 'string',
       render: (value, row) => row.service?.dischargePort?.name || row.service?.startingPort?.name || '-',
     },
     {
       key: 'etd',
       label: t('columns.departureEstimatedTime'),
       sortable: true,
-      render: (value) => value?.formatted || value?.raw || '-',
+      sortType: 'date',
+      render: (value, row) => row.etd?.formatted || row.etd?.raw || '-',
     },
     {
       key: 'eta',
       label: t('columns.arrivalEstimatedTime'),
       sortable: true,
-      render: (value) => value?.formatted || value?.raw || '-',
+      sortType: 'date',
+      render: (value, row) => row.eta?.formatted || row.eta?.raw || '-',
     },
     {
-      key: 'status',
+      key: 'status.label',
       label: t('columns.status'),
       sortable: true,
-      render: (value) => <StatusBadge status={value} showArrow />,
+      sortType: 'string',
+      render: (value, row) => <StatusBadge status={row.status} showArrow />,
     },
   ];
+
+  // Sort and paginate data on frontend
+  const { sortedData, paginatedData, totalPages } = useMemo(() => {
+    let processedData = [...allVoyages];
+
+    // Apply sorting if configured
+    if (sortConfig.column && sortConfig.order) {
+      const column = columns.find((col) => col.key === sortConfig.column);
+      const sortType = column?.sortType || 'string';
+      processedData = sortData(processedData, sortConfig.column, sortType, sortConfig.order);
+    }
+
+    // Calculate pagination
+    const total = processedData.length;
+    const totalPagesCount = Math.ceil(total / ITEMS_PER_PAGE);
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const paginated = processedData.slice(startIndex, endIndex);
+
+    return {
+      sortedData: processedData,
+      paginatedData: paginated,
+      totalPages: totalPagesCount,
+    };
+  }, [allVoyages, sortConfig, page, columns]);
 
   if (isLoading) {
     return (
@@ -141,7 +175,7 @@ export default function VesselsSchedulePage() {
         
         <Table
           columns={columns}
-          data={voyages}
+          data={paginatedData}
           sortConfig={sortConfig}
           onSort={handleSort}
           rowClassName="hover:bg-blue-50"

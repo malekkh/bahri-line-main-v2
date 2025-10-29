@@ -15,10 +15,13 @@ export type SortConfig = {
   order: SortOrder;
 };
 
+export type SortType = 'date' | 'number' | 'string';
+
 export interface Column<T = any> {
   key: string;
   label: string;
   sortable?: boolean;
+  sortType?: SortType; // Type of data for sorting (date, number, string)
   render?: (value: any, row: T) => ReactNode;
   className?: string;
 }
