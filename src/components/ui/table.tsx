@@ -59,43 +59,50 @@ export function Table<T extends Record<string, any>>({
   };
 
   return (
-    <div className={cn('overflow-x-auto', className)}>
-      <table className="w-full border-collapse">
+    <div className={cn('overflow-x-auto scrollbar-thin', className)}>
+      <table className="w-full border-collapse min-w-max">
         <thead>
-          <tr className="border-b border-gray-200">
-            {columns.map((column) => (
+          <tr>
+            {columns.map((column, index) => (
               <th
                 key={column.key}
                 className={cn(
-                  'px-4 py-3 text-left text-sm font-semibold text-gray-700 bg-gray-50',
-                  column.sortable && 'cursor-pointer hover:bg-gray-100 select-none',
+                  'px-2 py-3 text-center whitespace-nowrap',
                   column.className
                 )}
-                onClick={() => column.sortable && handleSort(column.key)}
               >
-                <div className="flex items-center gap-2">
-                  <span>{column.label}</span>
+                <button
+                  type="button"
+                  className={cn(
+                    'inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-sm font-bold text-gray-700 transition-colors whitespace-nowrap',
+                    column.sortable && 'cursor-pointer hover:bg-gray-300 select-none',
+                    !column.sortable && 'cursor-default'
+                  )}
+                  onClick={() => column.sortable && handleSort(column.key)}
+                  disabled={!column.sortable}
+                >
+                  <span className="whitespace-nowrap">{column.label}</span>
                   {column.sortable && (
-                    <span className="flex flex-col">
+                    <span className="flex flex-col flex-shrink-0">
                       <ChevronUp
                         className={cn(
                           'w-3 h-3',
                           sortConfig?.column === column.key && sortConfig?.order === 'asc'
-                            ? 'text-gray-900'
-                            : 'text-gray-400'
+                            ? 'text-gray-700'
+                            : 'text-gray-500'
                         )}
                       />
                       <ChevronDown
                         className={cn(
                           'w-3 h-3 -mt-1',
                           sortConfig?.column === column.key && sortConfig?.order === 'desc'
-                            ? 'text-gray-900'
-                            : 'text-gray-400'
+                            ? 'text-gray-700'
+                            : 'text-gray-500'
                         )}
                       />
                     </span>
                   )}
-                </div>
+                </button>
               </th>
             ))}
           </tr>
@@ -118,8 +125,15 @@ export function Table<T extends Record<string, any>>({
                 )}
                 onClick={() => onRowClick?.(row)}
               >
-                {columns.map((column) => (
-                  <td key={column.key} className={cn('px-4 py-3 text-sm text-gray-700', column.className)}>
+                {columns.map((column, colIndex) => (
+                  <td 
+                    key={column.key} 
+                    className={cn(
+                      'py-3 text-sm text-gray-700 whitespace-nowrap text-left',
+                      colIndex === 0 ? 'pl-6 pr-4' : 'pl-8 pr-4', // Match header button alignment: th px-2 (8px) + button px-4 (16px) = 24px total for first col
+                      column.className
+                    )}
+                  >
                     {column.render ? column.render(row[column.key], row) : row[column.key]}
                   </td>
                 ))}
