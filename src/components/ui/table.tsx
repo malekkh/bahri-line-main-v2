@@ -6,7 +6,7 @@
  */
 
 import { ReactNode } from 'react';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { ArrowUp, ArrowDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export type SortOrder = 'asc' | 'desc' | null;
@@ -83,18 +83,18 @@ export function Table<T extends Record<string, any>>({
                 >
                   <span className="whitespace-nowrap">{column.label}</span>
                   {column.sortable && (
-                    <span className="flex flex-col flex-shrink-0">
-                      <ChevronUp
+                    <span className="flex items-center gap-0.5 flex-shrink-0">
+                      <ArrowUp
                         className={cn(
-                          'w-3 h-3',
+                          'w-3.5 h-3.5',
                           sortConfig?.column === column.key && sortConfig?.order === 'asc'
                             ? 'text-gray-700'
                             : 'text-gray-500'
                         )}
                       />
-                      <ChevronDown
+                      <ArrowDown
                         className={cn(
-                          'w-3 h-3 -mt-1',
+                          'w-3.5 h-3.5',
                           sortConfig?.column === column.key && sortConfig?.order === 'desc'
                             ? 'text-gray-700'
                             : 'text-gray-500'
