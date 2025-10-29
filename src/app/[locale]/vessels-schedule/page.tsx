@@ -14,6 +14,7 @@ import { Pagination } from '@/components/ui/pagination';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { Logo } from '@/components/ui/logo';
 import { sortData } from '@/utils/sortData';
+import { formatDateShort } from '@/utils/formatDate';
 import type { Voyage } from '@/types/voyage.types';
 
 const ITEMS_PER_PAGE = 10;
@@ -104,14 +105,14 @@ export default function VesselsSchedulePage() {
       label: t('columns.departureEstimatedTime'),
       sortable: true,
       sortType: 'date',
-      render: (value, row) => row.etd?.formatted || row.etd?.raw || '-',
+      render: (value, row) => formatDateShort(row.etd?.raw || row.etd?.formatted || ''),
     },
     {
       key: 'eta',
       label: t('columns.arrivalEstimatedTime'),
       sortable: true,
       sortType: 'date',
-      render: (value, row) => row.eta?.formatted || row.eta?.raw || '-',
+      render: (value, row) => formatDateShort(row.eta?.raw || row.eta?.formatted || ''),
     },
     {
       key: 'status.label',
