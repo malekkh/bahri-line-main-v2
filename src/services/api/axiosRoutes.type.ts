@@ -68,6 +68,55 @@ export interface CountriesResponse {
   countries: Country[];
 }
 
+export interface Voyage {
+  id: string;
+  voyageNo: string;
+  voyageStatus: {
+    value: number;
+    label: string;
+  };
+  etd: {
+    raw: string;
+    formatted: string;
+  };
+  eta: {
+    raw: string;
+    formatted: string;
+  };
+  status: {
+    value: number;
+    label: string;
+  };
+  vessel: {
+    id: string;
+    name: string;
+  };
+  service: {
+    name: string;
+    startingPort: {
+      id: string;
+      name: string;
+    };
+    dischargePort?: {
+      id: string;
+      name: string;
+    };
+  };
+}
+
+// Vessel Schedule API Types
+export interface VesselScheduleApiTypes {
+  listVoyages: {
+    params?: {
+      page?: number;
+      limit?: number;
+      sortBy?: string;
+      sortOrder?: 'asc' | 'desc';
+    };
+    response: Voyage[];
+  };
+}
+
 // Users API Types
 export interface GetUsersParams {
   page?: number;

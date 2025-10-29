@@ -181,6 +181,21 @@
     "mediaInquiry": "استفسار إعلامي",
     "other": "أخرى"
   },
+  "vesselsSchedule": {
+    "title": "جدول السفن",
+    "loading": "جاري تحميل جدول السفن...",
+    "error": "خطأ",
+    "columns": {
+      "voyageNumber": "رقم الرحلة",
+      "vessel": "السفينة",
+      "voyageService": "خدمة الرحلة",
+      "portOfLoad": "ميناء التحميل",
+      "portOfDischarge": "ميناء التفريغ",
+      "departureEstimatedTime": "وقت المغادرة المقدر",
+      "arrivalEstimatedTime": "وقت الوصول المقدر",
+      "status": "الحالة"
+    }
+  },
   "common": {
     "language": "اللغة",
     "english": "الإنجليزية",

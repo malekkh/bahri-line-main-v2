@@ -29,6 +29,12 @@ export const API_ROUTES = {
     GET_COUNTRIES: '/countries',
   },
 
+  // Vessel Schedule
+  VESSEL_SCHEDULE: {
+    BASE: '/vesselSchedule',
+    LIST_VOYAGES: '/vesselSchedule/listVoyages',
+  },
+
   // Add more route groups as needed
 } as const;
 

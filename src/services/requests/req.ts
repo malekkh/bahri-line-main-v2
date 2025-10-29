@@ -5,7 +5,7 @@
 
 import { api } from '@/services/api/axiosSetup';
 import API_ROUTES from '@/services/api/axiosRoutes';
-import type { UsersApiTypes, AuthApiTypes } from '@/services/api/axiosRoutes.type';
+import type { UsersApiTypes, AuthApiTypes, VesselScheduleApiTypes } from '@/services/api/axiosRoutes.type';
 
 // ============================================================================
 // USERS REQUESTS
@@ -182,6 +182,24 @@ export const authRequests = {
   getCountries: async () => {
     return api.get<AuthApiTypes['getCountries']['response']>(
       API_ROUTES.AUTH.GET_COUNTRIES
+    );
+  },
+};
+
+// ============================================================================
+// VESSEL SCHEDULE REQUESTS
+// ============================================================================
+
+export const vesselScheduleRequests = {
+  /**
+   * Get all voyages with optional pagination and sorting
+   */
+  listVoyages: async (params?: VesselScheduleApiTypes['listVoyages']['params']) => {
+    return api.get<VesselScheduleApiTypes['listVoyages']['response']>(
+      API_ROUTES.VESSEL_SCHEDULE.LIST_VOYAGES,
+      {
+        params,
+      }
     );
   },
 };

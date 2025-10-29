@@ -181,6 +181,21 @@
     "mediaInquiry": "Media Inquiry",
     "other": "Other"
   },
+  "vesselsSchedule": {
+    "title": "Vessels Schedule",
+    "loading": "Loading vessels schedule...",
+    "error": "Error",
+    "columns": {
+      "voyageNumber": "Voyage Number",
+      "vessel": "Vessel",
+      "voyageService": "Voyage Service",
+      "portOfLoad": "Port Of Load",
+      "portOfDischarge": "Port Of Discharge",
+      "departureEstimatedTime": "Departure Estimated Time",
+      "arrivalEstimatedTime": "Arrival Estimated Time",
+      "status": "Status"
+    }
+  },
   "common": {
     "language": "Language",
     "english": "English",

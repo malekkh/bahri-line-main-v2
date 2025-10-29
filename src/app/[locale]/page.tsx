@@ -154,7 +154,7 @@ export default function HomePage() {
                 className="w-full sm:w-auto bg-transparent border border-white/30 text-white hover:bg-white/10 rounded-md h-14 px-8 font-semibold"
                 asChild
               >
-                <Link href={`/${locale}/vessels`}>
+                <Link href={`/${locale}/vessels-schedule`}>
                   {t('vesselSchedule')}
                 </Link>
               </Button>
