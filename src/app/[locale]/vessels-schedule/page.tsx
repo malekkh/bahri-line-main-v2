@@ -118,7 +118,7 @@ export default function VesselsSchedulePage() {
       label: t('columns.status'),
       sortable: true,
       sortType: 'string',
-      render: (value, row) => <StatusBadge status={row.status} showArrow />,
+      render: (value, row) => <StatusBadge status={row.voyageStatus?.label} />,
     },
   ];
 

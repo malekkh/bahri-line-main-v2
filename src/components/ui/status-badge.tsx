@@ -6,13 +6,11 @@
  */
 
 import { cn } from '@/lib/utils';
-import { ArrowRight } from 'lucide-react';
 
 export type StatusType = 'in_progress' | 'not_started' | 'completed' | 'in' | 'n' | 'c' | string;
 
 interface StatusBadgeProps {
   status: StatusType | { value: number; label: string };
-  showArrow?: boolean;
   className?: string;
 }
 
@@ -52,20 +50,20 @@ const getStatusLabel = (status: StatusType | { value: number; label: string }): 
   return String(status);
 };
 
-export function StatusBadge({ status, showArrow = false, className }: StatusBadgeProps) {
+export function StatusBadge({ status,  className }: StatusBadgeProps) {
   const colorClass = getStatusColor(status);
   const label = getStatusLabel(status);
 
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border',
+        'inline-flex items-center justify-center gap-1 px-3 py-1 rounded-full text-xs font-medium border w-[180px]',
         colorClass,
         className
       )}
     >
       {label}
-      {showArrow && <ArrowRight className="w-3 h-3" />}
+      
     </span>
   );
 }
