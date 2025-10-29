@@ -5,7 +5,7 @@
  * Reusable table title component with optional back button
  */
 
-import { ArrowLeft } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -32,10 +32,10 @@ export function TableTitle({ title, showBackButton = false, onBack, className }:
       {showBackButton && (
         <button
           onClick={handleBack}
-          className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"
+          className="flex items-center justify-center p-0 hover:opacity-80 transition-opacity"
           aria-label="Go back"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ChevronLeft className="w-6 h-6" />
         </button>
       )}
       <h1 className="text-2xl font-bold">{title}</h1>
