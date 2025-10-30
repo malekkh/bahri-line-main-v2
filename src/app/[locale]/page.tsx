@@ -13,12 +13,29 @@ import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/ui/logo';
 import { LanguageSwitcher } from '@/components/ui/language-switcher';
-import { Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Linkedin, Twitter, Instagram, User2 } from 'lucide-react';
+import { authRequests } from '@/services/requests/req';
 
 export default function HomePage() {
   const t = useTranslations('home');
   const params = useParams();
   const locale = params.locale as string;
+  const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    authRequests
+      .checkSession()
+      .then(() => {
+        if (isMounted) setIsAuthenticated(true);
+      })
+      .catch(() => {
+        if (isMounted) setIsAuthenticated(false);
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <div className="min-h-screen relative flex flex-col">
@@ -68,14 +85,24 @@ export default function HomePage() {
                 {t('bookingTracker')}
               </Link>
             </Button>
-            <Button
-              className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white"
-              asChild
-            >
-              <Link href={`/${locale}/login`}>
-                {t('login')}
+            {isAuthenticated ? (
+              <Link
+                href={`/${locale}/profile`}
+                aria-label="Profile"
+                className="w-10 h-10 rounded-md bg-[#FF6720] hover:bg-[#FF6720]/90 text-white flex items-center justify-center"
+              >
+                <User2 className="w-5 h-5" />
               </Link>
-            </Button>
+            ) : (
+              <Button
+                className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white"
+                asChild
+              >
+                <Link href={`/${locale}/login`}>
+                  {t('login')}
+                </Link>
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button & Language Switcher */}
@@ -109,12 +136,22 @@ export default function HomePage() {
           >
             {t('bookingTracker')}
           </Link>
-          <Link 
-            href={`/${locale}/login`}
-            className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white px-4 py-2 rounded-md text-sm font-medium"
-          >
-            {t('login')}
-          </Link>
+          {isAuthenticated ? (
+            <Link
+              href={`/${locale}/profile`}
+              aria-label="Profile"
+              className="w-9 h-9 rounded-md bg-[#FF6720] hover:bg-[#FF6720]/90 text-white flex items-center justify-center"
+            >
+              <User2 className="w-5 h-5" />
+            </Link>
+          ) : (
+            <Link 
+              href={`/${locale}/login`}
+              className="bg-[#FF6720] hover:bg-[#FF6720]/90 text-white px-4 py-2 rounded-md text-sm font-medium"
+            >
+              {t('login')}
+            </Link>
+          )}
         </nav>
       </header>
 

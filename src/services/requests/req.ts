@@ -113,6 +113,13 @@ export const authRequests = {
   },
 
   /**
+   * Check if session is valid
+   */
+  checkSession: async () => {
+    return api.get(API_ROUTES.AUTH.CHECK_SESSION);
+  },
+
+  /**
    * Forgot password
    */
   forgotPassword: async (email: AuthApiTypes['forgotPassword']['body']) => {
