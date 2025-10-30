@@ -50,7 +50,10 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       switch (error.response.status) {
         case HTTP_STATUS.UNAUTHORIZED:
-          // Unauthorized - redirect to login
+          // Unauthorized - optionally skip auto-redirect if requested
+          if ((error.config as any)?.skipAuthRedirect) {
+            break;
+          }
           if (typeof window !== 'undefined') {
             localStorage.removeItem(AUTH_TOKEN_KEY);
             window.location.href = ROUTES.LOGIN;

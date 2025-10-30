@@ -20,7 +20,7 @@ export const HTTP_STATUS = {
 
 export const ROUTES = {
   HOME: '/',
-  LOGIN: '/login',
+  LOGIN: '/en/login',
   DASHBOARD: '/dashboard',
 } as const;
 

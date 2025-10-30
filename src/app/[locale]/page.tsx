@@ -26,8 +26,9 @@ export default function HomePage() {
     let isMounted = true;
     authRequests
       .checkSession()
-      .then(() => {
-        if (isMounted) setIsAuthenticated(true);
+      .then((res) => {
+        if (!isMounted) return;
+        setIsAuthenticated(Boolean(res?.data?.sessionActive));
       })
       .catch(() => {
         if (isMounted) setIsAuthenticated(false);

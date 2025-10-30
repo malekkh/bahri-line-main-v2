@@ -116,7 +116,10 @@ export const authRequests = {
    * Check if session is valid
    */
   checkSession: async () => {
-    return api.get(API_ROUTES.AUTH.CHECK_SESSION);
+    return api.get<AuthApiTypes['checkSession']['response']>(
+      API_ROUTES.AUTH.CHECK_SESSION,
+      ({ skipAuthRedirect: true } as any)
+    );
   },
 
   /**

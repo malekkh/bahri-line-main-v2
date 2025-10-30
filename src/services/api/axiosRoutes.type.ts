@@ -214,6 +214,9 @@ export interface AuthApiTypes {
   refreshToken: {
     response: { token: string };
   };
+  checkSession: {
+    response: { sessionActive: boolean };
+  };
   forgotPassword: {
     body: { email: string };
     response: { success: boolean; message: string };

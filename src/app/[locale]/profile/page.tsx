@@ -12,6 +12,7 @@ import { ProfileHeader } from '@/components/layout/profile-header';
 import { ProfileBanner } from '@/components/layout/profile-banner';
 import { Tabs, Tab } from '@/components/ui/tabs';
 import { ReadonlyField } from '@/components/ui/readonly-field';
+import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
 
 export default function ProfilePage() {
   const t = useTranslations('profile');
@@ -113,18 +114,20 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <ProfileHeader userImage={contact.imageBase64} />
-      
-      <ProfileBanner
-        userImage={contact.imageBase64}
-        firstName={contact.firstName}
-        lastName={contact.lastName}
-        companyName={account?.name}
-      />
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-50">
+        <ProfileHeader userImage={contact.imageBase64} />
+        
+        <ProfileBanner
+          userImage={contact.imageBase64}
+          firstName={contact.firstName}
+          lastName={contact.lastName}
+          companyName={account?.name}
+        />
 
-      <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
-    </div>
+        <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
+    </ProtectedRoute>
   );
 }
 
