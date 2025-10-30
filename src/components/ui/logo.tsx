@@ -1,5 +1,9 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -7,15 +11,13 @@ interface LogoProps {
   variant?: 'default' | 'light';
 }
 
-const Logo: React.FC<LogoProps> = ({ 
-  className, 
-  variant = 'default'
-}) => {
+const Logo: React.FC<LogoProps> = ({ className, variant = 'default' }) => {
   const logoSrc = variant === 'light' ? '/images/lightlogo.svg' : '/images/logo.png';
+  const params = useParams();
+  const locale = (params as { locale?: string })?.locale || 'en';
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
-      {/* Logo Image */}
+    <Link href={`/${locale}`} aria-label="Go to home" className={cn('flex items-center gap-2', className)}>
       <Image
         src={logoSrc}
         alt="Bahri Line Logo"
@@ -24,7 +26,7 @@ const Logo: React.FC<LogoProps> = ({
         className="object-contain"
         priority
       />
-    </div>
+    </Link>
   );
 };
 
