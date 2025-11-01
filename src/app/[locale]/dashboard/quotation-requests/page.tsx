@@ -1,5 +1,8 @@
 'use client';
 
+import { Table } from "@/components/ui/table";
+import { TableTitle } from "@/components/ui/table-title";
+
 /**
  * Quotation Requests Page
  * Display list of quotation requests with search, filter, export, and create functionality
@@ -7,10 +10,19 @@
 
 export default function QuotationRequestsPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
+    <div className="rounded-lg p-6 mx-6 bg-white">
       {/* Page content will be added here */}
-      <h1 className="text-2xl font-bold text-[#003C71] mb-4">Quotation Requests</h1>
-      <p className="text-gray-600">Content coming soon...</p>
+      <TableTitle title="Quotation Requests"  className='text-navy-blue'/>
+      {/* <Table
+        columns={columns}
+        data={data}
+        sortConfig={sortConfig}
+        onSort={handleSort}
+        rowClassName="hover:bg-blue-50"
+        onPageChange={handlePageChange}
+        page={page}
+        totalPages={totalPages}
+      /> */}
     </div>
   );
 }
