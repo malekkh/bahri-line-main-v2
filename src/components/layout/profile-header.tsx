@@ -45,6 +45,13 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
     router.replace(pathname, { locale: newLocale });
   };
 
+  const NavigateToProfilePage = () => {
+    if(pathname === `/${locale}/profile`) {
+      return;
+    }
+    router.push(`/profile` as any);
+  };
+
   return (
     <header className={cn('w-full bg-white border-b border-gray-200', className)}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-4">
@@ -105,6 +112,7 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
             <button
               className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden hover:ring-2 hover:ring-[#FF6720] transition-all"
               aria-label="Profile"
+              onClick={NavigateToProfilePage}
             >
               {imageSrc && !imageError ? (
                 <img
