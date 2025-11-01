@@ -10,9 +10,17 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
-import { Settings, User, Globe } from 'lucide-react';
+import { Settings, User, Globe, LogOut } from 'lucide-react';
 import { Logo } from '@/components/ui/logo';
 import { cn } from '@/lib/utils';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { authRequests } from '@/services/requests/req';
+import { useRouter as useNextRouter } from 'next/navigation';
 
 interface ProfileHeaderProps {
   userImage?: string | null;
@@ -21,9 +29,11 @@ interface ProfileHeaderProps {
 
 export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
   const [imageError, setImageError] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const t = useTranslations('profile');
   const params = useParams();
   const router = useRouter();
+  const nextRouter = useNextRouter();
   const pathname = usePathname();
   const locale = params.locale as string;
   
@@ -45,11 +55,27 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
     router.replace(pathname, { locale: newLocale });
   };
 
-  const NavigateToProfilePage = () => {
+  const navigateToProfilePage = () => {
     if(pathname === `/${locale}/profile`) {
       return;
     }
     router.push(`/profile` as any);
+  };
+
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true);
+      await authRequests.logout();
+      nextRouter.push(`/${locale}/login`);
+      nextRouter.refresh();
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Still redirect to login even if API fails
+      nextRouter.push(`/${locale}/login`);
+      nextRouter.refresh();
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   
@@ -124,17 +150,31 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
               </span>
             </button>
             
-            <button
-              className="p-2 hover:bg-gray-100 rounded-md transition-colors"
-              aria-label="Settings"
-            >
-              <Settings className="w-5 h-5 text-gray-700" />
-            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className="p-2 hover:bg-gray-100 rounded-md transition-colors"
+                  aria-label="Settings"
+                >
+                  <Settings className="w-5 h-5 text-gray-700" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-white">
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  disabled={isLoggingOut}
+                  className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  {isLoggingOut ? t('nav.loggingOut', { default: 'Logging out...' }) : t('nav.logout', { default: 'Logout' })}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <button
               className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden hover:ring-2 hover:ring-[#FF6720] transition-all"
               aria-label="Profile"
-              onClick={NavigateToProfilePage}
+              onClick={navigateToProfilePage}
             >
               {imageSrc && !imageError ? (
                 <img

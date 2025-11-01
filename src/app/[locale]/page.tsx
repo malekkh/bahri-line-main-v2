@@ -90,7 +90,7 @@ export default function HomePage() {
               <Link
                 href={`/${locale}/profile`}
                 aria-label="Profile"
-                className="w-10 h-10 rounded-md bg-[#FF6720] hover:bg-[#FF6720]/90 text-white flex items-center justify-center"
+                className="w-9 h-9 rounded-md bg-[#FF6720] hover:bg-[#FF6720]/90 text-white flex items-center justify-center"
               >
                 <User2 className="w-5 h-5" />
               </Link>

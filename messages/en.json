@@ -203,7 +203,9 @@
       "quotationRequests": "Quotation Requests",
       "offeredQuotations": "Offered Quotations",
       "creditApplications": "Credit Applications",
-      "contracts": "Contracts"
+      "contracts": "Contracts",
+      "loggingOut": "Logging out...",
+      "logout": "Logout"
     },
     "tabs": {
       "companyDetails": {

@@ -203,7 +203,9 @@
       "quotationRequests": "طلبات التسعير",
       "offeredQuotations": "عروض الأسعار",
       "creditApplications": "طلبات الائتمان",
-      "contracts": "العقود"
+      "contracts": "العقود",
+      "loggingOut": "جاري تسجيل الخروج...",
+      "logout": "تسجيل الخروج"
     },
     "tabs": {
       "companyDetails": {
