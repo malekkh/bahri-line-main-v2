@@ -52,6 +52,8 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
     router.push(`/profile` as any);
   };
 
+  
+
   return (
     <header className={cn('w-full bg-white border-b border-gray-200', className)}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-4">
@@ -63,25 +65,45 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
           <nav className="hidden md:flex items-center gap-6">
             <Link
               href={`/${locale}/dashboard/quotation-requests`}
-              className="text-gray-700 hover:text-[#FF6720] transition-colors font-medium text-sm"
+              className={cn(
+                "transition-colors font-medium text-sm",
+                pathname.includes('/dashboard/quotation-requests') 
+                  ? "text-[#FF6720]" 
+                  : "text-gray-700 hover:text-[#FF6720]"
+              )}
             >
               {t('nav.quotationRequests')}
             </Link>
             <Link
               href={`/${locale}/dashboard/offered-quotations`}
-              className="text-gray-700 hover:text-[#FF6720] transition-colors font-medium text-sm"
+              className={cn(
+                "transition-colors font-medium text-sm",
+                pathname.includes('/dashboard/offered-quotations') 
+                  ? "text-[#FF6720]" 
+                  : "text-gray-700 hover:text-[#FF6720]"
+              )}
             >
               {t('nav.offeredQuotations')}
             </Link>
             <Link
               href={`/${locale}/dashboard/credit-applications`}
-              className="text-gray-700 hover:text-[#FF6720] transition-colors font-medium text-sm"
+              className={cn(
+                "transition-colors font-medium text-sm",
+                pathname.includes('/dashboard/credit-applications') 
+                  ? "text-[#FF6720]" 
+                  : "text-gray-700 hover:text-[#FF6720]"
+              )}
             >
               {t('nav.creditApplications')}
             </Link>
             <Link
               href={`/${locale}/dashboard/contracts`}
-              className="text-gray-700 hover:text-[#FF6720] transition-colors font-medium text-sm"
+              className={cn(
+                "transition-colors font-medium text-sm",
+                pathname.includes('/dashboard/contracts') 
+                  ? "text-[#FF6720]" 
+                  : "text-gray-700 hover:text-[#FF6720]"
+              )}
             >
               {t('nav.contracts')}
             </Link>
