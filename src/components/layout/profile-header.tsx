@@ -55,25 +55,25 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-6">
             <Link
-              href={`/${locale}/quotation-requests`}
+              href={`/${locale}/dashboard/quotation-requests`}
               className="text-gray-700 hover:text-[#FF6720] transition-colors font-medium text-sm"
             >
               {t('nav.quotationRequests')}
             </Link>
             <Link
-              href={`/${locale}/offered-quotations`}
+              href={`/${locale}/dashboard/offered-quotations`}
               className="text-gray-700 hover:text-[#FF6720] transition-colors font-medium text-sm"
             >
               {t('nav.offeredQuotations')}
             </Link>
             <Link
-              href={`/${locale}/credit-applications`}
+              href={`/${locale}/dashboard/credit-applications`}
               className="text-gray-700 hover:text-[#FF6720] transition-colors font-medium text-sm"
             >
               {t('nav.creditApplications')}
             </Link>
             <Link
-              href={`/${locale}/contracts`}
+              href={`/${locale}/dashboard/contracts`}
               className="text-gray-700 hover:text-[#FF6720] transition-colors font-medium text-sm"
             >
               {t('nav.contracts')}
