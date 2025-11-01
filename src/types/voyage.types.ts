@@ -3,6 +3,7 @@
  * Type definitions for vessel schedule data
  */
 
+
 export interface Voyage {
   id: string;
   voyageNo: string;
@@ -46,6 +47,8 @@ export interface VoyagesResponse {
   limit: number;
   totalPages: number;
 }
+
+
 
 export interface VoyageRoute {
   id: string;

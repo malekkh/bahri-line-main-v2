@@ -5,7 +5,7 @@
 
 import { api } from '@/services/api/axiosSetup';
 import API_ROUTES from '@/services/api/axiosRoutes';
-import type { UsersApiTypes, AuthApiTypes, VesselScheduleApiTypes, ContactApiTypes } from '@/services/api/axiosRoutes.type';
+import type { UsersApiTypes, AuthApiTypes, VesselScheduleApiTypes, ContactApiTypes, QuotationRequestApiTypes } from '@/services/api/axiosRoutes.type';
 
 // ============================================================================
 // USERS REQUESTS
@@ -246,6 +246,14 @@ export const contactRequests = {
     return api.post<ContactApiTypes['updateContactAccount']['response']>(
       API_ROUTES.CONTACT.UPDATE_CONTACT_ACCOUNT,
       payload
+    );
+  },
+};
+
+export const quotationRequestsRequests = {
+  getAll: async () => {
+    return api.get<QuotationRequestApiTypes['getAll']['response']>(
+      API_ROUTES.QUOTATION_REQUESTS.BASE
     );
   },
 };

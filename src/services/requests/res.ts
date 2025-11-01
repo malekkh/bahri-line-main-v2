@@ -5,8 +5,9 @@
 
 import type { AxiosResponse } from 'axios';
 import type { User, UsersResponse } from '@/types/user.types';
-import type { ValidateInvitationResponse, CheckCRResponse, Voyage, VoyageRoute } from '@/services/api/axiosRoutes.type';
+import type { ValidateInvitationResponse, CheckCRResponse, Voyage, VoyageRoute, QuotationRequest } from '@/services/api/axiosRoutes.type';
 import type { VoyagesResponse } from '@/types/voyage.types';
+import type { QuotationRequestsResponse } from '@/types/quotation.types';
 import type { ContactDetails, PatchResponse } from '@/types/contact.types';
 
 // ============================================================================
@@ -130,6 +131,12 @@ export const vesselScheduleResponses = {
     return response.data;
   },
 };
+
+// ============================================================================
+// QUOTATION REQUESTS RESPONSES
+// ============================================================================
+
+
 
 // ============================================================================
 // CONTACT/PROFILE RESPONSES

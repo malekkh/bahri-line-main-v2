@@ -6,6 +6,7 @@
 import { User, CreateUserDto, UpdateUserDto, UsersResponse } from '@/types/user.types';
 import { ContactDetailsFormData, RegistrationFormData } from '@/schemas/auth.schema';
 import { ContactDetails, PatchPayload, PatchResponse } from '@/types/contact.types';
+import { QuotationRequestsResponse } from '@/types/quotation.types';
 
 // Prefilled Contact Data Types
 export interface PrefilledContactData {
@@ -141,6 +142,47 @@ export interface VesselScheduleApiTypes {
   };
 }
 
+// Quotation Requests API Types
+export interface QuotationRequest {
+    opportunityid: string;
+    name: string;
+    requestId?: string; // Add requestId field for the actual ID
+    totalamount?: number | string; // Allow both number and string
+    totalamountFormatted?: string; // Add formatted total amount for display
+    displayTotal?: string; // Add display total for UI
+    loadingPort: string;
+    status: string;
+    statusCode: number;
+    dischargePort: string;
+    unitWeight?: string;
+    unitMeasure?: string;
+    effectivefrom?: string;
+    effectiveTo?: string;
+    etd?: string;
+    voyage?: string;
+    eta?: string;
+    requestedShipmentDate: string;
+    TargetedVessel: string;
+    products: any[];
+    quotenumber?: string;
+    discountamount?: number;
+    shipmentType?: string;
+    ntw_bookingreference?: string;
+    ntw_linertermsoptions?: string;
+    paymenttermscode?: string;
+    ntw_movementtypeexport?: string;
+    ntw_shippingtermscode?: string;
+    ntw_movementtypeimport?: string;
+    requestdeliveryby?: string;
+    voyagestatus? : string;
+    ntw_ispricingaccepted?: boolean;
+    discountpercentage?: number;
+    totaltax?: number;
+    ntw_commissionpercentage?: number;
+    validFrom?: Date | string;
+    validTo?: Date | string;
+  
+}
 // Contact/Profile API Types
 export interface ContactApiTypes {
   getContactDetails: {
@@ -260,6 +302,13 @@ export interface AuthApiTypes {
   };
   getCountries: {
     response: CountriesResponse;
+  };
+}
+
+// Quotation Requests API Types
+export interface QuotationRequestApiTypes {
+  getAll: {
+    response: QuotationRequestsResponse;
   };
 }
 

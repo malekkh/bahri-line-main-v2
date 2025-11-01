@@ -42,6 +42,11 @@ export const API_ROUTES = {
     CONTACT_DETAILS: '/contact/contact-details',
     UPDATE_CONTACT_ACCOUNT: '/contact/update-contact-account',
   },
+  
+  // Quotation Requests
+  QUOTATION_REQUESTS: {
+    BASE: '/quotes/getQuotes'
+  },
 
   // Add more route groups as needed
 } as const;
