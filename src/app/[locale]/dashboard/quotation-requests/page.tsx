@@ -5,6 +5,8 @@ import { TableTitle } from "@/components/ui/table-title";
 import { TableSkeleton } from "@/components/ui/table-skeleton";
 import { TableControls } from "@/components/ui/table-controls";
 import { Pagination } from "@/components/ui/pagination";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 import useQuotationRequests from "@/customhooks/useQuotationRequests";
 import { useTableFeatures } from "@/customhooks/useTableFeatures";
 
@@ -35,18 +37,33 @@ export default function QuotationRequestsPage() {
     searchableFields: ['requestId', 'dischargePort', 'loadingPort', 'status', 'totalamountFormatted', 'requestedShipmentDate'],
   });
 
+  const handleCreateNewRequest = () => {
+    // TODO: Navigate to create new request page or open modal
+    console.log('Create new request');
+  };
+
   return (
     <div className="rounded-lg p-6 mx-6 bg-white">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <TableTitle title="Quotation Requests" className='text-navy-blue' />
         
-        <TableControls
-          searchQuery={searchQuery}
-          onSearchChange={handleSearchChange}
-          onExport={handleExport}
-          searchPlaceholder="Search requests..."
-          disabled={isLoading || !filteredData || filteredData.length === 0}
-        />
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <TableControls
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            onExport={handleExport}
+            searchPlaceholder="Search requests..."
+            disabled={isLoading || !filteredData || filteredData.length === 0}
+          />
+          
+          <Button
+            onClick={handleCreateNewRequest}
+            className="bg-[#003C71] hover:bg-[#003C71]/90 text-white whitespace-nowrap"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Create New Request
+          </Button>
+        </div>
       </div>
 
       {isLoading ? (
