@@ -1,37 +1,34 @@
-'use client';
-
 /**
  * About Us Page
  * Company information and capabilities page
  */
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/ui/logo';
-import { LanguageSwitcher } from '@/components/ui/language-switcher';
-import { 
-  Trophy, 
-  Users, 
-  Building2, 
-  Ship,
-  Shield,
-  Droplet,
-  Beaker,
-  Package,
-  Wheat,
-  ShipWheel,
+import {
   Anchor,
-  X
+  Beaker,
+  Building2,
+  Droplet,
+  Package,
+  Shield,
+  Ship,
+  ShipWheel,
+  Trophy,
+  Users,
+  Wheat
 } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function AboutPage() {
-  const t = useTranslations('about');
-  const params = useParams();
-  const locale = params.locale as string;
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations('about');
 
   const statistics = [
     { icon: Trophy, value: t('years') },
@@ -49,9 +46,7 @@ export default function AboutPage() {
     { icon: Anchor, label: t('bahriMarine') },
   ];
 
-  const handleClose = () => {
-    window.history.back();
-  };
+  
 
   return (
     <div className="min-h-screen relative flex flex-col bg-[#F5F6F7] p-6">

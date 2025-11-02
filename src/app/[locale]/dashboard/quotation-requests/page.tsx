@@ -11,7 +11,6 @@ import useQuotationRequests from "@/customhooks/useQuotationRequests";
 
 export default function QuotationRequestsPage() {
   const { data, isLoading, error, refetch ,columns} = useQuotationRequests();
-  console.log(data);
   return (
     <div className="rounded-lg p-6 mx-6 bg-white">
       {/* Page content will be added here */}
