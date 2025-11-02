@@ -14,6 +14,7 @@ import { Pagination } from '@/components/ui/pagination';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { Logo } from '@/components/ui/logo';
 import { VoyageRoutesModal } from '@/components/voyage-routes-modal';
+import { TableSkeleton } from '@/components/ui/table-skeleton';
 import { sortData } from '@/utils/sortData';
 import { formatDateShort } from '@/utils/formatDate';
 import type { Voyage } from '@/types/voyage.types';
@@ -157,14 +158,12 @@ export default function VesselsSchedulePage() {
       <div className="bg-gray-100 min-h-screen">
         <div className="bg-gray-100 py-6">
           <div className="container mx-auto px-8">
-            <Logo className="justify-center" />
+            <Logo className="justify-start" />
           </div>
         </div>
-        <div className="container mx-auto p-8">
-          <TableTitle title={t('title')} showBackButton />
-          <div className="flex items-center justify-center min-h-[400px]">
-            <div className="text-lg text-gray-600">{t('loading')}</div>
-          </div>
+        <div className="rounded-lg p-6 mx-6 bg-white">
+          <TableTitle title={t('title')} showBackButton className='text-navy-blue' />
+          <TableSkeleton columns={columns.length} rows={ITEMS_PER_PAGE} />
         </div>
       </div>
     );
