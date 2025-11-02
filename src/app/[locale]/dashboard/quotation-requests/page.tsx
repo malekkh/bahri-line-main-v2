@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import useQuotationRequests from "@/customhooks/useQuotationRequests";
 import { useTableFeatures } from "@/customhooks/useTableFeatures";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 /**
  * Quotation Requests Page
@@ -16,6 +18,10 @@ import { useTableFeatures } from "@/customhooks/useTableFeatures";
  */
 
 export default function QuotationRequestsPage() {
+  const router = useRouter();
+  const params = useParams();
+  const locale = (params?.locale as string) || 'en';
+  
   const { data, isLoading, error, refetch, columns } = useQuotationRequests();
 
   const {
@@ -38,8 +44,7 @@ export default function QuotationRequestsPage() {
   });
 
   const handleCreateNewRequest = () => {
-    // TODO: Navigate to create new request page or open modal
-    console.log('Create new request');
+    router.push(`/${locale}/dashboard/quotation-requests/create`);
   };
 
   return (
