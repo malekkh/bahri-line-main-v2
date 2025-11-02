@@ -53,7 +53,7 @@ export default function QuotationRequestsPage() {
             onSearchChange={handleSearchChange}
             onExport={handleExport}
             searchPlaceholder="Search requests..."
-            disabled={isLoading || !filteredData || filteredData.length === 0}
+            disabled={isLoading || !filteredData || data.length === 0}
           />
           
           <Button
