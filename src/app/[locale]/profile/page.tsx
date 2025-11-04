@@ -62,7 +62,6 @@ export default function ProfilePage() {
         <ReadonlyField label={t('fields.zipCode')} value={account?.zipCode || ''} />
         <ReadonlyField label={t('fields.street')} value={account?.street || ''} />
         <ReadonlyField label={t('fields.state')} value={account?.state || ''} />
-        <ReadonlyField label={t('fields.city')} value={account?.city || contact.city || ''} />
       </div>
     </div>
   );
@@ -74,6 +73,8 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <ReadonlyField label={t('fields.fullName')} value={fullName} />
         <ReadonlyField label={t('fields.jobTitle')} value={contact.jobTitle || ''} />
+        <ReadonlyField label={t('fields.email')} value={contact.email || ''} />
+        <ReadonlyField label={t('fields.mobilePhone')} value={contact.phone || ''} />
         <ReadonlyField label={t('fields.street')} value={contact.street || ''} />
         <ReadonlyField label={t('fields.city')} value={contact.city || ''} />
         <ReadonlyField label={t('fields.country')} value={contact.country || ''} />
@@ -90,13 +91,15 @@ export default function ProfilePage() {
       <h2 className="text-xl font-bold text-[#003C71] mb-6">{t('tabs.bankDetails.title')}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <ReadonlyField label={t('fields.bankName')} value={account?.bahriBankName || ''} />
+        <ReadonlyField label={t('fields.bankAccountNumber')} value={account?.accountNumber || ''} />
+        <ReadonlyField label={t('fields.businessType')} value={account?.businessTypeLabel || ''} />
         <ReadonlyField label={t('fields.beneficiaryName')} value={account?.bahriBeneficiaryName || ''} />
-        <ReadonlyField label={t('fields.accountNumber')} value={account?.bahriIBAN || ''} />
-        <ReadonlyField label={t('fields.bankCity')} value={account?.bankCity || ''} />
         <ReadonlyField label={t('fields.bankState')} value={account?.bankStateProvince || ''} />
-        <ReadonlyField label={t('fields.bankAddress')} value={account?.bankStreet || ''} />
-        <ReadonlyField label={t('fields.postalCode')} value={account?.bankZipPostalCode || ''} />
+        <ReadonlyField label={t('fields.bankCity')} value={account?.bankCity || ''} />
+        <ReadonlyField label={t('fields.bankZipCode')} value={account?.bankZipPostalCode || ''} />
+        <ReadonlyField label={t('fields.bankCountry')} value={account?.bankCountry || ''} />
         <ReadonlyField label={t('fields.swiftCode')} value={account?.bahriSWIFT || ''} />
+        <ReadonlyField label={t('fields.iban')} value={account?.bahriIBAN || ''} />
       </div>
     </div>
   );

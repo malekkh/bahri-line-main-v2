@@ -232,6 +232,8 @@
       "phone": "الهاتف",
       "fullName": "الاسم الكامل",
       "jobTitle": "المسمى الوظيفي",
+      "email": "البريد الإلكتروني",
+      "mobilePhone": "الهاتف المحمول",
       "street": "الشارع",
       "city": "المدينة",
       "country": "البلد",
@@ -245,8 +247,11 @@
       "bankCity": "مدينة البنك",
       "bankState": "ولاية البنك",
       "bankAddress": "عنوان البنك",
+      "bankZipCode": "الرمز البريدي للبنك",
+      "bankCountry": "دولة البنك",
       "postalCode": "الرمز البريدي",
-      "swiftCode": "رمز السويفت"
+      "swiftCode": "رمز السويفت",
+      "iban": "رقم الآيبان"
     }
   },
   "common": {

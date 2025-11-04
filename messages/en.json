@@ -232,6 +232,8 @@
       "phone": "Phone",
       "fullName": "Full Name",
       "jobTitle": "Job Title",
+      "email": "Email",
+      "mobilePhone": "Mobile Phone",
       "street": "Street",
       "city": "City",
       "country": "Country",
@@ -245,8 +247,12 @@
       "bankCity": "Bank City",
       "bankState": "Bank State",
       "bankAddress": "Bank Address",
+      "bankZipCode": "Bank Zip Code",
+      "bankCountry": "Bank Country",
       "postalCode": "Postal Code",
-      "swiftCode": "SWIFT Code"
+      "swiftCode": "SWIFT Code",
+      "iban": "IBAN",
+      "bankAccountNumber": "Bank Account Number"
     }
   },
   "common": {
