@@ -39,7 +39,7 @@ export default function CreateQuotationRequestPage() {
   const [formData, setFormData] = useState({
     loadPort: '',
     dischargePort: '',
-    cargoReadyDate: '24-Apr-2025',
+    cargoReadyDate: '',
     lines: [] as any[],
     charges: [] as any[],
   });

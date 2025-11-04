@@ -22,12 +22,15 @@ interface RequestInformationStepProps {
 export function RequestInformationStep({
   loadPort = '',
   dischargePort = '',
-  cargoReadyDate = '24-Apr-2025',
+  cargoReadyDate = '',
   onLoadPortChange,
   onDischargePortChange,
   onCargoReadyDateChange,
 }: RequestInformationStepProps) {
   const { ports, isLoading: isLoadingPorts } = usePorts();
+  
+  // Get today's date in YYYY-MM-DD format for min attribute
+  const today = new Date().toISOString().split('T')[0];
 
   return (
     <div className="space-y-6">
@@ -98,10 +101,12 @@ export function RequestInformationStep({
           <div className="relative">
             <Input
               id="cargoReadyDate"
-              type="text"
+              type="date"
               value={cargoReadyDate}
               onChange={(e) => onCargoReadyDateChange?.(e.target.value)}
-              className="border-gray-300 bg-white text-black pr-10"
+              min={today}
+              onClick={(e) => e.currentTarget.showPicker?.()}
+              className="border-gray-300 bg-white text-black pr-10 cursor-pointer [color-scheme:light] [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
               placeholder="Select date"
             />
             <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
