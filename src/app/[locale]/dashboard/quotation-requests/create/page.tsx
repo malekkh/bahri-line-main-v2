@@ -37,8 +37,8 @@ export default function CreateQuotationRequestPage() {
   
   // Form data state
   const [formData, setFormData] = useState({
-    loadPort: 'Dammam',
-    dischargePort: 'Jakarta',
+    loadPort: '',
+    dischargePort: '',
     cargoReadyDate: '24-Apr-2025',
     lines: [] as any[],
     charges: [] as any[],

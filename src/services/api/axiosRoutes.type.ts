@@ -70,6 +70,17 @@ export interface CountriesResponse {
   countries: Country[];
 }
 
+export interface Port {
+  ntw_portid: string;
+  ntw_name: string;
+}
+
+export interface PortsResponse {
+  success: boolean;
+  ports?: Port[];
+  data?: Port[];
+}
+
 export interface Voyage {
   id: string;
   voyageNo: string;
@@ -302,6 +313,9 @@ export interface AuthApiTypes {
   };
   getCountries: {
     response: CountriesResponse;
+  };
+  getPorts: {
+    response: Port[] | PortsResponse;
   };
 }
 

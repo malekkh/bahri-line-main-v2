@@ -194,6 +194,15 @@ export const authRequests = {
       API_ROUTES.AUTH.GET_COUNTRIES
     );
   },
+
+  /**
+   * Get ports list
+   */
+  getPorts: async () => {
+    return api.get<AuthApiTypes['getPorts']['response']>(
+      API_ROUTES.PORTS.BASE
+    );
+  },
 };
 
 // ============================================================================

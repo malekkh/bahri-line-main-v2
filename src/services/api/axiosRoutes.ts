@@ -48,6 +48,11 @@ export const API_ROUTES = {
     BASE: '/quotes/getQuotes'
   },
 
+  // Ports
+  PORTS: {
+    BASE: '/api/ports'
+  },
+
   // Add more route groups as needed
 } as const;
 
