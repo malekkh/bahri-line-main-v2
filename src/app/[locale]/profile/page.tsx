@@ -57,6 +57,12 @@ export default function ProfilePage() {
         <ReadonlyField label={t('fields.numberOfEmployees')} value={account?.allowCreditApps ? '11-50' : ''} />
         <ReadonlyField label={t('fields.territory')} value={account?.territory || ''} />
         <ReadonlyField label={t('fields.phone')} value={account?.phone || ''} />
+        <ReadonlyField label={t('fields.website')} value={account?.websiteUrl || ''} />
+        <ReadonlyField label={t('fields.country')} value={account?.country || ''} />
+        <ReadonlyField label={t('fields.zipCode')} value={account?.zipCode || ''} />
+        <ReadonlyField label={t('fields.street')} value={account?.street || ''} />
+        <ReadonlyField label={t('fields.state')} value={account?.state || ''} />
+        <ReadonlyField label={t('fields.city')} value={account?.city || contact.city || ''} />
       </div>
     </div>
   );

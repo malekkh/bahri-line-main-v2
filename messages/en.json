@@ -237,6 +237,7 @@
       "country": "Country",
       "state": "State",
       "zipCode": "Zip Code",
+      "website": "Website",
       "fax": "Fax",
       "bankName": "Bank Name",
       "beneficiaryName": "Beneficiary Name",
