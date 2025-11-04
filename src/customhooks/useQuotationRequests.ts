@@ -49,7 +49,7 @@ const useQuotationRequests = () => {
             key: 'status',
             label: 'Status',
             className: 'max-w-24',
-            sortable: true,
+            sortable: false,
         },
     ];
 
