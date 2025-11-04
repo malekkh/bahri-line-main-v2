@@ -1,5 +1,7 @@
+import React from "react";
 import { quotationRequestsRequests } from "@/services/requests/req";
 import { useQuery } from "@tanstack/react-query";
+import { StatusBadge } from "@/components/ui/status-badge";
 
 const useQuotationRequests = () => {
     const getQuotationRequests = async () => {
@@ -50,6 +52,7 @@ const useQuotationRequests = () => {
             label: 'Status',
             className: 'max-w-24',
             sortable: false,
+            render: (value: any, row: any) => React.createElement(StatusBadge, { status: value || row.status }),
         },
     ];
 
