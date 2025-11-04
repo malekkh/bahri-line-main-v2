@@ -75,9 +75,7 @@ export const VerticalStepper: React.FC<VerticalStepperProps> = ({
                       }
                     )}
                   >
-                    {isActive && (
-                      <div className="w-3 h-3 bg-white rounded-full" />
-                    )}
+                   
                   </div>
                 )}
               </div>
@@ -89,8 +87,9 @@ export const VerticalStepper: React.FC<VerticalStepperProps> = ({
                     'font-semibold': isActive,
                   })}
                 >
-                  Step {step.stepNumber || index + 1} {step.label}
+                  Step {step.stepNumber || index + 1} 
                 </span>
+                <span className="text-white text-sm font-medium">{step.label}</span>
               </div>
             </div>
           );
