@@ -34,14 +34,14 @@ const useQuotationRequests = () => {
     {
       key: 'dischargeport.name',
       label: 'Port of Discharge',
-      className: 'max-w-24',
+      className: 'max-w-28',
       sortable: true,
       render: (value: any, row: any) => row.dischargeport?.name || '',
     },
     {
       key: 'requestShipmentDate',
       label: 'Cargo Ready Date',
-      className: 'max-w-24',
+      className: 'max-w-32',
       sortable: true,
       sortType: 'date' as const,
       render: (value: any, row: any) => formatDateShort(row.requestShipmentDate || ''),
