@@ -5,15 +5,13 @@
  * Multi-step form for creating a new quotation request
  */
 
-import { useState } from 'react';
-import { useParams } from 'next/navigation';
-import { useRouter as useNextRouter } from 'next/navigation';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
+import { LinesInformationStep, RequestInformationStep, SummaryStep } from '@/components/quotation';
 import { Button } from '@/components/ui/button';
 import { VerticalStepper, VerticalStepperStep } from '@/components/ui/vertical-stepper';
-import { ProfileHeader } from '@/components/layout/profile-header';
-import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
-import { RequestInformationStep, LinesInformationStep, SummaryStep } from '@/components/quotation';
+import { ArrowLeft, ArrowRight, ChevronLeft } from 'lucide-react';
+import { useRouter as useNextRouter, useParams } from 'next/navigation';
+import { useState } from 'react';
 
 type Mode = 'upload' | 'manual' | 'view';
 
@@ -128,7 +126,7 @@ export default function CreateQuotationRequestPage() {
                   className="p-2 hover:bg-gray-100 rounded-md transition-colors"
                   aria-label="Go back"
                 >
-                  <ArrowLeft className="w-5 h-5 text-gray-700" />
+                  <ChevronLeft className="w-5 h-5 text-gray-700" />
                 </button>
                 <h1 className="text-2xl font-bold text-[#003C71]">
                   {currentStep === 0 && 'Rate Request'}
