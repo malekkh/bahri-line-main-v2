@@ -45,7 +45,7 @@ export const API_ROUTES = {
   
   // Quotation Requests
   QUOTATION_REQUESTS: {
-    BASE: '/quotes/getQuotes'
+    BASE: '/quotes/getOpportunityQuotes'
   },
 
   // Ports

@@ -40,7 +40,7 @@ export default function QuotationRequestsPage() {
     data,
     columns,
     exportFileName: 'quotation-requests.csv',
-    searchableFields: ['requestId', 'dischargePort', 'loadingPort', 'status', 'totalamountFormatted', 'requestedShipmentDate'],
+    searchableFields: ['quoteNumber', 'name', 'dischargeport.name', 'loadingPort.name', 'statusCode.label', 'totalAmount', 'requestShipmentDate'],
   });
 
   const handleCreateNewRequest = () => {

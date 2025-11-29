@@ -98,19 +98,9 @@ export function ProfileHeader({ userImage, className }: ProfileHeaderProps) {
                   : "text-gray-700 hover:text-[#FF6720]"
               )}
             >
-              {t('nav.quotationRequests')}
-            </Link>
-            <Link
-              href={`/${locale}/dashboard/offered-quotations`}
-              className={cn(
-                "transition-colors font-medium text-sm",
-                pathname.includes('/dashboard/offered-quotations') 
-                  ? "text-[#FF6720]" 
-                  : "text-gray-700 hover:text-[#FF6720]"
-              )}
-            >
               {t('nav.offeredQuotations')}
             </Link>
+           
             <Link
               href={`/${locale}/dashboard/credit-applications`}
               className={cn(

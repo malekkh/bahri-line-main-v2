@@ -155,44 +155,35 @@ export interface VesselScheduleApiTypes {
 
 // Quotation Requests API Types
 export interface QuotationRequest {
-    opportunityid: string;
+    quoteId: string;
+    quoteNumber: string;
     name: string;
-    requestId?: string; // Add requestId field for the actual ID
-    totalamount?: number | string; // Allow both number and string
-    totalamountFormatted?: string; // Add formatted total amount for display
-    displayTotal?: string; // Add display total for UI
-    loadingPort: string;
-    status: string;
-    statusCode: number;
-    dischargePort: string;
-    unitWeight?: string;
-    unitMeasure?: string;
-    effectivefrom?: string;
-    effectiveTo?: string;
-    etd?: string;
-    voyage?: string;
-    eta?: string;
-    requestedShipmentDate: string;
-    TargetedVessel: string;
-    products: any[];
-    quotenumber?: string;
-    discountamount?: number;
-    shipmentType?: string;
-    ntw_bookingreference?: string;
-    ntw_linertermsoptions?: string;
-    paymenttermscode?: string;
-    ntw_movementtypeexport?: string;
-    ntw_shippingtermscode?: string;
-    ntw_movementtypeimport?: string;
-    requestdeliveryby?: string;
-    voyagestatus? : string;
-    ntw_ispricingaccepted?: boolean;
-    discountpercentage?: number;
-    totaltax?: number;
-    ntw_commissionpercentage?: number;
-    validFrom?: Date | string;
-    validTo?: Date | string;
-  
+    statusCode: {
+        value: number;
+        label: string;
+    };
+    stateCode: {
+        value: number;
+        label: string;
+    };
+    opportunity: {
+        id: string;
+        name: string;
+    };
+    loadingPort: {
+        id: string;
+        name: string;
+    };
+    dischargeport: {
+        id: string;
+        name: string;
+    };
+    totalAmount: number;
+    effectiveFrom: string;
+    effectiveTo: string;
+    createdOn: string;
+    requestdeliveryby: string | null;
+    requestShipmentDate: string;
 }
 // Contact/Profile API Types
 export interface ContactApiTypes {
@@ -322,7 +313,7 @@ export interface AuthApiTypes {
 // Quotation Requests API Types
 export interface QuotationRequestApiTypes {
   getAll: {
-    response: QuotationRequestsResponse;
+    response: QuotationRequest[] | QuotationRequestsResponse;
   };
 }
 
