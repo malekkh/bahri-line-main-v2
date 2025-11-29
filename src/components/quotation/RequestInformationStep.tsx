@@ -131,7 +131,7 @@ export function RequestInformationStep({
             style={{ zIndex: 1 }}
           />
           <Calendar 
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none z-10" 
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#003C71] pointer-events-none z-10" 
           />
         </div>
       </div>
