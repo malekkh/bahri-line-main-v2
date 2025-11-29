@@ -81,15 +81,13 @@ export const VerticalStepper: React.FC<VerticalStepperProps> = ({
               </div>
 
               {/* Step Label */}
-              <div className="flex flex-col pt-1">
+              <div className="flex flex-col">
                 <span
-                  className={cn('text-white text-sm font-medium', {
-                    'font-semibold': isActive,
-                  })}
+                  className={cn('text-white text-sm font-small')}
                 >
                   Step {step.stepNumber || index + 1} 
                 </span>
-                <span className="text-white text-sm font-medium">{step.label}</span>
+                <span className="text-white text-[1rem] font-medium">{step.label}</span>
               </div>
             </div>
           );
