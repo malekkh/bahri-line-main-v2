@@ -131,7 +131,7 @@ export default function CreateQuotationRequestPage() {
                   <ArrowLeft className="w-5 h-5 text-gray-700" />
                 </button>
                 <h1 className="text-2xl font-bold text-[#003C71]">
-                  {currentStep === 0 && 'Request New Quotation'}
+                  {currentStep === 0 && 'Rate Request'}
                   {currentStep === 1 && 'Cargo Details'}
                   {currentStep === 2 && 'Quote'}
                 </h1>
