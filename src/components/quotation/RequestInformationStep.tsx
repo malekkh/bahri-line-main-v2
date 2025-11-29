@@ -9,6 +9,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar, ChevronDown } from 'lucide-react';
 import { usePorts } from '@/customhooks/usePorts';
+import { formatDateShort } from '@/utils/formatDate';
+import React from 'react';
 
 interface RequestInformationStepProps {
   loadPort?: string;
@@ -31,6 +33,16 @@ export function RequestInformationStep({
   
   // Get today's date in YYYY-MM-DD format for min attribute
   const today = new Date().toISOString().split('T')[0];
+
+  // Format date for display
+  const displayDate = cargoReadyDate ? formatDateShort(cargoReadyDate) : '';
+
+  const handleDateClick = () => {
+    const dateInput = document.getElementById('cargoReadyDatePicker') as HTMLInputElement;
+    if (dateInput) {
+      dateInput.showPicker?.();
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -93,24 +105,34 @@ export function RequestInformationStep({
           </div>
         </div>
 
-        {/* Cargo Ready Date */}
-        <div className="space-y-2">
-          <Label htmlFor="cargoReadyDate" className="text-[#003C71] font-medium">
-            Cargo Ready Date
-          </Label>
-          <div className="relative">
-            <Input
-              id="cargoReadyDate"
-              type="date"
-              value={cargoReadyDate}
-              onChange={(e) => onCargoReadyDateChange?.(e.target.value)}
-              min={today}
-              onClick={(e) => e.currentTarget.showPicker?.()}
-              className="border-gray-300 bg-white text-black pr-10 cursor-pointer [color-scheme:light] [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-              placeholder="Select date"
-            />
-            <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-          </div>
+      </div>
+
+      {/* Cargo Ready Date - Full Width */}
+      <div className="space-y-2">
+        <Label htmlFor="cargoReadyDate" className="text-[#003C71] font-medium">
+          Cargo Ready Date
+        </Label>
+        <div className="relative cursor-pointer" onClick={handleDateClick}>
+          <Input
+            id="cargoReadyDate"
+            type="text"
+            value={displayDate}
+            readOnly
+            placeholder="DD-MMM-YYYY"
+            className="border-gray-300 bg-white text-black pr-10 cursor-pointer pointer-events-none"
+          />
+          <input
+            id="cargoReadyDatePicker"
+            type="date"
+            value={cargoReadyDate}
+            onChange={(e) => onCargoReadyDateChange?.(e.target.value)}
+            min={today}
+            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+            style={{ zIndex: 1 }}
+          />
+          <Calendar 
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none z-10" 
+          />
         </div>
       </div>
     </div>

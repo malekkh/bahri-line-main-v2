@@ -146,7 +146,7 @@ export default function CreateQuotationRequestPage() {
                   <Button
                     variant="outline"
                     onClick={handlePrevious}
-                    className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                    className="bg-white border-gray-300 text-gray-700"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Previous
