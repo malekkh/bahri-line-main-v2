@@ -13,18 +13,14 @@ import { Button } from '@/components/ui/button';
 import { VerticalStepper, VerticalStepperStep } from '@/components/ui/vertical-stepper';
 import { ProfileHeader } from '@/components/layout/profile-header';
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
-import {
-  RequestInformationStep,
-  LinesInformationStep,
-  SummaryStep,
-} from '@/components/quotation';
+import { RequestInformationStep, LinesInformationStep, SummaryStep } from '@/components/quotation';
 
 type Mode = 'upload' | 'manual' | 'view';
 
 const QUOTATION_STEPS: VerticalStepperStep[] = [
-  { id: 'requestInfo', label: 'Request Information', stepNumber: 1 },
-  { id: 'linesInfo', label: 'Lines Information', stepNumber: 2 },
-  { id: 'summary', label: 'Summary', stepNumber: 3 },
+  { id: 'requestInfo', label: 'Rate Request', stepNumber: 1 },
+  { id: 'linesInfo', label: 'Cargo Details', stepNumber: 2 },
+  { id: 'summary', label: 'Quote', stepNumber: 3 },
 ];
 
 export default function CreateQuotationRequestPage() {
@@ -34,7 +30,7 @@ export default function CreateQuotationRequestPage() {
 
   const [currentStep, setCurrentStep] = useState(0);
   const [mode, setMode] = useState<Mode>('upload');
-  
+
   // Form data state
   const [formData, setFormData] = useState({
     loadPort: '',
@@ -89,24 +85,14 @@ export default function CreateQuotationRequestPage() {
             loadPort={formData.loadPort}
             dischargePort={formData.dischargePort}
             cargoReadyDate={formData.cargoReadyDate}
-            onLoadPortChange={(value) =>
-              setFormData({ ...formData, loadPort: value })
-            }
-            onDischargePortChange={(value) =>
-              setFormData({ ...formData, dischargePort: value })
-            }
-            onCargoReadyDateChange={(value) =>
-              setFormData({ ...formData, cargoReadyDate: value })
-            }
+            onLoadPortChange={(value) => setFormData({ ...formData, loadPort: value })}
+            onDischargePortChange={(value) => setFormData({ ...formData, dischargePort: value })}
+            onCargoReadyDateChange={(value) => setFormData({ ...formData, cargoReadyDate: value })}
           />
         );
       case 1:
         return (
-          <LinesInformationStep
-            mode={mode}
-            onModeChange={setMode}
-            onViewLines={handleViewLines}
-          />
+          <LinesInformationStep mode={mode} onModeChange={setMode} onViewLines={handleViewLines} />
         );
       case 2:
         return (
@@ -126,15 +112,11 @@ export default function CreateQuotationRequestPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50">
-
         <div className="container mx-auto px-4 py-8">
           <div className="flex gap-6">
             {/* Left Sidebar - Stepper */}
             <div className="hidden lg:block w-80 flex-shrink-0">
-              <VerticalStepper
-                steps={stepsWithState}
-                currentStep={currentStep}
-              />
+              <VerticalStepper steps={stepsWithState} currentStep={currentStep} />
             </div>
 
             {/* Main Content */}
@@ -150,8 +132,8 @@ export default function CreateQuotationRequestPage() {
                 </button>
                 <h1 className="text-2xl font-bold text-[#003C71]">
                   {currentStep === 0 && 'Request New Quotation'}
-                  {currentStep === 1 && 'Lines Information'}
-                  {currentStep === 2 && 'Summary'}
+                  {currentStep === 1 && 'Cargo Details'}
+                  {currentStep === 2 && 'Quote'}
                 </h1>
               </div>
 
@@ -197,4 +179,3 @@ export default function CreateQuotationRequestPage() {
     </ProtectedRoute>
   );
 }
-
