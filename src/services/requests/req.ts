@@ -5,7 +5,7 @@
 
 import { api } from '@/services/api/axiosSetup';
 import API_ROUTES from '@/services/api/axiosRoutes';
-import type { UsersApiTypes, AuthApiTypes, VesselScheduleApiTypes, ContactApiTypes, QuotationRequestApiTypes } from '@/services/api/axiosRoutes.type';
+import type { UsersApiTypes, AuthApiTypes, VesselScheduleApiTypes, ContactApiTypes, QuotationRequestApiTypes, OfferedQuotationApiTypes } from '@/services/api/axiosRoutes.type';
 
 // ============================================================================
 // USERS REQUESTS
@@ -143,6 +143,28 @@ export const authRequests = {
   },
 
   /**
+   * Confirm email
+   */
+  confirmEmail: async (requestId: string) => {
+    return api.post<AuthApiTypes['confirmEmail']['response']>(
+      API_ROUTES.AUTH.CONFIRM_EMAIL,
+      { requestId }
+    );
+  },
+
+  /**
+   * Check contact existence by email (for forgot password)
+   */
+  checkContactExistence: async (email: string) => {
+    return api.get<AuthApiTypes['checkContactExistence']['response']>(
+      API_ROUTES.AUTH.CHECK_CONTACT_EXISTENCE,
+      {
+        params: { email },
+      }
+    );
+  },
+
+  /**
    * Get current authenticated user
    */
   getCurrentUser: async () => {
@@ -263,6 +285,57 @@ export const quotationRequestsRequests = {
   getAll: async () => {
     return api.get<QuotationRequestApiTypes['getAll']['response']>(
       API_ROUTES.QUOTATION_REQUESTS.BASE
+    );
+  },
+};
+
+// ============================================================================
+// OFFERED QUOTATIONS REQUESTS
+// ============================================================================
+
+export const offeredQuotationsRequests = {
+  /**
+   * Get all offered quotations
+   */
+  getAll: async () => {
+    // Add timestamp to prevent caching
+    return api.get<OfferedQuotationApiTypes['getAll']['response']>(
+      `${API_ROUTES.OFFERED_QUOTATIONS.BASE}?t=${Date.now()}`
+    );
+  },
+
+  /**
+   * Get quote details by ID
+   */
+  getById: async (id: string) => {
+    // Add timestamp to prevent caching
+    return api.get<OfferedQuotationApiTypes['getById']['response']>(
+      `${API_ROUTES.OFFERED_QUOTATIONS.BY_ID(id)}?t=${Date.now()}`
+    );
+  },
+
+  /**
+   * Update quote pricing acceptance
+   */
+  updatePricingAcceptance: async (
+    payload: OfferedQuotationApiTypes['updatePricingAcceptance']['body']
+  ) => {
+    return api.patch<OfferedQuotationApiTypes['updatePricingAcceptance']['response']>(
+      API_ROUTES.OFFERED_QUOTATIONS.UPDATE_PRICING_ACCEPTANCE,
+      payload
+    );
+  },
+
+  /**
+   * Update offered quote shipment details
+   */
+  updateShipment: async (
+    id: string,
+    payload: OfferedQuotationApiTypes['updateShipment']['body']
+  ) => {
+    return api.post<OfferedQuotationApiTypes['updateShipment']['response']>(
+      API_ROUTES.OFFERED_QUOTATIONS.UPDATE_SHIPMENT(id),
+      payload
     );
   },
 };

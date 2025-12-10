@@ -142,7 +142,7 @@ export default function LoginPage() {
               {/* Forgot Password Link */}
               <div className="flex items-center justify-end">
                 <Link
-                  href="/forgot-password"
+                  href={`/${locale}/forgot-password`}
                   className="text-sm text-[#FF6720] hover:underline font-medium"
                 >
                   {t('forgotPassword')}

@@ -7,6 +7,17 @@ import { User, CreateUserDto, UpdateUserDto, UsersResponse } from '@/types/user.
 import { ContactDetailsFormData, RegistrationFormData } from '@/schemas/auth.schema';
 import { ContactDetails, PatchPayload, PatchResponse } from '@/types/contact.types';
 import { QuotationRequestsResponse } from '@/types/quotation.types';
+import {
+  OfferedQuote,
+  OfferedQuoteFull,
+  QuoteProduct,
+  GetOfferedQuotesResult,
+  GetQuoteDetailsResult,
+  UpdateQuotePricingAcceptancePayload,
+  UpdateQuotePricingAcceptanceResponse,
+  UpdateOfferedQuoteShipmentPayload,
+  UpdateOfferedQuoteShipmentResponse,
+} from '@/types/offered-quotation.types';
 
 // Prefilled Contact Data Types
 export interface PrefilledContactData {
@@ -155,35 +166,54 @@ export interface VesselScheduleApiTypes {
 
 // Quotation Requests API Types
 export interface QuotationRequest {
-    quoteId: string;
-    quoteNumber: string;
+    opportunityid: string;
+    quoteId?: string;
+    requestId: string;
+    quoteNumber?: string;
     name: string;
-    statusCode: {
-        value: number;
-        label: string;
-    };
-    stateCode: {
-        value: number;
-        label: string;
-    };
-    opportunity: {
-        id: string;
+    status: string;
+    statusCode: number;
+    loadingPort: string;
+    dischargePort: string;
+    requestedShipmentDate: string;
+    requestShipmentDate?: string;
+    totalamount: number;
+    totalamountFormatted?: string;
+    totalAmount?: number;
+    effectiveFrom?: string;
+    effectiveTo?: string;
+    createdOn?: string;
+    requestdeliveryby?: string | null;
+    products?: Array<{
+        opportunityproductid: string;
         name: string;
-    };
-    loadingPort: {
-        id: string;
-        name: string;
-    };
-    dischargeport: {
-        id: string;
-        name: string;
-    };
-    totalAmount: number;
-    effectiveFrom: string;
-    effectiveTo: string;
-    createdOn: string;
-    requestdeliveryby: string | null;
-    requestShipmentDate: string;
+        description: string;
+        cbm: number;
+        length: number;
+        width: number;
+        height: number;
+        weight: number;
+        cargotype: string;
+        cargosubtype: string;
+        dimensionUnit: string;
+        weightUnit: string;
+        ev: string;
+        tracked: string;
+        towable: string;
+        hazardous: string;
+        quantity: number;
+        price: number;
+        priceFormatted: string;
+        charges: Array<{
+            amount: number;
+            amountFormatted: string;
+            price: number;
+            priceFormatted: string;
+            chargeType: string;
+            priceType: string;
+            percentage: number;
+        }>;
+    }>;
 }
 // Contact/Profile API Types
 export interface ContactApiTypes {
@@ -266,7 +296,15 @@ export interface AuthApiTypes {
     response: { success: boolean; message: string };
   };
   resetPassword: {
-    body: { token: string; password: string };
+    body: { requestId: string; newPassword: string };
+    response: { success: boolean; message: string };
+  };
+  confirmEmail: {
+    body: { requestId: string };
+    response: { success: boolean; message: string };
+  };
+  checkContactExistence: {
+    params: { email: string };
     response: { success: boolean; message: string };
   };
   getCurrentUser: {
@@ -313,7 +351,27 @@ export interface AuthApiTypes {
 // Quotation Requests API Types
 export interface QuotationRequestApiTypes {
   getAll: {
-    response: QuotationRequest[] | QuotationRequestsResponse;
+    response: { opportunities: QuotationRequest[] } | QuotationRequest[] | QuotationRequestsResponse;
+  };
+}
+
+// Offered Quotations API Types
+export interface OfferedQuotationApiTypes {
+  getAll: {
+    response: OfferedQuote[] | GetOfferedQuotesResult;
+  };
+  getById: {
+    params: { id: string };
+    response: GetQuoteDetailsResult;
+  };
+  updatePricingAcceptance: {
+    body: UpdateQuotePricingAcceptancePayload;
+    response: UpdateQuotePricingAcceptanceResponse;
+  };
+  updateShipment: {
+    params: { id: string };
+    body: UpdateOfferedQuoteShipmentPayload;
+    response: UpdateOfferedQuoteShipmentResponse;
   };
 }
 

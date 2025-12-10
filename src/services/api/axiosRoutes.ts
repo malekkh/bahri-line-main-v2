@@ -21,6 +21,8 @@ export const API_ROUTES = {
     CHECK_SESSION: '/auth/checksession',
     FORGOT_PASSWORD: '/auth/forgot-password',
     RESET_PASSWORD: '/auth/reset-password',
+    CONFIRM_EMAIL: '/auth/confirm-email',
+    CHECK_CONTACT_EXISTENCE: '/auth/checkContactExistence',
     ME: '/auth/me',
     VALIDATE_INVITATION: '/contact/getContactByInvitation',
     UPDATE_CONTACT: '/updatecontact/update-contact',
@@ -45,7 +47,15 @@ export const API_ROUTES = {
   
   // Quotation Requests
   QUOTATION_REQUESTS: {
-    BASE: '/quotes/getOpportunityQuotes'
+    BASE: '/quotes/getQuotes', // Different endpoint from offered quotations
+  },
+
+  // Offered Quotations
+  OFFERED_QUOTATIONS: {
+    BASE: '/quotes/getOpportunityQuotes',
+    BY_ID: (id: string) => `/quotes/getQuoteDetails/${id}`,
+    UPDATE_PRICING_ACCEPTANCE: '/quotes/updatePricingAcceptance',
+    UPDATE_SHIPMENT: (id: string) => `/quotes/${id}/update-fields`,
   },
 
   // Ports

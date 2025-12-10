@@ -9,6 +9,13 @@ import type { ValidateInvitationResponse, CheckCRResponse, Voyage, VoyageRoute, 
 import type { VoyagesResponse } from '@/types/voyage.types';
 import type { QuotationRequestsResponse } from '@/types/quotation.types';
 import type { ContactDetails, PatchResponse } from '@/types/contact.types';
+import type {
+  OfferedQuote,
+  GetOfferedQuotesResult,
+  GetQuoteDetailsResult,
+  UpdateQuotePricingAcceptanceResponse,
+  UpdateOfferedQuoteShipmentResponse,
+} from '@/types/offered-quotation.types';
 
 // ============================================================================
 // USERS RESPONSES
@@ -84,7 +91,21 @@ export const authResponses = {
   /**
    * Process message response (forgot/reset password)
    */
-  processMessage: (response: AxiosResponse<{ message: string }>): { message: string } => {
+  processMessage: (response: AxiosResponse<{ success: boolean; message: string }>): { success: boolean; message: string } => {
+    return response.data;
+  },
+
+  /**
+   * Process confirm email response
+   */
+  processConfirmEmail: (response: AxiosResponse<{ success: boolean; message: string }>): { success: boolean; message: string } => {
+    return response.data;
+  },
+
+  /**
+   * Process check contact existence response
+   */
+  processCheckContactExistence: (response: AxiosResponse<{ success: boolean; message: string }>): { success: boolean; message: string } => {
     return response.data;
   },
 
@@ -136,7 +157,49 @@ export const vesselScheduleResponses = {
 // QUOTATION REQUESTS RESPONSES
 // ============================================================================
 
+// (Response handlers can be added here if needed)
 
+// ============================================================================
+// OFFERED QUOTATIONS RESPONSES
+// ============================================================================
+
+export const offeredQuotationsResponses = {
+  /**
+   * Process get all offered quotations response
+   */
+  processGetAll: (response: AxiosResponse<OfferedQuote[] | GetOfferedQuotesResult>): OfferedQuote[] => {
+    // Handle both array response and wrapped response
+    if (Array.isArray(response.data)) {
+      return response.data;
+    }
+    return (response.data as GetOfferedQuotesResult).quotes || [];
+  },
+
+  /**
+   * Process get quote details response
+   */
+  processGetDetails: (response: AxiosResponse<GetQuoteDetailsResult>): GetQuoteDetailsResult => {
+    return response.data;
+  },
+
+  /**
+   * Process update pricing acceptance response
+   */
+  processUpdatePricingAcceptance: (
+    response: AxiosResponse<UpdateQuotePricingAcceptanceResponse>
+  ): UpdateQuotePricingAcceptanceResponse => {
+    return response.data;
+  },
+
+  /**
+   * Process update shipment response
+   */
+  processUpdateShipment: (
+    response: AxiosResponse<UpdateOfferedQuoteShipmentResponse>
+  ): UpdateOfferedQuoteShipmentResponse => {
+    return response.data;
+  },
+};
 
 // ============================================================================
 // CONTACT/PROFILE RESPONSES

@@ -57,6 +57,13 @@ export const forgotPasswordSchema = z.object({
     .string()
     .min(1, 'Email is required')
     .email('Please enter a valid email address'),
+  confirmEmail: z
+    .string()
+    .min(1, 'Please confirm your email')
+    .email('Please enter a valid email address'),
+}).refine((data) => data.email === data.confirmEmail, {
+  message: "Email addresses don't match",
+  path: ['confirmEmail'],
 });
 
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;

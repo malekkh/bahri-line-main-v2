@@ -255,6 +255,44 @@
       "bankAccountNumber": "Bank Account Number"
     }
   },
+  "forgotPassword": {
+    "title": "Forgot your password?",
+    "checkInbox": "Check your inbox",
+    "subtitle": "Enter your email address and confirm it to reset your password.",
+    "emailSentMessage": "We've sent you a password reset link. Please check your email.",
+    "email": "Email",
+    "confirmEmail": "Confirm Email",
+    "emailPlaceholder": "Enter your email",
+    "confirmEmailPlaceholder": "Confirm your email",
+    "sendResetLink": "Send Reset Link",
+    "sending": "Sending...",
+    "rememberPassword": "Remember your password?",
+    "logIn": "Log in",
+    "backToHome": "Back to Home"
+  },
+  "resetPassword": {
+    "title": "Reset Your Password",
+    "subtitle": "Enter your new password below.",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "newPasswordPlaceholder": "Enter new password",
+    "confirmPasswordPlaceholder": "Re-enter password",
+    "updatePassword": "Update Password",
+    "updating": "Updating...",
+    "successMessage": "Password updated successfully! Redirecting to login...",
+    "invalidLink": "Invalid reset link. Please check your email for a valid link.",
+    "rememberPassword": "Remember your password?",
+    "logIn": "Log in",
+    "backToHome": "Back to Home"
+  },
+  "confirmEmail": {
+    "title": "Confirm Your Email",
+    "subtitle": "Click the button below to confirm your email address.",
+    "confirmEmail": "Confirm Email",
+    "confirming": "Confirming...",
+    "backToLogin": "Back to Login",
+    "backToHome": "Back to Home"
+  },
   "common": {
     "language": "Language",
     "english": "English",

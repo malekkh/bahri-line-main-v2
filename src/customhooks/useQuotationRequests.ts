@@ -9,7 +9,29 @@ import type { QuotationRequest } from '@/services/api/axiosRoutes.type';
 const useQuotationRequests = () => {
   const getQuotationRequests = async () => {
     const response = await quotationRequestsRequests.getAll();
-    return response.data;
+    const responseData = response.data;
+
+    // Handle different response formats from /quotes/getQuotes
+    // It returns { opportunities: [...] } format
+    if (responseData && typeof responseData === 'object' && !Array.isArray(responseData)) {
+      if ('opportunities' in responseData && Array.isArray((responseData as any).opportunities)) {
+        return (responseData as any).opportunities;
+      }
+      // Fallback to other possible formats
+      if ('data' in responseData && Array.isArray((responseData as any).data)) {
+        return (responseData as any).data;
+      }
+      if ('quotes' in responseData && Array.isArray((responseData as any).quotes)) {
+        return (responseData as any).quotes;
+      }
+    }
+
+    // If it's already an array, return it
+    if (Array.isArray(responseData)) {
+      return responseData;
+    }
+
+    return [];
   };
 
   const { data, isLoading, error, refetch } = useQuery({
@@ -19,64 +41,85 @@ const useQuotationRequests = () => {
 
   const columns = [
     {
-      key: 'quoteNumber',
-      label: 'Quotation No',
+      key: 'requestId',
+      label: 'Request ID',
       className: 'max-w-24',
+      sortable: true,
+      render: (value: any, row: any) => row.requestId || row.quoteNumber || '',
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      className: 'max-w-32',
       sortable: true,
     },
     {
-      key: 'loadingPort.name',
+      key: 'loadingPort',
       label: 'Port of Load',
       className: 'max-w-24',
       sortable: true,
-      render: (value: any, row: any) => row.loadingPort?.name || '',
+      render: (value: any, row: any) => {
+        // Handle both string and object formats
+        if (typeof row.loadingPort === 'string') {
+          return row.loadingPort;
+        }
+        return row.loadingPort?.name || '';
+      },
     },
     {
-      key: 'dischargeport.name',
+      key: 'dischargePort',
       label: 'Port of Discharge',
       className: 'max-w-28',
       sortable: true,
-      render: (value: any, row: any) => row.dischargeport?.name || '',
+      render: (value: any, row: any) => {
+        // Handle both string and object formats (check both dischargePort and dischargeport)
+        if (typeof row.dischargePort === 'string') {
+          return row.dischargePort;
+        }
+        if (typeof row.dischargeport === 'string') {
+          return row.dischargeport;
+        }
+        return row.dischargePort?.name || row.dischargeport?.name || '';
+      },
     },
     {
-      key: 'requestShipmentDate',
+      key: 'requestedShipmentDate',
       label: 'Cargo Ready Date',
       className: 'max-w-32',
       sortable: true,
       sortType: 'date' as const,
-      render: (value: any, row: any) => formatDateShort(row.requestShipmentDate || ''),
+      render: (value: any, row: any) => {
+        // Check both requestedShipmentDate (API) and requestShipmentDate (legacy)
+        const date = row.requestedShipmentDate || row.requestShipmentDate || '';
+        return date ? formatDateShort(date) : '';
+      },
     },
     {
-      key: 'effectiveFrom',
-      label: 'Valid From',
-      className: 'max-w-24',
-      sortable: true,
-      sortType: 'date' as const,
-      render: (value: any, row: any) => formatDateShort(row.effectiveFrom || ''),
-    },
-    {
-      key: 'effectiveTo',
-      label: 'Valid To',
-      className: 'max-w-24',
-      sortable: true,
-      sortType: 'date' as const,
-      render: (value: any, row: any) => formatDateShort(row.effectiveTo || ''),
-    },
-    {
-      key: 'totalAmount',
+      key: 'totalamount',
       label: 'Total Price',
       className: 'max-w-24',
       sortable: true,
       sortType: 'number' as const,
-      render: (value: any, row: any) => formatCurrency(row.totalAmount || 0),
+      render: (value: any, row: any) => {
+        // Use totalamountFormatted if available, otherwise format the number
+        if (row.totalamountFormatted) {
+          return row.totalamountFormatted;
+        }
+        const amount = row.totalamount || row.totalAmount || 0;
+        return formatCurrency(amount);
+      },
     },
     {
       key: 'statusCode',
       label: 'Status',
       className: 'max-w-24',
       sortable: false,
-      render: (value: any, row: any) =>
-        React.createElement(StatusBadge, { status: row.statusCode || row.status }),
+      render: (value: any, row: any) => {
+        // Prefer string status over numeric statusCode for better display
+        // StatusBadge handles both string and number types
+        const status = row.status || row.statusCode;
+        return React.createElement(StatusBadge, { status });
+      },
     },
   ];
 
