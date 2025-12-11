@@ -63,6 +63,14 @@ export const API_ROUTES = {
     BASE: '/api/ports'
   },
 
+  // Contracts
+  CONTRACTS: {
+    LIST: '/contracts/listContracts',
+    BY_ID: (id: string | number) => `/contracts/${id}`,
+    UPDATE_STATUS: '/contracts/updateContractStatus',
+    DOWNLOAD_DOCUMENT: (id: string | number) => `/contracts/${id}/document`,
+  },
+
   // Add more route groups as needed
 } as const;
 

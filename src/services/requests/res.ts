@@ -16,6 +16,13 @@ import type {
   UpdateQuotePricingAcceptanceResponse,
   UpdateOfferedQuoteShipmentResponse,
 } from '@/types/offered-quotation.types';
+import type {
+  Contract,
+  ContractDetail,
+  ContractListResponse,
+  ContractDetailResponse,
+  UpdateContractStatusResponse,
+} from '@/types/contract.types';
 
 // ============================================================================
 // USERS RESPONSES
@@ -224,6 +231,51 @@ export const contactResponses = {
 // ============================================================================
 // ADD MORE FEATURE RESPONSES BELOW
 // ============================================================================
+
+// ============================================================================
+// CONTRACTS RESPONSES
+// ============================================================================
+
+export const contractsResponses = {
+  /**
+   * Process contracts list response
+   */
+  processList: (response: AxiosResponse<Contract[] | ContractListResponse>): Contract[] => {
+    const data = response.data;
+    if (Array.isArray(data)) {
+      return data;
+    }
+    if (data?.contracts && Array.isArray(data.contracts)) {
+      return data.contracts;
+    }
+    if (data?.data && Array.isArray(data.data)) {
+      return data.data;
+    }
+    return [];
+  },
+
+  /**
+   * Process contract details response
+   */
+  processDetail: (
+    response: AxiosResponse<ContractDetail | ContractDetailResponse>
+  ): ContractDetail | null => {
+    const data = response.data;
+    if ('contract' in (data as ContractDetailResponse)) {
+      return (data as ContractDetailResponse).contract || null;
+    }
+    return (data as ContractDetail) || null;
+  },
+
+  /**
+   * Process update status response
+   */
+  processUpdateStatus: (
+    response: AxiosResponse<UpdateContractStatusResponse>
+  ): UpdateContractStatusResponse => {
+    return response.data;
+  },
+};
 
 // Example: Products Responses
 // export const productsResponses = {

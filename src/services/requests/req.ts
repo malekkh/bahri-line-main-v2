@@ -5,7 +5,15 @@
 
 import { api } from '@/services/api/axiosSetup';
 import API_ROUTES from '@/services/api/axiosRoutes';
-import type { UsersApiTypes, AuthApiTypes, VesselScheduleApiTypes, ContactApiTypes, QuotationRequestApiTypes, OfferedQuotationApiTypes } from '@/services/api/axiosRoutes.type';
+import type {
+  UsersApiTypes,
+  AuthApiTypes,
+  VesselScheduleApiTypes,
+  ContactApiTypes,
+  QuotationRequestApiTypes,
+  OfferedQuotationApiTypes,
+  ContractApiTypes,
+} from '@/services/api/axiosRoutes.type';
 
 // ============================================================================
 // USERS REQUESTS
@@ -336,6 +344,46 @@ export const offeredQuotationsRequests = {
     return api.post<OfferedQuotationApiTypes['updateShipment']['response']>(
       API_ROUTES.OFFERED_QUOTATIONS.UPDATE_SHIPMENT(id),
       payload
+    );
+  },
+};
+
+// ============================================================================
+// CONTRACTS REQUESTS
+// ============================================================================
+
+export const contractsRequests = {
+  /**
+   * Get list of contracts
+   */
+  list: async () => {
+    return api.get<ContractApiTypes['list']['response']>(API_ROUTES.CONTRACTS.LIST);
+  },
+
+  /**
+   * Get contract details by ID
+   */
+  getById: async (id: string) => {
+    return api.get<ContractApiTypes['getById']['response']>(API_ROUTES.CONTRACTS.BY_ID(id));
+  },
+
+  /**
+   * Update contract status
+   */
+  updateStatus: async (payload: ContractApiTypes['updateStatus']['body']) => {
+    return api.post<ContractApiTypes['updateStatus']['response']>(
+      API_ROUTES.CONTRACTS.UPDATE_STATUS,
+      payload
+    );
+  },
+
+  /**
+   * Download contract document
+   */
+  downloadDocument: async (id: string) => {
+    return api.get<ContractApiTypes['downloadDocument']['response']>(
+      API_ROUTES.CONTRACTS.DOWNLOAD_DOCUMENT(id),
+      { responseType: 'blob' as any }
     );
   },
 };

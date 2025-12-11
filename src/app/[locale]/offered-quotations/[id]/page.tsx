@@ -23,7 +23,7 @@ export default function OfferedQuotationDetailsPage() {
   const { quote, products, isLoading, error, refetch } = useOfferedQuotationDetailsLogic(quoteId);
 
   const handleBack = () => {
-    router.push(`/${locale}/offered-quotations`);
+    router.push(`/${locale}/dashboard/quotation-requests`);
   };
 
   if (isLoading) {

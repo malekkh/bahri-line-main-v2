@@ -18,6 +18,14 @@ import {
   UpdateOfferedQuoteShipmentPayload,
   UpdateOfferedQuoteShipmentResponse,
 } from '@/types/offered-quotation.types';
+import {
+  Contract,
+  ContractDetail,
+  ContractListResponse,
+  ContractDetailResponse,
+  UpdateContractStatusPayload,
+  UpdateContractStatusResponse,
+} from '@/types/contract.types';
 
 // Prefilled Contact Data Types
 export interface PrefilledContactData {
@@ -372,6 +380,25 @@ export interface OfferedQuotationApiTypes {
     params: { id: string };
     body: UpdateOfferedQuoteShipmentPayload;
     response: UpdateOfferedQuoteShipmentResponse;
+  };
+}
+
+// Contracts API Types
+export interface ContractApiTypes {
+  list: {
+    response: Contract[] | ContractListResponse;
+  };
+  getById: {
+    params: { id: string };
+    response: ContractDetail | ContractDetailResponse;
+  };
+  updateStatus: {
+    body: UpdateContractStatusPayload;
+    response: UpdateContractStatusResponse;
+  };
+  downloadDocument: {
+    params: { id: string };
+    response: Blob;
   };
 }
 
