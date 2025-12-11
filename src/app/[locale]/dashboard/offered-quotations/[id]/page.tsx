@@ -577,16 +577,18 @@ export default function OfferedQuotationDetailsPage() {
 
           <div className="flex-1 space-y-6">
             <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-start gap-4 mb-6">
                 <div className="flex items-center gap-4">
                   <Button variant="ghost" onClick={handleBack} className="p-0 hover:bg-transparent">
-                    <ChevronLeft className="text-[#0277AA]" style={{ width: '24px', height: '24px' }}/>
+                    <ChevronLeft
+                      className="text-[#0277AA]"
+                      style={{ width: '24px', height: '24px' }}
+                    />
                   </Button>
                   <div>
                     <h1 className="text-2xl font-bold text-[#003C71]">
-                      {quote.name || quote.quotenumber || 'Quotation Details'}
+                    {quote.quotenumber || quoteId}
                     </h1>
-                    <p className="text-sm text-gray-500">Quote #{quote.quotenumber || quoteId}</p>
                   </div>
                 </div>
                 <StatusBadge
@@ -602,20 +604,7 @@ export default function OfferedQuotationDetailsPage() {
               </div>
 
               <div className="flex flex-col gap-6">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm text-gray-600">Opportunity</p>
-                    <p className="text-base font-semibold text-gray-900">
-                      {quote.opportunity?.name || 'N/A'}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-600">Total Amount</p>
-                    <p className="text-xl font-semibold text-[#003C71]">
-                      {formatCurrency(quote.totalamount || quote.totalAmount || 0)}
-                    </p>
-                  </div>
-                </div>
+               
 
                 {feedbackMessage && (
                   <div className="rounded-md border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-900">
