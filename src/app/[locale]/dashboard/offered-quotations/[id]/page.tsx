@@ -16,6 +16,7 @@ import { ArrowLeft, ArrowRight, ChevronLeft, Loader2 } from 'lucide-react';
 import { formatDateShort } from '@/utils/formatDate';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { StatusBadge } from '@/components/ui/status-badge';
+import { Table, type Column } from '@/components/ui/table';
 
 export default function OfferedQuotationDetailsPage() {
   const params = useParams();
@@ -333,104 +334,114 @@ export default function OfferedQuotationDetailsPage() {
               </div>
             </div>
 
-            
-
             {products && products.length > 0 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-[#003C71]">Lines</h3>
-                <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Line
-                        </th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Quantity
-                        </th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Unit Price
-                        </th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Line Total
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {products.map((product, index) => (
-                        <tr key={product.id || index}>
-                          <td className="px-4 py-2 text-sm text-gray-900">
-                            <div className="font-medium">
-                              {product.description || product.name || '-'}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              {displayValue(product.cargotype || product.dimensionUnit || '')}
-                            </div>
-                          </td>
-                          <td className="px-4 py-2 text-sm text-gray-900">
-                            {product.quantity || '-'}
-                          </td>
-                          <td className="px-4 py-2 text-sm text-gray-900">
-                            {formatCurrency(product.pricePerUnit || product.price || 0)}
-                          </td>
-                          <td className="px-4 py-2 text-sm font-semibold text-gray-900">
-                            {formatCurrency(product.lineBaseAmount || 0)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <Table
+                  columns={
+                    [
+                      {
+                        key: 'line',
+                        label: 'Line',
+                        className: 'text-center',
+                        render: (_value, row) => (
+                          <div className="text-center">
+                            <div className="font-medium">{row.line}</div>
+                            {row.subline && (
+                              <div className="text-xs text-gray-500">{row.subline}</div>
+                            )}
+                          </div>
+                        ),
+                      },
+                      { key: 'quantity', label: 'Quantity' },
+                      {
+                        key: 'unitPrice',
+                        label: 'Unit Price',
+                        render: (val) => formatCurrency(val || 0),
+                      },
+                      {
+                        key: 'lineTotal',
+                        label: 'Line Total',
+                        render: (val) => (
+                          <span className="font-semibold">{formatCurrency(val || 0)}</span>
+                        ),
+                      },
+                    ] as Column<any>[]
+                  }
+                  data={products.map((product, index) => ({
+                    line: product.description || product.name || `Line ${index + 1}`,
+                    subline: displayValue(product.cargotype || product.dimensionUnit || ''),
+                    quantity: product.quantity || '-',
+                    unitPrice: product.pricePerUnit || product.price || 0,
+                    lineTotal: product.lineBaseAmount || 0,
+                  }))}
+                  className="bg-white"
+                />
 
                 <h3 className="text-lg font-semibold text-[#003C71]">Charges</h3>
-                <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Line
-                        </th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Charge
-                        </th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Amount
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {products.map((product, pIndex) => {
-                        const charges = product.charges || product.ntw_quoteCharges || [];
-                        if (!charges.length) {
-                          return (
-                            <tr key={`${product.id || pIndex}-empty`}>
-                              <td className="px-4 py-2 text-sm text-gray-900">
-                                {product.description || product.name || '-'}
-                              </td>
-                              <td className="px-4 py-2 text-sm text-gray-500" colSpan={2}>
+                <Table
+                  columns={
+                    [
+                      {
+                        key: 'lineId',
+                        label: 'Line ID',
+                        className: 'text-center',
+                        render: (val) => <div className="text-center font-medium">{val}</div>,
+                      },
+                      {
+                        key: 'charge',
+                        label: 'Charge',
+                        className: 'text-center',
+                        render: (_val, row) => (
+                          <div className="flex flex-wrap gap-1 justify-center flex-row">
+                            {row.noCharge ? (
+                              <div className="text-left whitespace-pre-wrap leading-5 bg-[#F5F5F5] rounded-[3px] px-3 py-2 text-[#262626DE]">
                                 No charges
-                              </td>
-                            </tr>
-                          );
-                        }
-
-                        return charges.map((charge, cIndex) => (
-                          <tr key={`${product.id || pIndex}-charge-${cIndex}`}>
-                            <td className="px-4 py-2 text-sm text-gray-900">
-                              {product.description || product.name || '-'}
-                            </td>
-                            <td className="px-4 py-2 text-sm text-gray-900">
-                              {charge.portName || charge.chargeType || 'Charge'}
-                            </td>
-                            <td className="px-4 py-2 text-sm font-medium text-gray-900">
-                              {formatCurrency(charge.total || charge.amount || 0)}
-                            </td>
-                          </tr>
-                        ));
-                      })}
-                    </tbody>
-                  </table>
-                </div>
+                              </div>
+                            ) : (
+                              (row.charges as { label: string; amount: number }[]).map((c, idx) => (
+                                <div
+                                  key={idx}
+                                  className="text-left whitespace-pre-wrap leading-5 bg-[#F5F5F5] rounded-[3px] px-3 py-2 text-[#262626DE]"
+                                >
+                                  {c.label}: {formatCurrency(c.amount || 0)}
+                                </div>
+                              ))
+                            )}
+                          </div>
+                        ),
+                      },
+                      {
+                        key: 'amount',
+                        label: 'Amount',
+                        render: (val, row) =>
+                          row.noCharge ? (
+                            <span className="text-gray-500">-</span>
+                          ) : (
+                            <div className="text-center font-medium">
+                              {formatCurrency(val || 0)}
+                            </div>
+                          ),
+                      },
+                    ] as Column<any>[]
+                  }
+                  data={products.map((product, pIndex) => {
+                    const charges = product.charges || product.ntw_quoteCharges || [];
+                    const mappedCharges = charges.map((c) => ({
+                      label: c.portName || c.chargeType || 'Charge',
+                      amount: c.total || c.amount || 0,
+                    }));
+                    const total = mappedCharges.reduce((sum, c) => sum + (c.amount || 0), 0);
+                    const noCharge = mappedCharges.length === 0;
+                    return {
+                      lineId: pIndex + 1,
+                      charges: mappedCharges,
+                      amount: total,
+                      noCharge,
+                    };
+                  })}
+                  className="bg-white"
+                />
 
                 <div className="flex justify-end text-sm text-gray-700">
                   <span className="font-semibold mr-2">Grand Total:</span>
