@@ -109,7 +109,9 @@ export default function QuotationRequestsPage() {
   const handleRowClick = (row: any) => {
     if (viewType === 'offered') {
       // Navigate to offered quotation details page
-      router.push(`/${locale}/offered-quotations/${row.quoteId || row.id || row.opportunityid}`);
+      router.push(
+        `/${locale}/dashboard/offered-quotations/${row.quoteId || row.id || row.opportunityid}`
+      );
     }
     // Quotation requests don't have click navigation currently
   };

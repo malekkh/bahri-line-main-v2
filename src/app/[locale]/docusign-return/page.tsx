@@ -36,7 +36,7 @@ export default function DocuSignReturnPage() {
         <div className="bg-white rounded-lg shadow-lg p-8 text-center">
           {/* Logo */}
           <div className="flex justify-center mb-6">
-            <Logo variant="dark" className='w-[150] h-[38]'/>
+            <Logo variant="default" className='w-[150] h-[38]'/>
           </div>
 
           {/* Success Icon */}
