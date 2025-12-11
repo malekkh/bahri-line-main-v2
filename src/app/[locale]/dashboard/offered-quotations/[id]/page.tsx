@@ -142,102 +142,127 @@ export default function OfferedQuotationDetailsPage() {
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-[#003C71]">General</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Port of Loading</label>
-                  <p className="text-base text-gray-900">
-                    {quote['_ntw_loadingport_value@OData.Community.Display.V1.FormattedValue'] ||
-                      quote.loadingPort?.name ||
-                      '-'}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Port of Discharge</label>
-                  <p className="text-base text-gray-900">
-                    {quote['_ntw_dischargeport_value@OData.Community.Display.V1.FormattedValue'] ||
-                      quote.dischargeport?.name ||
-                      '-'}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">
-                    Requested Shipment Date
-                  </label>
-                  <p className="text-base text-gray-900">
-                    {formatDateShort(
-                      quote.ntw_requestedshipmentdate || quote.requestShipmentDate || ''
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Valid From</label>
-                  <p className="text-base text-gray-900">
-                    {formatDateShort(quote.effectivefrom || quote.effectiveFrom || '')}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Valid To</label>
-                  <p className="text-base text-gray-900">
-                    {formatDateShort(quote.effectiveto || quote.effectiveTo || '')}
-                  </p>
-                </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium text-gray-500">Port of Loading</label>
+                <Input
+                  readOnly
+                  value={
+                    quote['_ntw_loadingport_value@OData.Community.Display.V1.FormattedValue'] ||
+                    quote.loadingPort?.name ||
+                    '-'
+                  }
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
               </div>
-
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Total Amount</label>
-                  <p className="text-base font-semibold text-gray-900">
-                    {formatCurrency(quote.totalamount || quote.totalAmount || 0)}
-                  </p>
-                </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Port of Discharge</label>
+                <Input
+                  readOnly
+                  value={
+                    quote['_ntw_dischargeport_value@OData.Community.Display.V1.FormattedValue'] ||
+                    quote.dischargeport?.name ||
+                    '-'
+                  }
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Requested Shipment Date</label>
+                <Input
+                  readOnly
+                  value={formatDateShort(
+                    quote.ntw_requestedshipmentdate || quote.requestShipmentDate || ''
+                  )}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Valid From</label>
+                <Input
+                  readOnly
+                  value={formatDateShort(quote.effectivefrom || quote.effectiveFrom || '')}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Valid To</label>
+                <Input
+                  readOnly
+                  value={formatDateShort(quote.effectiveto || quote.effectiveTo || '')}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Total Amount</label>
+                <Input
+                  readOnly
+                  value={formatCurrency(quote.totalamount || quote.totalAmount || 0)}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626] font-semibold"
+                />
               </div>
             </div>
 
             <h3 className="text-lg font-semibold text-[#003C71]">Booking Details</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-gray-200 pt-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Booking Reference</label>
-                  <p className="text-base text-gray-900">{quote.ntw_bookingreference || '-'}</p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Voyage Code</label>
-                  <p className="text-base text-gray-900">{quote.ntw_voyagecode || '-'}</p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Targeted Vessel</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
-                      quote.ntw_Voyage?.[
-                        '_ntw_vessel_value@OData.Community.Display.V1.FormattedValue'
-                      ] ||
-                        quote.ntw_Voyage?.name ||
-                        quote.ntw_Voyage
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Voyage Status</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
-                      quote['ntw_voyagestatus@OData.Community.Display.V1.FormattedValue'] ||
-                        quote.ntw_voyagestatus
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">
-                    Departure Estimated Time
-                  </label>
-                  <p className="text-base text-gray-900">{formatDateShort(quote.ntw_etd || '')}</p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">
-                    Arrival Estimated Time
-                  </label>
-                  <p className="text-base text-gray-900">{formatDateShort(quote.ntw_eta || '')}</p>
-                </div>
+            <div className="grid grid-cols-2 gap-4 border-t border-gray-200 pt-6">
+              <div>
+                <label className="text-sm font-medium text-gray-500">Booking Reference</label>
+                <Input
+                  readOnly
+                  value={quote.ntw_bookingreference || '-'}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Voyage Code</label>
+                <Input
+                  readOnly
+                  value={quote.ntw_voyagecode || '-'}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Targeted Vessel</label>
+                <Input
+                  readOnly
+                  value={displayValue(
+                    quote.ntw_Voyage?.[
+                      '_ntw_vessel_value@OData.Community.Display.V1.FormattedValue'
+                    ] ||
+                      quote.ntw_Voyage?.name ||
+                      quote.ntw_Voyage
+                  )}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Voyage Status</label>
+                <Input
+                  readOnly
+                  value={displayValue(
+                    quote['ntw_voyagestatus@OData.Community.Display.V1.FormattedValue'] ||
+                      quote.ntw_voyagestatus
+                  )}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">
+                  Departure Estimated Time
+                </label>
+                <Input
+                  readOnly
+                  value={formatDateShort(quote.ntw_etd || '')}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-500">Arrival Estimated Time</label>
+                <Input
+                  readOnly
+                  value={formatDateShort(quote.ntw_eta || '')}
+                  className="w-full bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                />
               </div>
             </div>
 
@@ -246,30 +271,36 @@ export default function OfferedQuotationDetailsPage() {
               <div className="space-y-4">
                 <div>
                   <label className="text-sm font-medium text-gray-500">Liner Terms</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
+                  <Input
+                    readOnly
+                    value={displayValue(
                       quote['ntw_linertermsoptions@OData.Community.Display.V1.FormattedValue'] ||
                         quote.ntw_linertermsoptions
                     )}
-                  </p>
+                    className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                  />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-500">Shipping Terms</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
+                  <Input
+                    readOnly
+                    value={displayValue(
                       quote['ntw_shippingtermscode@OData.Community.Display.V1.FormattedValue'] ||
                         quote.ntw_shippingtermscode
                     )}
-                  </p>
+                    className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                  />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-500">Payment Terms</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
+                  <Input
+                    readOnly
+                    value={displayValue(
                       quote['paymenttermscode@OData.Community.Display.V1.FormattedValue'] ||
                         quote.paymenttermscode
                     )}
-                  </p>
+                    className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                  />
                 </div>
               </div>
               <div className="space-y-4">
@@ -277,130 +308,32 @@ export default function OfferedQuotationDetailsPage() {
                   <label className="text-sm font-medium text-gray-500">
                     Movement Type (Export)
                   </label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
+                  <Input
+                    readOnly
+                    value={displayValue(
                       quote['ntw_movementtypeexport@OData.Community.Display.V1.FormattedValue'] ||
                         quote.ntw_movementtypeexport
                     )}
-                  </p>
+                    className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                  />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-500">
                     Movement Type (Import)
                   </label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
+                  <Input
+                    readOnly
+                    value={displayValue(
                       quote['ntw_movementtypeimport@OData.Community.Display.V1.FormattedValue'] ||
                         quote.ntw_movementtypeimport
                     )}
-                  </p>
+                    className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
+                  />
                 </div>
               </div>
             </div>
 
-            <h3 className="text-lg font-semibold text-[#003C71]">Booking Details</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-gray-200 pt-6">
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Booking Reference</label>
-                  <p className="text-base text-gray-900">{quote.ntw_bookingreference || '-'}</p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Voyage Code</label>
-                  <p className="text-base text-gray-900">{quote.ntw_voyagecode || '-'}</p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Targeted Vessel</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
-                      quote.ntw_Voyage?.[
-                        '_ntw_vessel_value@OData.Community.Display.V1.FormattedValue'
-                      ] ||
-                        quote.ntw_Voyage?.name ||
-                        quote.ntw_Voyage
-                    )}
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Departure Estimated Time
-                    </label>
-                    <p className="text-base text-gray-900">
-                      {formatDateShort(quote.ntw_etd || '')}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Arrival Estimated Time
-                    </label>
-                    <p className="text-base text-gray-900">
-                      {formatDateShort(quote.ntw_eta || '')}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Voyage Status</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
-                      quote['ntw_voyagestatus@OData.Community.Display.V1.FormattedValue'] ||
-                        quote.ntw_voyagestatus
-                    )}
-                  </p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Liner Terms</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
-                      quote['ntw_linertermsoptions@OData.Community.Display.V1.FormattedValue'] ||
-                        quote.ntw_linertermsoptions
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Shipping Terms</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
-                      quote['ntw_shippingtermscode@OData.Community.Display.V1.FormattedValue'] ||
-                        quote.ntw_shippingtermscode
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Payment Terms</label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
-                      quote['paymenttermscode@OData.Community.Display.V1.FormattedValue'] ||
-                        quote.paymenttermscode
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">
-                    Movement Type (Export)
-                  </label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
-                      quote['ntw_movementtypeexport@OData.Community.Display.V1.FormattedValue'] ||
-                        quote.ntw_movementtypeexport
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">
-                    Movement Type (Import)
-                  </label>
-                  <p className="text-base text-gray-900">
-                    {displayValue(
-                      quote['ntw_movementtypeimport@OData.Community.Display.V1.FormattedValue'] ||
-                        quote.ntw_movementtypeimport
-                    )}
-                  </p>
-                </div>
-              </div>
-            </div>
+            
 
             {products && products.length > 0 && (
               <div className="space-y-4">
