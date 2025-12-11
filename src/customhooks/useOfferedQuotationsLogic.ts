@@ -35,7 +35,7 @@ export const useOfferedQuotationsLogic = () => {
     {
       key: 'quoteNumber',
       label: 'Quotation Number',
-      className: 'max-w-26',
+      className: 'max-w-28',
       sortable: true,
       render: (value: any, row: OfferedQuote) => row.quoteNumber || '-',
     },
@@ -49,7 +49,7 @@ export const useOfferedQuotationsLogic = () => {
     {
       key: 'dischargeport.name',
       label: 'Port of Discharge',
-      className: 'max-w-24',
+      className: 'max-w-26',
       sortable: true,
       render: (value: any, row: OfferedQuote) => row.dischargeport?.name || '-',
     },

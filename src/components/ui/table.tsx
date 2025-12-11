@@ -71,7 +71,7 @@ export function Table<T extends Record<string, any>>({
                 <button
                   type="button"
                   className={cn(
-                    'inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-sm font-bold text-gray-700 transition-colors whitespace-nowrap w-full',
+                    'inline-flex items-center justify-center gap-[2px] px-4 py-2 rounded-full bg-gray-100 text-sm font-bold text-gray-700 transition-colors whitespace-nowrap w-full',
                     column.sortable && 'cursor-pointer hover:bg-gray-300 select-none',
                     !column.sortable && 'cursor-default'
                   )}
@@ -80,7 +80,7 @@ export function Table<T extends Record<string, any>>({
                 >
                   <span className="whitespace-nowrap">{column.label}</span>
                   {column.sortable && (
-                    <span className="flex items-center gap-0.5 flex-shrink-0">
+                    <span className="flex items-center flex-shrink-0">
                       <ArrowUp
                         className={cn(
                           'w-3.5 h-3.5',
