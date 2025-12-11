@@ -17,6 +17,8 @@ import { formatDateShort } from '@/utils/formatDate';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { Table, type Column } from '@/components/ui/table';
+import { TableControls } from '@/components/ui/table-controls';
+import { Pagination } from '@/components/ui/pagination';
 
 export default function OfferedQuotationDetailsPage() {
   const params = useParams();
@@ -51,6 +53,10 @@ export default function OfferedQuotationDetailsPage() {
 
   const [currentStep, setCurrentStep] = useState(0);
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
+  const [linesSearch, setLinesSearch] = useState('');
+  const [chargesSearch, setChargesSearch] = useState('');
+  const [linesPage, setLinesPage] = useState(1);
+  const [chargesPage, setChargesPage] = useState(1);
   const [shipmentForm, setShipmentForm] = useState({
     ntw_requestedetd: '',
     ntw_requestedeta: '',
