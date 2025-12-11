@@ -12,7 +12,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { VerticalStepper, type VerticalStepperStep } from '@/components/ui/vertical-stepper';
-import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronLeft, Loader2 } from 'lucide-react';
 import { formatDateShort } from '@/utils/formatDate';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { StatusBadge } from '@/components/ui/status-badge';
@@ -579,13 +579,8 @@ export default function OfferedQuotationDetailsPage() {
             <div className="bg-white rounded-lg p-6 shadow-sm">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
-                  <Button
-                    variant="outline"
-                    onClick={handleBack}
-                    className="flex items-center gap-2"
-                  >
-                    <ArrowLeft className="h-4 w-4" />
-                    Back
+                  <Button variant="ghost" onClick={handleBack} className="p-0 hover:bg-transparent">
+                    <ChevronLeft className="text-[#0277AA]" style={{ width: '24px', height: '24px' }}/>
                   </Button>
                   <div>
                     <h1 className="text-2xl font-bold text-[#003C71]">
