@@ -141,6 +141,7 @@ export default function OfferedQuotationDetailsPage() {
       case 'pricing':
         return (
           <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-[#003C71]">General</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div>
@@ -190,6 +191,12 @@ export default function OfferedQuotationDetailsPage() {
                     {formatCurrency(quote.totalamount || quote.totalAmount || 0)}
                   </p>
                 </div>
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold text-[#003C71]">Booking Details</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-gray-200 pt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-gray-500">Booking Reference</label>
                   <p className="text-base text-gray-900">{quote.ntw_bookingreference || '-'}</p>
@@ -210,23 +217,31 @@ export default function OfferedQuotationDetailsPage() {
                     )}
                   </p>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">ETD</label>
-                    <p className="text-base text-gray-900">
-                      {formatDateShort(quote.ntw_etd || '')}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">ETA</label>
-                    <p className="text-base text-gray-900">
-                      {formatDateShort(quote.ntw_eta || '')}
-                    </p>
-                  </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Voyage Status</label>
+                  <p className="text-base text-gray-900">
+                    {displayValue(
+                      quote['ntw_voyagestatus@OData.Community.Display.V1.FormattedValue'] ||
+                        quote.ntw_voyagestatus
+                    )}
+                  </p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">
+                    Departure Estimated Time
+                  </label>
+                  <p className="text-base text-gray-900">{formatDateShort(quote.ntw_etd || '')}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">
+                    Arrival Estimated Time
+                  </label>
+                  <p className="text-base text-gray-900">{formatDateShort(quote.ntw_eta || '')}</p>
                 </div>
               </div>
             </div>
 
+            <h3 className="text-lg font-semibold text-[#003C71]">Terms Details</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-gray-200 pt-6">
               <div className="space-y-4">
                 <div>
@@ -280,6 +295,50 @@ export default function OfferedQuotationDetailsPage() {
                     )}
                   </p>
                 </div>
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold text-[#003C71]">Booking Details</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-gray-200 pt-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Booking Reference</label>
+                  <p className="text-base text-gray-900">{quote.ntw_bookingreference || '-'}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Voyage Code</label>
+                  <p className="text-base text-gray-900">{quote.ntw_voyagecode || '-'}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Targeted Vessel</label>
+                  <p className="text-base text-gray-900">
+                    {displayValue(
+                      quote.ntw_Voyage?.[
+                        '_ntw_vessel_value@OData.Community.Display.V1.FormattedValue'
+                      ] ||
+                        quote.ntw_Voyage?.name ||
+                        quote.ntw_Voyage
+                    )}
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">
+                      Departure Estimated Time
+                    </label>
+                    <p className="text-base text-gray-900">
+                      {formatDateShort(quote.ntw_etd || '')}
+                    </p>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">
+                      Arrival Estimated Time
+                    </label>
+                    <p className="text-base text-gray-900">
+                      {formatDateShort(quote.ntw_eta || '')}
+                    </p>
+                  </div>
+                </div>
                 <div>
                   <label className="text-sm font-medium text-gray-500">Voyage Status</label>
                   <p className="text-base text-gray-900">
@@ -290,11 +349,62 @@ export default function OfferedQuotationDetailsPage() {
                   </p>
                 </div>
               </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Liner Terms</label>
+                  <p className="text-base text-gray-900">
+                    {displayValue(
+                      quote['ntw_linertermsoptions@OData.Community.Display.V1.FormattedValue'] ||
+                        quote.ntw_linertermsoptions
+                    )}
+                  </p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Shipping Terms</label>
+                  <p className="text-base text-gray-900">
+                    {displayValue(
+                      quote['ntw_shippingtermscode@OData.Community.Display.V1.FormattedValue'] ||
+                        quote.ntw_shippingtermscode
+                    )}
+                  </p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Payment Terms</label>
+                  <p className="text-base text-gray-900">
+                    {displayValue(
+                      quote['paymenttermscode@OData.Community.Display.V1.FormattedValue'] ||
+                        quote.paymenttermscode
+                    )}
+                  </p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">
+                    Movement Type (Export)
+                  </label>
+                  <p className="text-base text-gray-900">
+                    {displayValue(
+                      quote['ntw_movementtypeexport@OData.Community.Display.V1.FormattedValue'] ||
+                        quote.ntw_movementtypeexport
+                    )}
+                  </p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">
+                    Movement Type (Import)
+                  </label>
+                  <p className="text-base text-gray-900">
+                    {displayValue(
+                      quote['ntw_movementtypeimport@OData.Community.Display.V1.FormattedValue'] ||
+                        quote.ntw_movementtypeimport
+                    )}
+                  </p>
+                </div>
+              </div>
             </div>
 
             {products && products.length > 0 && (
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-[#003C71]">Lines & Charges</h3>
+                <h3 className="text-lg font-semibold text-[#003C71]">Lines</h3>
                 <div className="overflow-x-auto">
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
@@ -309,63 +419,86 @@ export default function OfferedQuotationDetailsPage() {
                           Unit Price
                         </th>
                         <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Charges
-                        </th>
-                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Total
+                          Line Total
                         </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {products.map((product, index) => {
+                      {products.map((product, index) => (
+                        <tr key={product.id || index}>
+                          <td className="px-4 py-2 text-sm text-gray-900">
+                            <div className="font-medium">
+                              {product.description || product.name || '-'}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {displayValue(product.cargotype || product.dimensionUnit || '')}
+                            </div>
+                          </td>
+                          <td className="px-4 py-2 text-sm text-gray-900">
+                            {product.quantity || '-'}
+                          </td>
+                          <td className="px-4 py-2 text-sm text-gray-900">
+                            {formatCurrency(product.pricePerUnit || product.price || 0)}
+                          </td>
+                          <td className="px-4 py-2 text-sm font-semibold text-gray-900">
+                            {formatCurrency(product.lineBaseAmount || 0)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <h3 className="text-lg font-semibold text-[#003C71]">Charges</h3>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Line
+                        </th>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Charge
+                        </th>
+                        <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Amount
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {products.map((product, pIndex) => {
                         const charges = product.charges || product.ntw_quoteCharges || [];
-                        const chargesTotal = charges.reduce(
-                          (sum, c) => sum + (c.total || c.amount || 0),
-                          0
-                        );
-                        return (
-                          <tr key={product.id || index}>
-                            <td className="px-4 py-2 text-sm text-gray-900">
-                              <div className="font-medium">
+                        if (!charges.length) {
+                          return (
+                            <tr key={`${product.id || pIndex}-empty`}>
+                              <td className="px-4 py-2 text-sm text-gray-900">
                                 {product.description || product.name || '-'}
-                              </div>
-                              <div className="text-xs text-gray-500">
-                                {displayValue(product.cargotype || product.dimensionUnit || '')}
-                              </div>
+                              </td>
+                              <td className="px-4 py-2 text-sm text-gray-500" colSpan={2}>
+                                No charges
+                              </td>
+                            </tr>
+                          );
+                        }
+
+                        return charges.map((charge, cIndex) => (
+                          <tr key={`${product.id || pIndex}-charge-${cIndex}`}>
+                            <td className="px-4 py-2 text-sm text-gray-900">
+                              {product.description || product.name || '-'}
                             </td>
                             <td className="px-4 py-2 text-sm text-gray-900">
-                              {product.quantity || '-'}
+                              {charge.portName || charge.chargeType || 'Charge'}
                             </td>
-                            <td className="px-4 py-2 text-sm text-gray-900">
-                              {formatCurrency(product.pricePerUnit || product.price || 0)}
-                            </td>
-                            <td className="px-4 py-2 text-sm text-gray-900">
-                              {charges.length === 0 ? (
-                                <span className="text-gray-500">No charges</span>
-                              ) : (
-                                <div className="space-y-1">
-                                  {charges.map((charge, i) => (
-                                    <div key={i} className="flex justify-between gap-2">
-                                      <span className="text-xs text-gray-600">
-                                        {charge.portName || charge.chargeType || 'Charge'}
-                                      </span>
-                                      <span className="text-xs font-medium">
-                                        {formatCurrency(charge.total || charge.amount || 0)}
-                                      </span>
-                                    </div>
-                                  ))}
-                                </div>
-                              )}
-                            </td>
-                            <td className="px-4 py-2 text-sm font-semibold text-gray-900">
-                              {formatCurrency((product.lineBaseAmount || 0) + chargesTotal)}
+                            <td className="px-4 py-2 text-sm font-medium text-gray-900">
+                              {formatCurrency(charge.total || charge.amount || 0)}
                             </td>
                           </tr>
-                        );
+                        ));
                       })}
                     </tbody>
                   </table>
                 </div>
+
                 <div className="flex justify-end text-sm text-gray-700">
                   <span className="font-semibold mr-2">Grand Total:</span>
                   <span>
@@ -416,6 +549,7 @@ export default function OfferedQuotationDetailsPage() {
                 <Input
                   type="date"
                   value={shipmentForm.ntw_requestedetd?.slice(0, 10) || ''}
+                  className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
                   onChange={(e) =>
                     setShipmentForm((prev) => ({ ...prev, ntw_requestedetd: e.target.value }))
                   }
@@ -426,6 +560,7 @@ export default function OfferedQuotationDetailsPage() {
                 <Input
                   type="date"
                   value={shipmentForm.ntw_requestedeta?.slice(0, 10) || ''}
+                  className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
                   onChange={(e) =>
                     setShipmentForm((prev) => ({ ...prev, ntw_requestedeta: e.target.value }))
                   }
@@ -436,6 +571,7 @@ export default function OfferedQuotationDetailsPage() {
                 <Input
                   placeholder="Enter booking reference"
                   value={shipmentForm.ntw_bookingreference}
+                  className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
                   onChange={(e) =>
                     setShipmentForm((prev) => ({ ...prev, ntw_bookingreference: e.target.value }))
                   }
@@ -446,6 +582,7 @@ export default function OfferedQuotationDetailsPage() {
                 <Input
                   placeholder="Consignee / Shipper"
                   value={shipmentForm.ntw_decidingpartyoption}
+                  className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
                   onChange={(e) =>
                     setShipmentForm((prev) => ({
                       ...prev,
@@ -459,6 +596,7 @@ export default function OfferedQuotationDetailsPage() {
                 <Input
                   placeholder="Consignee name"
                   value={shipmentForm.shipto_name}
+                  className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
                   onChange={(e) =>
                     setShipmentForm((prev) => ({ ...prev, shipto_name: e.target.value }))
                   }
@@ -469,6 +607,7 @@ export default function OfferedQuotationDetailsPage() {
                 <Input
                   placeholder="Contact person"
                   value={shipmentForm.shipto_contactname}
+                  className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
                   onChange={(e) =>
                     setShipmentForm((prev) => ({ ...prev, shipto_contactname: e.target.value }))
                   }
@@ -479,6 +618,7 @@ export default function OfferedQuotationDetailsPage() {
                 <Input
                   placeholder="Phone number"
                   value={shipmentForm.shipto_telephone}
+                  className="bg-[#F3F4F6] border-[#F3F4F6] text-[#262626]"
                   onChange={(e) =>
                     setShipmentForm((prev) => ({ ...prev, shipto_telephone: e.target.value }))
                   }
@@ -587,7 +727,7 @@ export default function OfferedQuotationDetailsPage() {
                   </Button>
                   <div>
                     <h1 className="text-2xl font-bold text-[#003C71]">
-                    {quote.quotenumber || quoteId}
+                      {quote.quotenumber || quoteId}
                     </h1>
                   </div>
                 </div>
@@ -604,8 +744,6 @@ export default function OfferedQuotationDetailsPage() {
               </div>
 
               <div className="flex flex-col gap-6">
-               
-
                 {feedbackMessage && (
                   <div className="rounded-md border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-900">
                     {feedbackMessage}
