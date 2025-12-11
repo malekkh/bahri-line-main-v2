@@ -353,7 +353,6 @@ export default function OfferedQuotationDetailsPage() {
                         render: (_value, row) => (
                           <div className="text-center">
                             <div className="font-medium">{row.line}</div>
-                            
                           </div>
                         ),
                       },
@@ -465,6 +464,51 @@ export default function OfferedQuotationDetailsPage() {
                     )}
                   </span>
                 </div>
+
+                {(() => {
+                  const detailAmount = products.reduce((sum, p) => {
+                    const charges = p.charges || p.ntw_quoteCharges || [];
+                    const chargesTotal = charges.reduce(
+                      (cSum, c) => cSum + (c.total || c.amount || 0),
+                      0
+                    );
+                    return sum + (p.lineBaseAmount || 0) + chargesTotal;
+                  }, 0);
+                  const discountPercentage =
+                    quote.discountpercentage ?? quote.discountPercentage ?? null;
+                  const commissionPercentage =
+                    quote.ntw_commissionpercentage ?? quote.commissionPercentage ?? null;
+                  const totalAmountStat = quote.totalamount || quote.totalAmount || detailAmount;
+
+                  return (
+                    <div className="flex flex-col gap-3 pt-2">
+                      <div className="rounded-md bg-[#F5F5F5] px-4 py-3 text-base text-[#3B3B3B] flex items-center justify-between">
+                        <span>Detail Amount:</span>
+                        <span className="font-semibold text-[#3B3B3B]">
+                          {formatCurrency(detailAmount || 0)}
+                        </span>
+                      </div>
+                      <div className="rounded-md bg-[#F5F5F5] px-4 py-3 text-base text-[#3B3B3B] flex items-center justify-between">
+                        <span>Discount Percentage:</span>
+                        <span className="font-semibold text-[#3B3B3B]">
+                          {discountPercentage != null ? `${discountPercentage}%` : '-'}
+                        </span>
+                      </div>
+                      <div className="rounded-md bg-[#F5F5F5] px-4 py-3 text-base text-[#3B3B3B] flex items-center justify-between">
+                        <span>Commission Percentage:</span>
+                        <span className="font-semibold text-[#3B3B3B]">
+                          {commissionPercentage != null ? `${commissionPercentage}%` : '-'}
+                        </span>
+                      </div>
+                      <div className="rounded-md bg-[#F5F5F5] px-4 py-3 text-base text-[#3B3B3B] flex items-center justify-between">
+                        <span>Total Amount:</span>
+                        <span className="font-semibold text-[#3B3B3B]">
+                          {formatCurrency(totalAmountStat || 0)}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             )}
 
