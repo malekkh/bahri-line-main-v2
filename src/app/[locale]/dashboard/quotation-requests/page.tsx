@@ -1,6 +1,6 @@
 'use client';
 
-import { Table } from '@/components/ui/table';
+import { Table, type Column } from '@/components/ui/table';
 import { TableTitle } from '@/components/ui/table-title';
 import { TableSkeleton } from '@/components/ui/table-skeleton';
 import { TableControls } from '@/components/ui/table-controls';
@@ -21,6 +21,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { StatusBadge } from '@/components/ui/status-badge';
 import React from 'react';
+import type { QuotationRequest } from '@/services/api/axiosRoutes.type';
+import type { OfferedQuote } from '@/types/offered-quotation.types';
 
 type ViewType = 'requests' | 'offered';
 
@@ -57,6 +59,25 @@ export default function QuotationRequestsPage() {
     return col;
   });
 
+  type CombinedRow = QuotationRequest | OfferedQuote;
+  const typedColumns = columns as Column<CombinedRow>[];
+  const typedData = data as CombinedRow[];
+
+  const searchableFields = [
+    'requestId',
+    'quoteNumber',
+    'name',
+    'loadingPort',
+    'dischargePort',
+    'dischargeport',
+    'status',
+    'statusCode',
+    'totalamount',
+    'totalAmount',
+    'requestedShipmentDate',
+    'requestShipmentDate',
+  ] as (keyof CombinedRow)[];
+
   const {
     data: paginatedData,
     filteredData,
@@ -69,24 +90,11 @@ export default function QuotationRequestsPage() {
     sortConfig,
     handleSort,
     handleExport,
-  } = useTableFeatures({
-    data,
-    columns,
+  } = useTableFeatures<CombinedRow>({
+    data: typedData,
+    columns: typedColumns,
     exportFileName: viewType === 'requests' ? 'quotation-requests.csv' : 'offered-quotations.csv',
-    searchableFields: [
-      'requestId',
-      'quoteNumber',
-      'name',
-      'loadingPort',
-      'dischargePort',
-      'dischargeport',
-      'status',
-      'statusCode',
-      'totalamount',
-      'totalAmount',
-      'requestedShipmentDate',
-      'requestShipmentDate',
-    ],
+    searchableFields,
   });
 
   // Reset pagination when switching views

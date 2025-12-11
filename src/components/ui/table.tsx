@@ -66,10 +66,7 @@ export function Table<T extends Record<string, any>>({
             {columns.map((column, index) => (
               <th
                 key={column.key}
-                className={cn(
-                  'px-2 py-3 text-center whitespace-nowrap',
-                  column.className
-                )}
+                className={cn('px-2 py-3 text-center whitespace-nowrap', column.className)}
               >
                 <button
                   type="button"
@@ -125,18 +122,31 @@ export function Table<T extends Record<string, any>>({
                 )}
                 onClick={() => onRowClick?.(row)}
               >
-                {columns.map((column, colIndex) => (
-                  <td 
-                    key={column.key} 
-                    className={cn(
-                      'py-3 text-sm text-gray-700 whitespace-nowrap text-center',
-                      colIndex === 0 ? 'pl-6 pr-4' : 'pl-8 pr-4', // Match header button alignment: th px-2 (8px) + button px-4 (16px) = 24px total for first col
-                      column.className
-                    )}
-                  >
-                    {column.render ? column.render(row[column.key], row) : row[column.key]}
-                  </td>
-                ))}
+                {columns.map((column, colIndex) => {
+                  const rawValue = row[column.key];
+                  const cellContent = column.render ? column.render(rawValue, row) : rawValue;
+                  const title =
+                    typeof rawValue === 'string'
+                      ? rawValue
+                      : typeof rawValue === 'number'
+                        ? String(rawValue)
+                        : undefined;
+
+                  return (
+                    <td
+                      key={column.key}
+                      className={cn(
+                        'py-3 text-sm text-gray-700 whitespace-nowrap text-center',
+                        colIndex === 0 ? 'pl-6 pr-4' : 'pl-8 pr-4', // Match header button alignment: th px-2 (8px) + button px-4 (16px) = 24px total for first col
+                        column.className
+                      )}
+                    >
+                      <div className="max-w-[220px] truncate mx-auto" title={title}>
+                        {cellContent}
+                      </div>
+                    </td>
+                  );
+                })}
               </tr>
             ))
           )}
@@ -145,4 +155,3 @@ export function Table<T extends Record<string, any>>({
     </div>
   );
 }
-
