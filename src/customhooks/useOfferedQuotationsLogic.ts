@@ -35,7 +35,7 @@ export const useOfferedQuotationsLogic = () => {
     {
       key: 'quoteNumber',
       label: 'Quotation Number',
-      className: 'max-w-24',
+      className: 'max-w-26',
       sortable: true,
       render: (value: any, row: OfferedQuote) => row.quoteNumber || '-',
     },
@@ -49,14 +49,14 @@ export const useOfferedQuotationsLogic = () => {
     {
       key: 'dischargeport.name',
       label: 'Port of Discharge',
-      className: 'max-w-28',
+      className: 'max-w-24',
       sortable: true,
       render: (value: any, row: OfferedQuote) => row.dischargeport?.name || '-',
     },
     {
       key: 'requestShipmentDate',
       label: 'Requested Shipment Date',
-      className: 'max-w-32',
+      className: 'max-w-36',
       sortable: true,
       sortType: 'date' as const,
       render: (value: any, row: OfferedQuote) => formatDateShort(row.requestShipmentDate) || '-',
@@ -64,7 +64,7 @@ export const useOfferedQuotationsLogic = () => {
     {
       key: 'effectiveFrom',
       label: 'Valid From',
-      className: 'max-w-24',
+      className: 'max-w-20',
       sortable: true,
       sortType: 'date' as const,
       render: (value: any, row: OfferedQuote) => formatDateShort(row.effectiveFrom) || '-',
@@ -72,7 +72,7 @@ export const useOfferedQuotationsLogic = () => {
     {
       key: 'effectiveTo',
       label: 'Valid To',
-      className: 'max-w-24',
+      className: 'max-w-18',
       sortable: true,
       sortType: 'date' as const,
       render: (value: any, row: OfferedQuote) => formatDateShort(row.effectiveTo) || '-',
@@ -80,7 +80,7 @@ export const useOfferedQuotationsLogic = () => {
     {
       key: 'totalAmount',
       label: 'Total Price',
-      className: 'max-w-24',
+      className: 'max-w-20',
       sortable: true,
       sortType: 'number' as const,
       render: (value: any, row: OfferedQuote) => formatCurrency(row.totalAmount || 0),

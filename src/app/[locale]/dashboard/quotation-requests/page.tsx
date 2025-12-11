@@ -190,6 +190,7 @@ export default function QuotationRequestsPage() {
             sortConfig={sortConfig}
             onSort={handleSort}
             onRowClick={viewType === 'offered' ? handleRowClick : undefined}
+            className="w-full"
           />
 
           {totalPages > 1 && (
