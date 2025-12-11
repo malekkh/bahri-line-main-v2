@@ -353,9 +353,7 @@ export default function OfferedQuotationDetailsPage() {
                         render: (_value, row) => (
                           <div className="text-center">
                             <div className="font-medium">{row.line}</div>
-                            {row.subline && (
-                              <div className="text-xs text-gray-500">{row.subline}</div>
-                            )}
+                            
                           </div>
                         ),
                       },
@@ -375,8 +373,11 @@ export default function OfferedQuotationDetailsPage() {
                     ] as Column<any>[]
                   }
                   data={products.map((product, index) => ({
-                    line: product.description || product.name || `Line ${index + 1}`,
-                    subline: displayValue(product.cargotype || product.dimensionUnit || ''),
+                    line: index + 1,
+                    subline:
+                      product.description ||
+                      product.name ||
+                      displayValue(product.cargotype || product.dimensionUnit || ''),
                     quantity: product.quantity || '-',
                     unitPrice: product.pricePerUnit || product.price || 0,
                     lineTotal: product.lineBaseAmount || 0,
